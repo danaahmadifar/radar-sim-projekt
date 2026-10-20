@@ -97,8 +97,8 @@ Der GUI-Test prüft bei einer vollständigen kurzen Wiedergabe genau zwei Änder
 
 Die Formeln stehen direkt bei den betreffenden Rechenschritten. Array-Formen werden als Tabellen erklärt. Die bisherigen englischen Namen der öffentlichen Radar-Schnittstelle bleiben erhalten, um vorhandene Beispiele und JSON-Dateien weiter verwenden zu können. Eine unnötige zweite API mit deutschen Aliasnamen wird vermieden.
 
-Messwerte für alle 603 Pakete: [Flugbericht](../reports/FLUEGE.md). Für die ausführliche Signalherleitung: [TECHNIK.md](TECHNIK.md).
+Messwerte für alle 603 Pakete: [Flugbericht](../reports/fluege.json). Für die ausführliche Signalherleitung: [TECHNIK.md](TECHNIK.md).
 
-Zusätzliche Prüfung der Kreise ohne AWGN: [Detektionsbericht](../reports/DETEKTION.md). Wichtig: Ein Kreis benötigt jetzt sowohl eine Schwellenüberschreitung als auch ein lokales Maximum gegenüber seinen acht Nachbarn. Ein Peak-Kandidat ist weiterhin keine Bestätigung eines realen Objekts; Rauschen und Fenster-Nebenkeulen können Fehlpeaks erzeugen.
+Zusätzliche Prüfung der Kreise ohne AWGN: [Detektionsbericht](../reports/detektion.json). Wichtig: Ein Kreis benötigt jetzt sowohl eine Schwellenüberschreitung als auch ein lokales Maximum gegenüber seinen acht Nachbarn. Ein Peak-Kandidat ist weiterhin keine Bestätigung eines realen Objekts; Rauschen und Fenster-Nebenkeulen können Fehlpeaks erzeugen.
 
 Eigene Routen sind ebenfalls möglich: Im Flug-Reiter **Route zeichnen** wählen, im Flugfeld ziehen, Tempo einstellen und **Übernehmen** drücken. Der Code glättet die Mauslinie und ordnet die Zeit nach der Weglänge zu. Dadurch bleibt das Tempo entlang der Route gleich. Die gleiche Sichtlinienformel berechnet weiterhin die radiale Geschwindigkeit. Vollständige Anleitung: [REGLER_UND_ROUTEN.md](REGLER_UND_ROUTEN.md).

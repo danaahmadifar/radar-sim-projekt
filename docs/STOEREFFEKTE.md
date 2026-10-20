@@ -149,6 +149,6 @@ Peakleistung / Vollpuls = (τ/Tp)²
 - `python -m unittest tests.test_effekte tests.test_gui_effekte -v`: Mischpegel/-frequenz, Sendesperre, Hüllkurve, Phase/Kovarianz, analytischer Horizont, Kugel-Ableitungen, beide atmosphärischen Wege, Teilpulse, Speckle-Mittelwert, Clutter-Doppler, Seed/JSON und GUI.
 - `python -m radar_sim --effects`: gezielter Modellbericht und neun PNGs.
 - `python -m radar_sim --validate`: zusätzlich alle bisherigen Validierungen.
-- [Gemessene Ergebnisse](../reports/STOEREFFEKTE.md), Rohwerte `reports/stoereffekte.json`, Startkonfigurationen `examples/21_…json` bis `29_…json`.
+- [Gemessene Ergebnisse](../reports/stoereffekte.json), Rohwerte `reports/stoereffekte.json`, Startkonfigurationen `examples/21_…json` bis `29_…json`.
 
 Die Tests prüfen die angegebenen Gleichungen und Ersatzmodelle. Eine erfolgreiche Prüfung bedeutet keine Übereinstimmung mit beliebiger realer Radarhardware oder jeder Wettersituation. Der Simulator bleibt ein Signalverarbeitungsprojekt mit offengelegten Grenzen.

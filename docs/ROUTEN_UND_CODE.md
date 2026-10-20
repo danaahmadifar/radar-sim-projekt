@@ -44,4 +44,4 @@ python -m unittest discover -s tests -v
 python -m radar_sim --validate
 ```
 
-Gemessene Prüfungen und Einschränkungen: [ROUTEN_MANOEVER.md](../reports/ROUTEN_MANOEVER.md).
+Gemessene Prüfungen und Einschränkungen: [routen_manoever.json](../reports/routen_manoever.json).

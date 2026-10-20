@@ -3,3 +3,6 @@ __pycache__/
 *.pyc
 .pytest_cache/
 exports/
+
+# Generierte Markdown-Prüfberichte bleiben lokal; Bilder und Rohdaten bleiben versioniert.
+/reports/*.[mM][dD]

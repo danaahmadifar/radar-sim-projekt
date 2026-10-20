@@ -125,4 +125,4 @@ Die gelbe Drahtkeule in Overview und in allen Raumansichten zeigt die **Projekti
 
 Kein kalibriertes Antennenmodell, keine Nahfeldberechnung, keine Polarisation, Bodenreflexion, Erdkrümmung, Wetterdämpfung oder RCS-Schwankung eines ausgedehnten Flugzeugs. Die gezeichnete Keule ersetzt keine HF-Leistungsbilanz. Gerade bei großen Aperturen und kurzen Entfernungen ist die Fernfeldnäherung zusätzlich zu prüfen.
 
-`python -m radar_sim --validate` erzeugt den [Airport-/3D-Messbericht](../reports/AIRPORT_3D.md). Er berichtet auch außerhalb der Keule fehlende Targets und zusätzliche CFAR-Peaks. Die Tests prüfen unabhängig die verzögerte Mischung, räumliche Ableitungen und das konstante Routentempo sowie Halbwertsgrenzen, Patch-Nullstellen und die Zweiweg-Leistung.
+`python -m radar_sim --validate` erzeugt den [Airport-/3D-Messbericht](../reports/airport_3d.json). Er berichtet auch außerhalb der Keule fehlende Targets und zusätzliche CFAR-Peaks. Die Tests prüfen unabhängig die verzögerte Mischung, räumliche Ableitungen und das konstante Routentempo sowie Halbwertsgrenzen, Patch-Nullstellen und die Zweiweg-Leistung.

@@ -147,7 +147,7 @@ radar_sim/       Berechnungskern und Desktop-Oberfläche
 examples/        Gespeicherte Szenarien
 tests/          Automatisierte Tests
 docs/           Technische Dokumentation und Demomedien
-reports/        Berechnete Validierungsberichte und Diagramme
+reports/        Berechnete Validierungsdaten und Diagramme
 tools/          Erzeugung der Demobilder und Videos
 ```
 

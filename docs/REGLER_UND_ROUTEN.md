@@ -103,4 +103,4 @@ Die Kurvenhöhe wird an den echten Polynomextrema geprüft, nicht nur an gezeich
 
 Die Route wird mit Punkten und Tempo im JSON-Format Version 3 gespeichert. Alte Dateien der Versionen 1 und 2 bleiben lesbar. Eine geladene Route wird neu aus denselben Punkten berechnet. Die Kurvendaten werden zwischengespeichert, damit sie nicht für jedes Radar-Messpaket erneut vorbereitet werden müssen. Die Höhe und der horizontale Ort sind weiterhin bekannte Simulationsdaten und keine Radar-Winkelschätzung.
 
-Beispiel: [09_gezeichnete_route.json](../examples/09_gezeichnete_route.json). Gemessene Ergebnisse: [ROUTE_UND_REGLER.md](../reports/ROUTE_UND_REGLER.md). Automatische Tests: `test_route.py`, `test_parametergrenzen.py` und der Maus-/Slider-Test in `test_gui.py`.
+Beispiel: [09_gezeichnete_route.json](../examples/09_gezeichnete_route.json). Gemessene Ergebnisse: [route_und_regler.json](../reports/route_und_regler.json). Automatische Tests: `test_route.py`, `test_parametergrenzen.py` und der Maus-/Slider-Test in `test_gui.py`.
