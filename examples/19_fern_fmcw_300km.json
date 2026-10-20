@@ -1,0 +1,63 @@
+{
+  "schema_version": 6,
+  "carrier_hz": 300000000.0,
+  "bandwidth_hz": 100000.0,
+  "chirp_s": 0.0029,
+  "repetition_s": 0.003,
+  "sample_rate_hz": 500000.0,
+  "chirps": 64,
+  "snr_db": 20,
+  "noise_enabled": true,
+  "seed": 42,
+  "window": "hann",
+  "remove_static": false,
+  "amplitude_model": "radar",
+  "reference_range_m": 100000,
+  "reference_rcs_m2": 10,
+  "training_range": 8,
+  "training_doppler": 6,
+  "guard_range": 2,
+  "guard_doppler": 2,
+  "pfa": 1e-06,
+  "targets": [],
+  "flugszene": {
+    "name": "Fernbereich · Flugzeug bei 300 km",
+    "bahnen": [
+      {
+        "start_x_m": -300000,
+        "start_hoehe_m": 10000,
+        "geschwindigkeit_x_mps": 50,
+        "geschwindigkeit_hoehe_mps": 0.0,
+        "beschleunigung_hoehe_mps2": 0.0,
+        "staerke": 10,
+        "route": null,
+        "start_y_m": 0.0,
+        "geschwindigkeit_y_mps": 0.0
+      }
+    ],
+    "dauer_s": 60,
+    "zeitschritt_s": 1.0,
+    "radar_bahn": null
+  },
+  "adc_skip_samples": 1050,
+  "antenne": {
+    "typ": "faecher",
+    "azimut_grad": 180.0,
+    "elevation_grad": 2,
+    "breite_az_grad": 12,
+    "breite_el_grad": 12,
+    "durchmesser_m": 0.6,
+    "elemente_horizontal": 16,
+    "elemente_vertikal": 8,
+    "zeichenlaenge_m": 300000
+  },
+  "radar_mode": "fmcw",
+  "passiv": {
+    "sender_x_m": -20000.0,
+    "sender_y_m": 0.0,
+    "sender_z_m": 0.0,
+    "maximaler_umweg_m": 30000.0,
+    "direktweg_db": 20.0,
+    "direktweg_entfernen": true
+  }
+}

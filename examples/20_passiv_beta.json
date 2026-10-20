@@ -1,0 +1,63 @@
+{
+  "schema_version": 6,
+  "carrier_hz": 600000000.0,
+  "bandwidth_hz": 400000.0,
+  "chirp_s": 0.001,
+  "repetition_s": 0.001,
+  "sample_rate_hz": 1000000.0,
+  "chirps": 64,
+  "snr_db": 10,
+  "noise_enabled": true,
+  "seed": 42,
+  "window": "hann",
+  "remove_static": false,
+  "amplitude_model": "radar",
+  "reference_range_m": 10000,
+  "reference_rcs_m2": 10,
+  "training_range": 8,
+  "training_doppler": 6,
+  "guard_range": 2,
+  "guard_doppler": 2,
+  "pfa": 1e-06,
+  "targets": [],
+  "flugszene": {
+    "name": "Passiv BETA · Fremdsender und Flugzeug",
+    "bahnen": [
+      {
+        "start_x_m": -7000,
+        "start_hoehe_m": 1800,
+        "geschwindigkeit_x_mps": 40,
+        "geschwindigkeit_hoehe_mps": 0.0,
+        "beschleunigung_hoehe_mps2": 0.0,
+        "staerke": 10,
+        "route": null,
+        "start_y_m": 8000,
+        "geschwindigkeit_y_mps": -50
+      }
+    ],
+    "dauer_s": 20,
+    "zeitschritt_s": 0.5,
+    "radar_bahn": null
+  },
+  "adc_skip_samples": 0,
+  "antenne": {
+    "typ": "isotrop",
+    "azimut_grad": 180.0,
+    "elevation_grad": 10.0,
+    "breite_az_grad": 12.0,
+    "breite_el_grad": 40.0,
+    "durchmesser_m": 0.6,
+    "elemente_horizontal": 16,
+    "elemente_vertikal": 8,
+    "zeichenlaenge_m": 6000.0
+  },
+  "radar_mode": "passive",
+  "passiv": {
+    "sender_x_m": -20000.0,
+    "sender_y_m": 0.0,
+    "sender_z_m": 0.0,
+    "maximaler_umweg_m": 30000.0,
+    "direktweg_db": 20.0,
+    "direktweg_entfernen": true
+  }
+}

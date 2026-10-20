@@ -1,0 +1,258 @@
+{
+  "python": "3.14.7",
+  "numpy": "2.5.3",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "seed": 42,
+  "scenarios": [
+    {
+      "scenario": "01_stationary",
+      "targets": 1,
+      "candidates": 1,
+      "matched": 1,
+      "unmatched_candidates": 0,
+      "matches": [
+        {
+          "target_index": 0,
+          "candidate_index": 0,
+          "range_error_m": 1.4210854715202004e-14,
+          "velocity_error_mps": 0.0
+        }
+      ],
+      "range_tolerance_m": 0.5022564617534722,
+      "velocity_tolerance_mps": 0.1267385594223485,
+      "pass": true,
+      "purpose": "Schätzprüfung"
+    },
+    {
+      "scenario": "02_approach_recede",
+      "targets": 2,
+      "candidates": 2,
+      "matched": 2,
+      "unmatched_candidates": 0,
+      "matches": [
+        {
+          "target_index": 0,
+          "candidate_index": 0,
+          "range_error_m": 0.09368514312501475,
+          "velocity_error_mps": 0.0
+        },
+        {
+          "target_index": 1,
+          "candidate_index": 1,
+          "range_error_m": -0.12491352416665791,
+          "velocity_error_mps": -8.881784197001252e-16
+        }
+      ],
+      "range_tolerance_m": 0.5022564617534722,
+      "velocity_tolerance_mps": 0.1267385594223485,
+      "pass": true,
+      "purpose": "Schätzprüfung"
+    },
+    {
+      "scenario": "03_two_ranges",
+      "targets": 2,
+      "candidates": 2,
+      "matched": 2,
+      "unmatched_candidates": 0,
+      "matches": [
+        {
+          "target_index": 0,
+          "candidate_index": 0,
+          "range_error_m": 1.4210854715202004e-14,
+          "velocity_error_mps": 0.0
+        },
+        {
+          "target_index": 1,
+          "candidate_index": 1,
+          "range_error_m": 2.842170943040401e-14,
+          "velocity_error_mps": 0.0
+        }
+      ],
+      "range_tolerance_m": 0.5022564617534722,
+      "velocity_tolerance_mps": 0.1267385594223485,
+      "pass": true,
+      "purpose": "Schätzprüfung"
+    },
+    {
+      "scenario": "03_same_range_two_velocities",
+      "targets": 2,
+      "candidates": 2,
+      "matched": 2,
+      "unmatched_candidates": 0,
+      "matches": [
+        {
+          "target_index": 0,
+          "candidate_index": 0,
+          "range_error_m": 0.08327568277778852,
+          "velocity_error_mps": 0.0
+        },
+        {
+          "target_index": 1,
+          "candidate_index": 1,
+          "range_error_m": -0.10409460347221255,
+          "velocity_error_mps": 8.881784197001252e-16
+        }
+      ],
+      "range_tolerance_m": 0.5022564617534722,
+      "velocity_tolerance_mps": 0.1267385594223485,
+      "pass": true,
+      "purpose": "Schätzprüfung"
+    },
+    {
+      "scenario": "04_cfar_noise",
+      "targets": 2,
+      "candidates": 7,
+      "matched": 2,
+      "unmatched_candidates": 5,
+      "matches": [
+        {
+          "target_index": 0,
+          "candidate_index": 0,
+          "range_error_m": 0.062456762083343165,
+          "velocity_error_mps": 4.440892098500626e-16
+        },
+        {
+          "target_index": 1,
+          "candidate_index": 1,
+          "range_error_m": -0.09368514312497211,
+          "velocity_error_mps": 0.0
+        }
+      ],
+      "range_tolerance_m": 0.5022564617534722,
+      "velocity_tolerance_mps": 0.1267385594223485,
+      "pass": true,
+      "purpose": "Schätzprüfung"
+    },
+    {
+      "scenario": "05_dashboard",
+      "targets": 3,
+      "candidates": 7,
+      "matched": 3,
+      "unmatched_candidates": 4,
+      "matches": [
+        {
+          "target_index": 0,
+          "candidate_index": 0,
+          "range_error_m": 0.07642233680556387,
+          "velocity_error_mps": -0.06954237689394027
+        },
+        {
+          "target_index": 1,
+          "candidate_index": 1,
+          "range_error_m": -0.19554252486109647,
+          "velocity_error_mps": 0.09735932765151567
+        },
+        {
+          "target_index": 2,
+          "candidate_index": 2,
+          "range_error_m": -0.07263969999996789,
+          "velocity_error_mps": 0.0
+        }
+      ],
+      "range_tolerance_m": 0.5022564617534722,
+      "velocity_tolerance_mps": 0.1267385594223485,
+      "pass": true,
+      "purpose": "Schätzprüfung"
+    },
+    {
+      "scenario": "near_resolution",
+      "targets": 2,
+      "candidates": 1,
+      "matched": 1,
+      "unmatched_candidates": 0,
+      "matches": [
+        {
+          "target_index": 0,
+          "candidate_index": 0,
+          "range_error_m": 1.4210854715202004e-14,
+          "velocity_error_mps": 0.0
+        }
+      ],
+      "range_tolerance_m": 0.5022564617534722,
+      "velocity_tolerance_mps": 0.1267385594223485,
+      "pass": null,
+      "purpose": "Auflösungsgrenze: keine garantierte Trennung mit Hann"
+    }
+  ],
+  "snr_sweep": [
+    {
+      "snr_db": -40,
+      "trials": 16,
+      "matched_targets": 0,
+      "possible_targets": 32,
+      "detection_fraction": 0.0,
+      "extra_candidates": 38
+    },
+    {
+      "snr_db": -30,
+      "trials": 16,
+      "matched_targets": 31,
+      "possible_targets": 32,
+      "detection_fraction": 0.96875,
+      "extra_candidates": 38
+    },
+    {
+      "snr_db": -20,
+      "trials": 16,
+      "matched_targets": 32,
+      "possible_targets": 32,
+      "detection_fraction": 1.0,
+      "extra_candidates": 38
+    },
+    {
+      "snr_db": 0,
+      "trials": 16,
+      "matched_targets": 32,
+      "possible_targets": 32,
+      "detection_fraction": 1.0,
+      "extra_candidates": 38
+    },
+    {
+      "snr_db": 15,
+      "trials": 16,
+      "matched_targets": 32,
+      "possible_targets": 32,
+      "detection_fraction": 1.0,
+      "extra_candidates": 38
+    }
+  ],
+  "noise_experiments": [
+    {
+      "window": "rect",
+      "trials": 96,
+      "valid_cells": 1751040,
+      "false_alarms": 1726,
+      "nominal_pfa": 0.001,
+      "empirical_pfa": 0.0009856999269005848,
+      "ci95_frame_mean": [
+        0.0009447577456138953,
+        0.0010266421081872742
+      ],
+      "standard_error": 2.088886800341299e-05,
+      "check": true
+    },
+    {
+      "window": "hann",
+      "trials": 96,
+      "valid_cells": 1751040,
+      "false_alarms": 2118,
+      "nominal_pfa": 0.001,
+      "empirical_pfa": 0.0012095668859649124,
+      "ci95_frame_mean": [
+        0.0011434027320836855,
+        0.0012757310398461392
+      ],
+      "standard_error": 3.375722136797291e-05,
+      "check": null
+    }
+  ],
+  "flight_validation_passed": true,
+  "detection_validation_passed": true,
+  "route_validation_passed": true,
+  "airport_3d_validation_passed": true,
+  "antenna_validation_passed": true,
+  "pulse_platform_validation_passed": true,
+  "long_range_passive_validation_passed": true,
+  "passed": true,
+  "elapsed_s": 30.897580399992876
+}

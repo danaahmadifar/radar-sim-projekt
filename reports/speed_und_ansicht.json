@@ -1,0 +1,237 @@
+[
+  {
+    "speed_mps": 100,
+    "carrier_hz": 6675066447.65625,
+    "bandwidth_hz": 10000000.0,
+    "chirps": 96,
+    "repetition_s": 8e-05,
+    "range_resolution_m": 29.9792458,
+    "velocity_resolution_mps": 2.9239766081871337,
+    "errors": [
+      {
+        "frame": 0,
+        "target": 0,
+        "range_error_m": -8.615273047403207,
+        "velocity_error_mps": 0.1772997141089263
+      },
+      {
+        "frame": 0,
+        "target": 1,
+        "range_error_m": 13.069399531860427,
+        "velocity_error_mps": 1.427115123211152
+      },
+      {
+        "frame": 42,
+        "target": 0,
+        "range_error_m": 8.142888889250116,
+        "velocity_error_mps": -0.61215336745461
+      },
+      {
+        "frame": 42,
+        "target": 1,
+        "range_error_m": -9.580138212244037,
+        "velocity_error_mps": -1.0739229164354782
+      },
+      {
+        "frame": 84,
+        "target": 0,
+        "range_error_m": 14.802061413738443,
+        "velocity_error_mps": -0.6907713303466352
+      },
+      {
+        "frame": 84,
+        "target": 1,
+        "range_error_m": -11.11642456856498,
+        "velocity_error_mps": 0.25451846024095914
+      }
+    ]
+  },
+  {
+    "speed_mps": 250,
+    "carrier_hz": 2301977802.5,
+    "bandwidth_hz": 10000000.0,
+    "chirps": 63,
+    "repetition_s": 8e-05,
+    "range_resolution_m": 29.9792458,
+    "velocity_resolution_mps": 12.919896640826872,
+    "errors": [
+      {
+        "frame": 0,
+        "target": 0,
+        "range_error_m": -9.403417902263755,
+        "velocity_error_mps": 3.5032248054681077
+      },
+      {
+        "frame": 0,
+        "target": 1,
+        "range_error_m": 13.716273139152236,
+        "velocity_error_mps": -0.00218363220059814
+      },
+      {
+        "frame": 17,
+        "target": 0,
+        "range_error_m": 2.0737060611791094,
+        "velocity_error_mps": 1.4782752631000733
+      },
+      {
+        "frame": 17,
+        "target": 1,
+        "range_error_m": -3.3651934627964692,
+        "velocity_error_mps": 1.4652420047541739
+      },
+      {
+        "frame": 34,
+        "target": 0,
+        "range_error_m": 14.16262313526613,
+        "velocity_error_mps": -2.0669256058883434
+      },
+      {
+        "frame": 34,
+        "target": 1,
+        "range_error_m": -10.328279713704433,
+        "velocity_error_mps": -2.4236793695933727
+      }
+    ]
+  },
+  {
+    "speed_mps": 500,
+    "carrier_hz": 749481144.9999999,
+    "bandwidth_hz": 10000000.0,
+    "chirps": 36,
+    "repetition_s": 8e-05,
+    "range_resolution_m": 29.9792458,
+    "velocity_resolution_mps": 69.44444444444446,
+    "errors": [
+      {
+        "frame": 0,
+        "target": 0,
+        "range_error_m": -11.009448927264202,
+        "velocity_error_mps": 11.851410851246214
+      },
+      {
+        "frame": 0,
+        "target": 1,
+        "range_error_m": 14.78696048915208,
+        "velocity_error_mps": 29.065400177459424
+      },
+      {
+        "frame": 8,
+        "target": 0,
+        "range_error_m": -3.1558165583901427,
+        "velocity_error_mps": 8.289914079917594
+      },
+      {
+        "frame": 8,
+        "target": 1,
+        "range_error_m": 0.20164560976854773,
+        "velocity_error_mps": -0.8638221266642745
+      },
+      {
+        "frame": 17,
+        "target": 0,
+        "range_error_m": 12.616074740821773,
+        "velocity_error_mps": 18.475967909670146
+      },
+      {
+        "frame": 17,
+        "target": 1,
+        "range_error_m": -8.722248688704894,
+        "velocity_error_mps": -9.692319979496745
+      }
+    ]
+  },
+  {
+    "speed_mps": 1000,
+    "carrier_hz": 374740572.49999994,
+    "bandwidth_hz": 10000000.0,
+    "chirps": 36,
+    "repetition_s": 8e-05,
+    "range_resolution_m": 29.9792458,
+    "velocity_resolution_mps": 138.8888888888889,
+    "errors": [
+      {
+        "frame": 0,
+        "target": 0,
+        "range_error_m": -11.009448927264202,
+        "velocity_error_mps": 23.70282170249243
+      },
+      {
+        "frame": 0,
+        "target": 1,
+        "range_error_m": 14.78696048915208,
+        "velocity_error_mps": 58.13080035491885
+      },
+      {
+        "frame": 4,
+        "target": 0,
+        "range_error_m": -3.1558165583901427,
+        "velocity_error_mps": 16.579828159835188
+      },
+      {
+        "frame": 4,
+        "target": 1,
+        "range_error_m": 0.20164560976854773,
+        "velocity_error_mps": -1.727644253328549
+      },
+      {
+        "frame": 9,
+        "target": 0,
+        "range_error_m": 12.616074740821773,
+        "velocity_error_mps": 36.95193581934029
+      },
+      {
+        "frame": 9,
+        "target": 1,
+        "range_error_m": -8.722248688704894,
+        "velocity_error_mps": -19.38463995899349
+      }
+    ]
+  },
+  {
+    "speed_mps": 1500,
+    "carrier_hz": 249827048.33333328,
+    "bandwidth_hz": 10000000.0,
+    "chirps": 36,
+    "repetition_s": 8e-05,
+    "range_resolution_m": 29.9792458,
+    "velocity_resolution_mps": 208.33333333333334,
+    "errors": [
+      {
+        "frame": 0,
+        "target": 0,
+        "range_error_m": -11.009448927264202,
+        "velocity_error_mps": 35.55423255373853
+      },
+      {
+        "frame": 0,
+        "target": 1,
+        "range_error_m": 14.78696048915208,
+        "velocity_error_mps": 87.19620053237827
+      },
+      {
+        "frame": 3,
+        "target": 0,
+        "range_error_m": 3.961006422866376,
+        "velocity_error_mps": 21.740299783076807
+      },
+      {
+        "frame": 3,
+        "target": 1,
+        "range_error_m": -3.9671204473597754,
+        "velocity_error_mps": -8.532789409599673
+      },
+      {
+        "frame": 6,
+        "target": 0,
+        "range_error_m": 12.616074740821773,
+        "velocity_error_mps": 55.427903729010495
+      },
+      {
+        "frame": 6,
+        "target": 1,
+        "range_error_m": -8.722248688704894,
+        "velocity_error_mps": -29.07695993849029
+      }
+    ]
+  }
+]

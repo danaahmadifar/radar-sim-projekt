@@ -1,0 +1,65 @@
+{
+  "schema_version": 5,
+  "carrier_hz": 3000000000.0,
+  "bandwidth_hz": 2000000.0,
+  "chirp_s": 4e-06,
+  "repetition_s": 0.0002,
+  "sample_rate_hz": 5000000.0,
+  "chirps": 64,
+  "snr_db": 20,
+  "noise_enabled": true,
+  "seed": 42,
+  "window": "hann",
+  "remove_static": false,
+  "amplitude_model": "radar",
+  "reference_range_m": 3000,
+  "reference_rcs_m2": 10,
+  "training_range": 8,
+  "training_doppler": 6,
+  "guard_range": 2,
+  "guard_doppler": 2,
+  "pfa": 1e-06,
+  "targets": [],
+  "flugszene": {
+    "name": "Air-to-Air · zwei Flugzeuge, Radar fliegt mit",
+    "bahnen": [
+      {
+        "start_x_m": -5000,
+        "start_hoehe_m": 2100,
+        "geschwindigkeit_x_mps": 200,
+        "geschwindigkeit_hoehe_mps": 0.0,
+        "beschleunigung_hoehe_mps2": 0.0,
+        "staerke": 10,
+        "route": null,
+        "start_y_m": 300,
+        "geschwindigkeit_y_mps": 0.0
+      }
+    ],
+    "dauer_s": 40,
+    "zeitschritt_s": 0.5,
+    "radar_bahn": {
+      "start_x_m": 0,
+      "start_hoehe_m": 1800,
+      "geschwindigkeit_x_mps": 160,
+      "geschwindigkeit_hoehe_mps": 0.0,
+      "beschleunigung_hoehe_mps2": 0.0,
+      "staerke": 1.0,
+      "route": null,
+      "start_y_m": 0.0,
+      "geschwindigkeit_y_mps": 0.0
+    }
+  },
+  "adc_skip_samples": 0,
+  "antenne": {
+    "typ": "faecher",
+    "azimut_grad": 176.6,
+    "elevation_grad": 5,
+    "breite_az_grad": 30,
+    "breite_el_grad": 40.0,
+    "durchmesser_m": 0.6,
+    "elemente_horizontal": 16,
+    "elemente_vertikal": 8,
+    "zeichenlaenge_m": 6000.0
+  },
+  "radar_mode": "pulse_doppler"
+}

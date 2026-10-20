@@ -1,0 +1,43 @@
+{
+  "bestanden": true,
+  "hann_ohne_awgn": [
+    {
+      "szene": "06_ueberflug",
+      "frames": 201,
+      "cfar_zellen_gesamt": 18271,
+      "peak_kandidaten_gesamt": 201,
+      "zugeordnet": 201,
+      "zusaetzlich": 0,
+      "fehlend": 0,
+      "fehlerhafte_frames": []
+    },
+    {
+      "szene": "07_gegenverkehr",
+      "frames": 201,
+      "cfar_zellen_gesamt": 24172,
+      "peak_kandidaten_gesamt": 402,
+      "zugeordnet": 402,
+      "zusaetzlich": 0,
+      "fehlend": 0,
+      "fehlerhafte_frames": []
+    },
+    {
+      "szene": "08_parabel",
+      "frames": 201,
+      "cfar_zellen_gesamt": 17428,
+      "peak_kandidaten_gesamt": 201,
+      "zugeordnet": 201,
+      "zusaetzlich": 0,
+      "fehlend": 0,
+      "fehlerhafte_frames": []
+    }
+  ],
+  "rechteck_gegenbeispiel": {
+    "frame": 66,
+    "zeit_s": 6.6000000000000005,
+    "soll": 2,
+    "kandidaten": 3,
+    "zugeordnet": 2,
+    "zusaetzlich": 1
+  }
+}

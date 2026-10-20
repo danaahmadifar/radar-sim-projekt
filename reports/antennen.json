@@ -1,0 +1,384 @@
+{
+  "seed": 20261019,
+  "bestanden": true,
+  "messungen": [
+    {
+      "pruefung": "Array 2×2: 513 Richtungen gegen Element-Summen, gedreht",
+      "max_abs_fehler": 6.661338147750939e-16,
+      "toleranz": 2e-13,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Array 2×2: erste Nullstelle Az",
+      "max_abs_fehler": 1.405799628556214e-65,
+      "toleranz": 1e-25,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Array 2×2: Halbwert Az",
+      "max_abs_fehler": 1.7763568394002505e-15,
+      "toleranz": 2e-12,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Array 2×2: erste Nullstelle El",
+      "max_abs_fehler": 1.405799628556214e-65,
+      "toleranz": 1e-25,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Array 2×2: Halbwert El",
+      "max_abs_fehler": 1.7763568394002505e-15,
+      "toleranz": 2e-12,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Array 3×5: 513 Richtungen gegen Element-Summen, gedreht",
+      "max_abs_fehler": 4.440892098500626e-16,
+      "toleranz": 2e-13,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Array 3×5: erste Nullstelle Az",
+      "max_abs_fehler": 1.2343701914912409e-33,
+      "toleranz": 1e-25,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Array 3×5: Halbwert Az",
+      "max_abs_fehler": 2.398081733190338e-14,
+      "toleranz": 2e-12,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Array 3×5: erste Nullstelle El",
+      "max_abs_fehler": 1.458557686287947e-33,
+      "toleranz": 1e-25,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Array 3×5: Halbwert El",
+      "max_abs_fehler": 9.992007221626409e-16,
+      "toleranz": 2e-12,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Array 16×8: 513 Richtungen gegen Element-Summen, gedreht",
+      "max_abs_fehler": 1.6306400674181987e-16,
+      "toleranz": 2e-13,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Array 16×8: erste Nullstelle Az",
+      "max_abs_fehler": 1.5152031427567721e-33,
+      "toleranz": 1e-25,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Array 16×8: Halbwert Az",
+      "max_abs_fehler": 8.049116928532385e-15,
+      "toleranz": 2e-12,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Array 16×8: erste Nullstelle El",
+      "max_abs_fehler": 1.5001465401169454e-33,
+      "toleranz": 1e-25,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Array 16×8: Halbwert El",
+      "max_abs_fehler": 8.049116928532385e-15,
+      "toleranz": 2e-12,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Array 128×127: 513 Richtungen gegen Element-Summen, gedreht",
+      "max_abs_fehler": 2.5275463146068322e-18,
+      "toleranz": 2e-13,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Array 128×127: erste Nullstelle Az",
+      "max_abs_fehler": 1.5195084629207132e-33,
+      "toleranz": 1e-25,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Array 128×127: Halbwert Az",
+      "max_abs_fehler": 1.426636586643326e-14,
+      "toleranz": 2e-12,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Array 128×127: erste Nullstelle El",
+      "max_abs_fehler": 1.5195074204229691e-33,
+      "toleranz": 1e-25,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Array 128×127: Halbwert El",
+      "max_abs_fehler": 2.2037927038809357e-14,
+      "toleranz": 2e-12,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Gauß 0.2°×0.4°: Breite Az",
+      "max_abs_fehler": 1.2475021016200571e-12,
+      "toleranz": 1e-10,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Gauß 0.2°×0.4°: Breite El",
+      "max_abs_fehler": 6.294964549624638e-14,
+      "toleranz": 1e-10,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Gauß 0.2°×0.4°: diagonaler Viertelwert",
+      "max_abs_fehler": 5.551115123125783e-17,
+      "toleranz": 2e-14,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Gauß 12°×40°: Breite Az",
+      "max_abs_fehler": 6.750155989720952e-13,
+      "toleranz": 1e-10,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Gauß 12°×40°: Breite El",
+      "max_abs_fehler": 1.3642420526593924e-12,
+      "toleranz": 1e-10,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Gauß 12°×40°: diagonaler Viertelwert",
+      "max_abs_fehler": 5.551115123125783e-17,
+      "toleranz": 2e-14,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Gauß 120°×120°: Breite Az",
+      "max_abs_fehler": 9.663381206337363e-13,
+      "toleranz": 1e-10,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Gauß 120°×120°: Breite El",
+      "max_abs_fehler": 9.663381206337363e-13,
+      "toleranz": 1e-10,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Gauß 120°×120°: diagonaler Viertelwert",
+      "max_abs_fehler": 5.551115123125783e-17,
+      "toleranz": 2e-14,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Parabol-Gauß 2.7 GHz / 0.05 m: β=70λ/D",
+      "max_abs_fehler": 4.547473508864641e-13,
+      "toleranz": 1e-10,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Parabol 2.7 GHz: rotationssymmetrischer Halbwertskreis",
+      "max_abs_fehler": 3.3306690738754696e-16,
+      "toleranz": 2e-11,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Parabol 2.7 GHz: gezeichnete Halbwertskeule",
+      "max_abs_fehler": 2.3314683517128287e-15,
+      "toleranz": 2e-08,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Parabol-Gauß 9.3 GHz / 0.6 m: β=70λ/D",
+      "max_abs_fehler": 5.053735208093713e-13,
+      "toleranz": 1e-10,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Parabol 9.3 GHz: rotationssymmetrischer Halbwertskreis",
+      "max_abs_fehler": 6.106226635438361e-16,
+      "toleranz": 2e-11,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Parabol 9.3 GHz: gezeichnete Halbwertskeule",
+      "max_abs_fehler": 9.403589018575076e-14,
+      "toleranz": 2e-08,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Parabol-Gauß 77 GHz / 1.2 m: β=70λ/D",
+      "max_abs_fehler": 2.6798008256889716e-13,
+      "toleranz": 1e-10,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Parabol 77 GHz: rotationssymmetrischer Halbwertskreis",
+      "max_abs_fehler": 7.993605777301127e-15,
+      "toleranz": 2e-11,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Parabol 77 GHz: gezeichnete Halbwertskeule",
+      "max_abs_fehler": 8.310019339319297e-13,
+      "toleranz": 2e-08,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Parabol-Gauß 300 GHz / 10 m: β=70λ/D",
+      "max_abs_fehler": 2.395336533289605e-12,
+      "toleranz": 1e-10,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Parabol 300 GHz: rotationssymmetrischer Halbwertskreis",
+      "max_abs_fehler": 4.0295544678770057e-13,
+      "toleranz": 2e-11,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Parabol 300 GHz: gezeichnete Halbwertskeule",
+      "max_abs_fehler": 2.378554020410206e-10,
+      "toleranz": 2e-08,
+      "bestanden": true
+    },
+    {
+      "pruefung": "isotrop: Achsennormierung",
+      "max_abs_fehler": 0.0,
+      "toleranz": 1e-14,
+      "bestanden": true
+    },
+    {
+      "pruefung": "isotrop: Spiegelsymmetrie",
+      "max_abs_fehler": 0.0,
+      "toleranz": 1e-13,
+      "bestanden": true
+    },
+    {
+      "pruefung": "isotrop: Leistungsbereich [0,1]",
+      "max_abs_fehler": 0.0,
+      "toleranz": 0.0,
+      "bestanden": true
+    },
+    {
+      "pruefung": "faecher: Achsennormierung",
+      "max_abs_fehler": 0.0,
+      "toleranz": 1e-14,
+      "bestanden": true
+    },
+    {
+      "pruefung": "faecher: Spiegelsymmetrie",
+      "max_abs_fehler": 3.3306690738754696e-15,
+      "toleranz": 1e-13,
+      "bestanden": true
+    },
+    {
+      "pruefung": "faecher: Leistungsbereich [0,1]",
+      "max_abs_fehler": 0.0,
+      "toleranz": 0.0,
+      "bestanden": true
+    },
+    {
+      "pruefung": "faecher: räumliche Keule entspricht G=0,5",
+      "max_abs_fehler": 1.3522516439934407e-13,
+      "toleranz": 2e-07,
+      "bestanden": true
+    },
+    {
+      "pruefung": "parabol: Achsennormierung",
+      "max_abs_fehler": 0.0,
+      "toleranz": 1e-14,
+      "bestanden": true
+    },
+    {
+      "pruefung": "parabol: Spiegelsymmetrie",
+      "max_abs_fehler": 1.0769163338864018e-14,
+      "toleranz": 1e-13,
+      "bestanden": true
+    },
+    {
+      "pruefung": "parabol: Leistungsbereich [0,1]",
+      "max_abs_fehler": 0.0,
+      "toleranz": 0.0,
+      "bestanden": true
+    },
+    {
+      "pruefung": "parabol: räumliche Keule entspricht G=0,5",
+      "max_abs_fehler": 9.603429163007604e-14,
+      "toleranz": 2e-07,
+      "bestanden": true
+    },
+    {
+      "pruefung": "patch_array: Achsennormierung",
+      "max_abs_fehler": 0.0,
+      "toleranz": 1e-14,
+      "bestanden": true
+    },
+    {
+      "pruefung": "patch_array: Spiegelsymmetrie",
+      "max_abs_fehler": 6.661338147750939e-15,
+      "toleranz": 1e-13,
+      "bestanden": true
+    },
+    {
+      "pruefung": "patch_array: Leistungsbereich [0,1]",
+      "max_abs_fehler": 0.0,
+      "toleranz": 0.0,
+      "bestanden": true
+    },
+    {
+      "pruefung": "patch_array: räumliche Keule entspricht G=0,5",
+      "max_abs_fehler": 2.491895578771164e-13,
+      "toleranz": 2e-07,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Extrem breite Gaußkeule: keine erfundene Halbwertsgrenze",
+      "max_abs_fehler": 0.0,
+      "toleranz": 0.0,
+      "bestanden": true
+    },
+    {
+      "pruefung": "Isotrop: keine Halbwertsbreite",
+      "max_abs_fehler": 0.0,
+      "toleranz": 0.0,
+      "bestanden": true
+    }
+  ],
+  "kennwerte": [
+    {
+      "typ": "isotrop",
+      "traeger_hz": 9300000000.0,
+      "wellenlaenge_m": 0.03223574817204301,
+      "halbwertsbreite_az_grad": null,
+      "halbwertsbreite_el_grad": null
+    },
+    {
+      "typ": "patch_array",
+      "traeger_hz": 9300000000.0,
+      "wellenlaenge_m": 0.03223574817204301,
+      "halbwertsbreite_az_grad": 6.345658756512083,
+      "halbwertsbreite_el_grad": 12.696456594274789
+    },
+    {
+      "typ": "parabol",
+      "traeger_hz": 9300000000.0,
+      "wellenlaenge_m": 0.03223574817204301,
+      "halbwertsbreite_az_grad": 3.7608372867378463,
+      "halbwertsbreite_el_grad": 3.7608372867378463
+    },
+    {
+      "typ": "faecher",
+      "traeger_hz": 9300000000.0,
+      "wellenlaenge_m": 0.03223574817204301,
+      "halbwertsbreite_az_grad": 11.999999999999325,
+      "halbwertsbreite_el_grad": 39.999999999998636
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "schema_version": 4,
+  "carrier_hz": 9300000000.0,
+  "bandwidth_hz": 10000000.0,
+  "chirp_s": 8e-05,
+  "repetition_s": 9e-05,
+  "sample_rate_hz": 10000000.0,
+  "chirps": 96,
+  "snr_db": 20,
+  "noise_enabled": true,
+  "seed": 42,
+  "window": "hann",
+  "remove_static": false,
+  "amplitude_model": "radar",
+  "reference_range_m": 3000,
+  "reference_rcs_m2": 10,
+  "training_range": 8,
+  "training_doppler": 6,
+  "guard_range": 2,
+  "guard_doppler": 2,
+  "pfa": 1e-06,
+  "targets": [],
+  "flugszene": {
+    "name": "Airport · zwei Flugrichtungen, getrennte Bahnen",
+    "bahnen": [
+      {
+        "start_x_m": -5000,
+        "start_hoehe_m": 450,
+        "geschwindigkeit_x_mps": 70,
+        "geschwindigkeit_hoehe_mps": 0.0,
+        "beschleunigung_hoehe_mps2": 0.0,
+        "staerke": 10,
+        "route": null,
+        "start_y_m": -50,
+        "geschwindigkeit_y_mps": 0.0
+      },
+      {
+        "start_x_m": -800,
+        "start_hoehe_m": 650,
+        "geschwindigkeit_x_mps": -70,
+        "geschwindigkeit_hoehe_mps": 0.0,
+        "beschleunigung_hoehe_mps2": 0.0,
+        "staerke": 8,
+        "route": null,
+        "start_y_m": 50,
+        "geschwindigkeit_y_mps": 0.0
+      }
+    ],
+    "dauer_s": 60,
+    "zeitschritt_s": 0.5
+  },
+  "adc_skip_samples": 400,
+  "antenne": {
+    "typ": "faecher",
+    "azimut_grad": 180.0,
+    "elevation_grad": 20,
+    "breite_az_grad": 12.0,
+    "breite_el_grad": 40.0,
+    "durchmesser_m": 0.6,
+    "elemente_horizontal": 16,
+    "elemente_vertikal": 8,
+    "zeichenlaenge_m": 6000.0
+  }
+}

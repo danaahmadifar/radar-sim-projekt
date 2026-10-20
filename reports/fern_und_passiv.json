@@ -1,0 +1,160 @@
+{
+  "bestanden": true,
+  "fern": [
+    {
+      "modus": "fmcw",
+      "delta_r_m": 5433.7383012499995,
+      "bin_m": 5433.7383012499995,
+      "beobachtete_bandbreite_hz": 27586.206896551725,
+      "eindeutiger_betrag_v_mps": 83.27568277777777,
+      "messwerte": [
+        {
+          "frame": 0,
+          "r_fehler_m": -880.8428784738062,
+          "v_fehler_mps": 0.527308699652167,
+          "extras": 0,
+          "bestanden": true
+        },
+        {
+          "frame": 30,
+          "r_fehler_m": 618.3203013832099,
+          "v_fehler_mps": 0.5270292927196536,
+          "extras": 0,
+          "bestanden": true
+        },
+        {
+          "frame": 60,
+          "r_fehler_m": 2117.4750356551376,
+          "v_fehler_mps": 0.5267456464611726,
+          "extras": 0,
+          "bestanden": true
+        }
+      ],
+      "bestanden": true
+    },
+    {
+      "modus": "pulse_doppler",
+      "delta_r_m": 1498.96229,
+      "bin_m": 299.792458,
+      "beobachtete_bandbreite_hz": 100000.0,
+      "eindeutiger_betrag_v_mps": 83.27568277777777,
+      "messwerte": [
+        {
+          "frame": 0,
+          "r_fehler_m": -66.95319757529069,
+          "v_fehler_mps": 0.527308699652167,
+          "extras": 0,
+          "bestanden": true
+        },
+        {
+          "frame": 30,
+          "r_fehler_m": -66.75230771827046,
+          "v_fehler_mps": 0.5270292927196536,
+          "extras": 0,
+          "bestanden": true
+        },
+        {
+          "frame": 60,
+          "r_fehler_m": -66.55986344639678,
+          "v_fehler_mps": 0.5267456464611726,
+          "extras": 0,
+          "bestanden": true
+        }
+      ],
+      "bestanden": true
+    }
+  ],
+  "trennung": [
+    {
+      "modus": "fmcw",
+      "abstand_m": 6000,
+      "soll": 2,
+      "zugeordnet": 1,
+      "detektionen": [
+        304719.5158188489
+      ],
+      "hinweis": "Auflösungsdemo bei Hann, keine universelle Trennungs- oder Detektionsgarantie."
+    },
+    {
+      "modus": "pulse_doppler",
+      "abstand_m": 6000,
+      "soll": 2,
+      "zugeordnet": 2,
+      "detektionen": [
+        300099.6671984974,
+        306095.5163584974
+      ],
+      "hinweis": "Auflösungsdemo bei Hann, keine universelle Trennungs- oder Detektionsgarantie."
+    }
+  ],
+  "beta": [
+    {
+      "frame": 0,
+      "umweg_m": 6151.5664230275215,
+      "rate_mps": -55.263836801029306,
+      "zugeordnet": 1,
+      "extras": 0,
+      "fehler_umweg_m": 144.07519497247813,
+      "fehler_rate_mps": 0.614169978112642,
+      "bestanden": true
+    },
+    {
+      "frame": 10,
+      "umweg_m": 5878.669127592479,
+      "rate_mps": -53.8960024154461,
+      "zugeordnet": 1,
+      "extras": 0,
+      "fehler_umweg_m": 117.18003240752114,
+      "fehler_rate_mps": -0.7536644074705663,
+      "bestanden": true
+    },
+    {
+      "frame": 20,
+      "umweg_m": 5612.5964541535395,
+      "rate_mps": -52.53412918895263,
+      "zugeordnet": 1,
+      "extras": 0,
+      "fehler_umweg_m": 83.46024784646033,
+      "fehler_rate_mps": -2.1155376339640313,
+      "bestanden": true
+    },
+    {
+      "frame": 30,
+      "umweg_m": 5353.316627465374,
+      "rate_mps": -51.17897434055865,
+      "zugeordnet": 1,
+      "extras": 0,
+      "fehler_umweg_m": 42.94761653462592,
+      "fehler_rate_mps": -3.470692482358011,
+      "bestanden": true
+    },
+    {
+      "frame": 40,
+      "umweg_m": 5100.794567705256,
+      "rate_mps": -49.83109774656801,
+      "zugeordnet": 1,
+      "extras": 0,
+      "fehler_umweg_m": -4.322781705255693,
+      "fehler_rate_mps": 2.9885261840680144,
+      "bestanden": true
+    }
+  ],
+  "beta_rauschen": {
+    "frames": 8,
+    "cut": 31104,
+    "alarme": 48,
+    "nominal": 0.001,
+    "gemessen": 0.0015432098765432098,
+    "frame_raten": [
+      0.000257201646090535,
+      0.001800411522633745,
+      0.001800411522633745,
+      0.0015432098765432098,
+      0.001286008230452675,
+      0.0030864197530864196,
+      0.0015432098765432098,
+      0.00102880658436214
+    ],
+    "hinweis": "Kleine korrelierte CAF-Stichprobe, keine Einhaltung der unabhängigen CA-CFAR-Formel behauptet."
+  }
+}
