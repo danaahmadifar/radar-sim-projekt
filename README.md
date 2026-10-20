@@ -192,15 +192,6 @@ for target in frame.candidates:
 .\.venv\Scripts\python.exe -m radar_sim --effects
 ```
 
-Der dokumentierte Prüfstand umfasst **121 bestandene Tests** und einen bestandenen vollständigen Validierungslauf. Analytische Referenzen prüfen unter anderem Laufzeit, Dopplervorzeichen, Matched Filter, CFAR, Phasenkorrelation, Sichtgrenzen und das relative Sendebudget. Detektionsausfälle und zusätzliche Peaks werden in den Berichten ausgewiesen.
-
-* [Technische Grundlagen und Vorzeichen](docs/TECHNIK.md)
-* [Puls-Doppler und bewegte Plattform](docs/PULS_DOPPLER.md)
-* [Fernbereich und Passivradar](docs/FERNBEREICH_UND_PASSIV.md)
-* [Störeffekte: Gleichungen und Grenzen](docs/STOEREFFEKTE.md)
-* [Validierungsbericht](reports/VALIDATION.md) und [Prüfprotokoll](reports/CHECKS.md)
-* [Demomedien und deren Erzeugung](docs/MEDIEN.md)
-
 ## Grenzen des Modells
 
 Die Anwendung ist eine Signalverarbeitungssimulation mit vereinfachtem Ausbreitungs- und Empfängermodell. Innerhalb eines kurzen Messpakets bleiben Entfernung und Geschwindigkeit näherungsweise konstant. Absolute Empfangsleistung, reale Hardware-Reichweite oder eine garantierte Detektionswahrscheinlichkeit werden nicht berechnet.
