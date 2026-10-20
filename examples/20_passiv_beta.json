@@ -21,7 +21,7 @@
   "pfa": 1e-06,
   "targets": [],
   "flugszene": {
-    "name": "Passiv BETA · Fremdsender und Flugzeug",
+    "name": "Passivradar · Fremdsender und Flugzeug",
     "bahnen": [
       {
         "start_x_m": -7000,

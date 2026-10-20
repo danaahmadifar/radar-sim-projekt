@@ -8,7 +8,7 @@ Eine natürliche kubische Kurve verbindet (−80,35), (0,55) und (80,35) m. Das 
 - 333 Radar-Messpakete, 0 fehlende Zuordnungen, 0 Pakete außerhalb der üblichen FFT-Toleranzen.
 - Größte Tempoabweichung: 8.88e-16 m/s.
 - Radiale Geschwindigkeit gegen zentrale numerische Ableitung der Entfernung: maximal 1.39e-10 m/s Abweichung, Schritt 0,1 ms.
-- 3840 Minimum-/Maximum-/Mittelpunkt-Prüfungen nach 80 reproduzierbaren Parameteränderungen, 0 Abweichungen von der Kernprüfung.
+- 4080 Minimum-/Maximum-/Mittelpunkt-Prüfungen nach 80 reproduzierbaren Parameteränderungen, 0 Abweichungen von der Kernprüfung.
 
 Die Reglerbereiche gelten jeweils bei festgehaltenen übrigen Werten und enthalten einen kleinen numerischen Sicherheitsabstand an Modellgrenzen. Sie garantieren gültige Modellparameter, keine bestimmte Detektionswahrscheinlichkeit. Direkt eingetippte ungültige Werte werden angezeigt und erklärt. Andere Werte werden nicht automatisch verändert.
 

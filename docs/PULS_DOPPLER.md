@@ -6,7 +6,7 @@ Unter **Radar → Radarverfahren** zwischen FMCW und **Puls-Doppler · LFM + Pul
 
 Unter **Flug** steht **Air-to-Air · zwei Flugzeuge, Radar fliegt mit**. Es gibt genau zwei Flugzeuge: Das Radarflugzeug trägt Sender und Empfänger; das andere Flugzeug ist das einzige Echoziel. In der Tabelle ist die letzte Zeile als **Radar · Tx/Rx** bezeichnet. Startpositionen und Geschwindigkeiten sind editierbar. Die Geschwindigkeitsänderung über **Speed** skaliert beide Tabellenbahnen und die Flugdauer gemeinsam. X/Y/Z sind Weltkoordinaten in Metern, Z über Boden. In Overview bewegt sich der gelbe Radar-Marker samt Antennenkeule entlang der gestrichelten Plattformbahn. Die räumlichen Positionen sind bekannt, keine Winkelmessung.
 
-Die Antenne bleibt in Weltwinkeln ausgerichtet; es gibt kein Flugzeug-Lagemodell, keine automatische Zielnachführung und kein elektronisches Schwenken eines festen Panels. Die neue Beispielkeule blickt nach hinten zum aufholenden Target. **Null-Doppler unterdrücken** entfernt relative radiale Geschwindigkeit nahe null. Ein Bodenobjekt ist aus einem bewegten Radar im Allgemeinen kein Null-Doppler-Ziel; Bodenclutter und dessen Kompensation werden nicht simuliert.
+Die Antenne bleibt in Weltwinkeln ausgerichtet; es gibt kein Flugzeug-Lagemodell, keine automatische Zielnachführung und kein elektronisches Schwenken eines festen Panels. Die neue Beispielkeule blickt nach hinten zum aufholenden Target. **Null-Doppler unterdrücken** entfernt relative radiale Geschwindigkeit nahe null. Ein Bodenobjekt ist aus einem bewegten Radar im Allgemeinen kein Null-Doppler-Ziel; Diskreter Bodenclutter mit Plattform-Doppler ist inzwischen optional verfügbar; eine STAP-Kompensation wird nicht simuliert. [Störmodelle](STOEREFFEKTE.md).
 
 Gespeicherte Beispiele:
 
@@ -105,7 +105,7 @@ CA-CFAR verwendet weiter `α=Ntrain(Pfa^(−1/Ntrain)−1)` im linearen Leistung
 | Hardwaregrenzen | In echt Sender-Empfänger-Leckage und Phasenrauschen relevant | In echt Umschaltung, Erholzeit und Spitzenleistung relevant |
 | Was hier fehlt | Leckage-/Analog-Hardwaremodell | Reale Schalter, Verstärker und Analogfilter |
 
-Beide Verfahren können mit Arrays Winkel messen; das wird weiterhin nicht simuliert. Der neue Modus liefert keine zusätzliche 3D-Ortung. Kein Bodenclutter, keine MTI-/STAP-Plattformkompensation, keine MTI-Filterkaskade, kein Tracking, keine RCS-Fluktuationen, keine Mehrwege und keine Entfaltung von Entfernungs- oder Dopplermehrdeutigkeiten. Ein schlichtes Pauschalurteil „Puls ist immer weiter/besser als FMCW“ wäre ohne gleiche Systemparameter falsch.
+Beide Verfahren können mit Arrays Winkel messen; das wird weiterhin nicht simuliert. Der neue Modus liefert keine zusätzliche 3D-Ortung. Optionaler Bodenclutter als Punktstreuer je Fläche; keine MTI-/STAP-Plattformkompensation, keine MTI-Filterkaskade, kein Tracking, keine RCS-Fluktuationen, keine Mehrwege und keine Entfaltung von Entfernungs- oder Dopplermehrdeutigkeiten. Ein schlichtes Pauschalurteil „Puls ist immer weiter/besser als FMCW“ wäre ohne gleiche Systemparameter falsch.
 
 ## Prüfungen und Code
 
@@ -114,3 +114,5 @@ Beide Verfahren können mit Arrays Winkel messen; das wird weiterhin nicht simul
 `python -m radar_sim --validate` erzeugt den [tatsächlichen Messbericht](../reports/PULS_UND_PLATTFORM.md), Rohdaten und PNGs. Beide Modi werden über den vollständigen Air-to-Air-Flug mit und ohne AWGN ausgewertet. Rauschfreie Rastertoleranzen sind enger als die bei Rauschen verwendete halbe nominelle Entfernungsauflösung. SNR-Sweep und CFAR-Rauschversuche werden mit ihren tatsächlichen Ausfällen und Extras berichtet.
 
 Der Einstieg bleibt `pipeline.py`. `flugbahn.py` berechnet relative Geometrie, `pulsradar.py` enthält die Pulsform, den Empfang und die lineare Kompression. `processing.py` wählt das Verfahren, `detection.py` bestimmt Peaks und korrigiert die Kopplung. Der Rechenkern bleibt ohne Qt verwendbar. Abhängigkeiten bleiben NumPy, PyQt6 und pyqtgraph.
+
+Die ursprünglichen Pulsprüfungen verwenden nur vollständig empfangene Pulse. Die neue Option **Puls-Nahbereich mit auswerten** berechnet auch teilweise empfangene Echos bei unveränderter Sendesperre. Ihre Leistung wird tatsächlich geringer; Details und analytische Referenz stehen unter [Störeffekte](STOEREFFEKTE.md).

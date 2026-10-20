@@ -1,6 +1,6 @@
 """Eingabefelder aufbauen; Radarberechnung und Ablauf stehen außerhalb dieser Klasse."""
 
-from PyQt6.QtWidgets import QTabWidget, QWidget, QVBoxLayout, QHBoxLayout, QFormLayout, QLabel, QPushButton, QComboBox, QCheckBox, QScrollArea, QTableWidget, QHeaderView
+from PyQt6.QtWidgets import QTabWidget, QWidget, QVBoxLayout, QHBoxLayout, QFormLayout, QLabel, QPushButton, QComboBox, QCheckBox, QScrollArea, QTableWidget, QHeaderView, QGroupBox, QSizePolicy
 from .antenne import Antenne, ANTENNENTYPEN
 from .flugbahn import flugszenen
 from .flughafen import flughafenszenen
@@ -20,18 +20,70 @@ class Eingabefelder(QTabWidget):
         self.regler = {}
         self.ant_controls = {}
         self.passiv_controls = {}
+        self.bereiche = {}
         self._baue_flugfelder()
         self._baue_radar()
         self._baue_dsp()
         self._baue_targets()
         self._baue_antenne()
         self._baue_passiv()
+        from .effektfelder import EffektFelder
+        self.effektfelder = EffektFelder()
+        self._gruppiere_bereiche()
+        self.addTab(self.effektfelder, "Effekte")
+
+    def _gruppiere_bereiche(self) -> None:
+        """Vorhandene Eingaben behalten, zusammengehörige Formulare vereinen."""
+        seiten = {self.tabText(i): self.widget(i) for i in range(self.count())}
+        self.clear()
+        self.familien = {}
+        for titel, namen in (("Szene", ("Flug", "Targets")),
+                              ("Radar", ("Radar", "DSP / CFAR", "Passivradar"))):
+            inhalt = QWidget()
+            layout = QVBoxLayout(inhalt)
+            layout.setContentsMargins(6, 8, 6, 8)
+            for name in namen:
+                seite = seiten[name]
+                widget = seite.takeWidget() if isinstance(seite, QScrollArea) else seite
+                gruppe = QGroupBox(name)
+                gruppe.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Maximum)
+                rahmen = QVBoxLayout(gruppe)
+                rahmen.setContentsMargins(8, 10, 8, 8)
+                rahmen.addWidget(widget)
+                widget.show()  # Entfernte Tab-Seiten behalten sonst ihren Hidden-Zustand.
+                layout.addWidget(gruppe)
+                self.bereiche[name] = gruppe
+                if isinstance(seite, QScrollArea):
+                    seite.deleteLater()
+            layout.addStretch()
+            scroll = QScrollArea()
+            scroll.setWidgetResizable(True)
+            scroll.setWidget(inhalt)
+            self.addTab(scroll, titel)
+            for name in namen:
+                self.familien[name] = scroll
+        self.addTab(seiten["Antenne"], "Antenne")
+        self.familien["Antenne"] = seiten["Antenne"]
+
+    def zeige_bereich(self, name: str) -> None:
+        """Auch tiefer liegende DSP-/Passiv-Eingaben gezielt sichtbar machen."""
+        if name == "Effekte":
+            self.setCurrentWidget(self.effektfelder)
+            return
+        seite = self.familien[name]
+        self.setCurrentWidget(seite)
+        if name in self.bereiche:
+            seite.widget().layout().activate()
+            seite.verticalScrollBar().setValue(self.bereiche[name].y())
+            seite.horizontalScrollBar().setValue(0)
 
     def _baue_flugfelder(self) -> None:
         """Flugbeispiel auswählen und dessen Startwerte bearbeiten."""
         box = QWidget()
         layout = QVBoxLayout(box)
         self.flug_auswahl = QComboBox()
+        self.flug_auswahl.setMinimumContentsLength(12)
+        self.flug_auswahl.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToMinimumContentsLengthWithIcon)
         self.flug_auswahl.addItem("Feste Targets (ohne Flugroute)", None)
         from .passivradar import passiv_config
         for szene in (*flughafenszenen().values(), *flugszenen().values(), fernszene(), passiv_config().flugszene):
@@ -122,8 +174,10 @@ class Eingabefelder(QTabWidget):
     def _neues_formular(self, name: str) -> QFormLayout:
         container = QWidget()
         form = QFormLayout(container)
-        form.setContentsMargins(14, 18, 14, 18)
+        form.setContentsMargins(4, 10, 4, 10)
         form.setSpacing(12)
+        form.setRowWrapPolicy(QFormLayout.RowWrapPolicy.WrapAllRows)
+        form.setFieldGrowthPolicy(QFormLayout.FieldGrowthPolicy.AllNonFixedFieldsGrow)
         scroll = QScrollArea()
         scroll.setWidgetResizable(True)
         scroll.setWidget(container)
@@ -149,7 +203,7 @@ class Eingabefelder(QTabWidget):
         modus.setMinimumContentsLength(12)
         modus.addItem("FMCW · kontinuierliche Chirps", "fmcw")
         modus.addItem("Puls-Doppler · LFM + Pulskompression", "pulse_doppler")
-        modus.addItem("Passivradar · BETA", "passive")
+        modus.addItem("Passivradar", "passive")
         modus.setToolTip("Wählt ein offenes Startprofil. FMCW wertet Mischfrequenzen aus; Puls-Doppler misst verzögerte Pulse mit einem Matched Filter. Ein Moduswechsel setzt die Radarwerte zurück, behält Flugbahnen und Antenne. Nicht jede Nahbereichsszene passt in den Puls-Sendeblindbereich.")
         self.controls["radar_mode"] = modus
         form.addRow("Radarverfahren", modus)
@@ -169,6 +223,8 @@ class Eingabefelder(QTabWidget):
         self._zahlenregler(form, "adc_skip_samples", "ADC-Vorlauf / Samples", 0, 32768, 0,
                      "Diese Abtastschritte am Rampenanfang werden ausgelassen, bis das entfernteste Echo angekommen ist. Mehr Vorlauf erlaubt größere Laufzeiten, verkürzt aber das Messfenster und verschlechtert die Entfernungsauflösung. 0 verwendet das alte vereinfachte Nahbereichsmodell.", True)
         self._zahlenregler(form, "snr_db", "Referenz-SNR / dB", -80, 100, 1, "Verhältnis eines Echos mit Amplitude 1 zur Rauschleistung vor der FFT. Ein größerer Wert bedeutet weniger Rauschen; ein kleinerer Wert macht das Erkennen schwerer.")
+        self._zahlenregler(form, "tx_peak_db", "TX Peak / dB", -60, 60, 1,
+                     "Relative Sende-Spitzenleistung: 0 dB bedeutet Ppeak=P0. +10 dB verzehnfacht Echo- und Leakage-Leistung, die Rauschleistung bleibt fest. Keine Wattangabe. Die Referenz-SNR gilt weiterhin bei TX Peak 0 dB und Echoamplitude 1.")
         self._zahlenregler(form, "seed", "Noise-Seed", 0, 2**32 - 1, 0, "Bestimmt die Folge der Zufallszahlen. Gleicher Startwert und gleiche Frame-Nummer ergeben dasselbe Rauschen. So kannst du Versuche wiederholen.")
         noise = QCheckBox("AWGN addieren")
         noise.setToolTip("Fügt dem Mischsignal zufälliges Grundrauschen hinzu. Ausschalten entfernt dieses Rauschen, aber nicht die Nebenkeulen der FFT.")
@@ -181,7 +237,7 @@ class Eingabefelder(QTabWidget):
         self.radar_form.labelForField(self.regler["chirp_s"]).show()
         self.radar_form.labelForField(self.regler["repetition_s"]).setText("Wiederholintervall / µs")
         for key, text in (("chirp_s", "Pulsdauer / µs" if puls else "Aktiver Chirp / µs"),
-                          ("chirps", "Pulse pro Messpaket" if puls else "Chirp-Anzahl")):
+                          ("chirps", "Pulse pro Frame" if puls else "Chirp-Anzahl")):
             self.radar_form.labelForField(self.regler[key]).setText(text)
         self.regler["adc_skip_samples"].setVisible(not puls)
         self.radar_form.labelForField(self.regler["adc_skip_samples"]).setVisible(not puls)
@@ -213,13 +269,15 @@ class Eingabefelder(QTabWidget):
         model = QComboBox()
         model.addItem("Didaktisch: relative Leistung", "didactic")
         model.addItem("Radar: relative σ/R⁴-Leistung", "radar")
+        model.setMinimumContentsLength(12)
+        model.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToMinimumContentsLengthWithIcon)
         model.setToolTip("Didaktisch hängt die Echostärke nur von deiner Eingabe ab. Im Radar-Modell werden entfernte Ziele deutlich schwächer, entsprechend Leistung proportional zu Radarquerschnitt / Entfernung hoch vier. Es sind relative Werte, keine Watt.")
         self.controls["amplitude_model"] = model
         form.addRow("Amplitudenmodell", model)
         self._zahlenregler(form, "reference_range_m", "Radar-Referenz / m", 0.01, 10000000, 2, "Relative Entfernungsreferenz für die Echostärke, keine absolute Sendeleistung. Monostatisch A∝Rref²/R², bistatisch A∝Rref²/(Rt·Rr). Größere Referenzwerte erhöhen den normierten Pegel, nicht physikalisch belegte Reichweite.")
         self._zahlenregler(form, "reference_rcs_m2", "RCS-Referenz / m²", 0.001, 100000, 3, "Vergleichswert für den Radarquerschnitt, also wie stark ein Objekt zurückstrahlt. Bei gleicher Entfernung liefert ein größerer Radarquerschnitt mehr Echoleistung.")
         for key, label in (("training_range", "Training Range / Seite"), ("training_doppler", "Training Doppler / Seite"),
-                           ("guard_range", "Schutz Range / Seite"), ("guard_doppler", "Schutz Doppler / Seite")):
+                           ("guard_range", "Guard Cells Range / Seite"), ("guard_doppler", "Guard Cells Doppler / Seite")):
             self._zahlenregler(form, key, label, 1 if key.startswith("training") else 0, 128, 0,
                          ("Wie viele Nachbarzellen pro Seite den Hintergrundpegel schätzen. Mehr Zellen glätten die Schätzung, brauchen aber mehr Platz im Bild. Am Rand fehlt dieser Platz."
                           if key.startswith("training") else
@@ -284,7 +342,7 @@ class Eingabefelder(QTabWidget):
         return Antenne(**{name: feldwert(feld) for name, feld in self.ant_controls.items()})
 
     def _baue_passiv(self) -> None:
-        form = self._neues_formular("Passiv BETA")
+        form = self._neues_formular("Passivradar")
         info = QLabel("Fester Fremdsender, Empfänger im Ursprung. Synthetisches Breitbandsignal und idealer Referenzkanal. Gemessen wird der zusätzliche Weg über das Flugzeug; keine eindeutige XYZ-Ortung.")
         info.setWordWrap(True)
         form.addRow(info)
@@ -298,7 +356,7 @@ class Eingabefelder(QTabWidget):
             regler = ParameterRegler(feld, ParameterBereich(unten, oben), logarithmisch=key=="maximaler_umweg_m")
             form.addRow(label, regler)
             self.passiv_controls[key] = feld
-        schalter = QCheckBox("Direktweg mit Referenzprojektion entfernen")
+        schalter = QCheckBox("Direktweg unterdrücken")
         schalter.setToolTip("Schätzt einen komplexen Direktweg-Koeffizienten aus Referenz und Überwachung. Keine vollständige Clutterunterdrückung; nahe Null-Doppler können auch Zielanteile verloren gehen.")
         form.addRow(schalter)
         self.passiv_controls["direktweg_entfernen"] = schalter
@@ -309,6 +367,9 @@ class Eingabefelder(QTabWidget):
     def zeige_passivmodus(self, aktiv: bool) -> None:
         """Der passive Pfad hat Referenzblöcke statt Sendepulse oder Rampen."""
         self.controls["remove_static"].setEnabled(not aktiv)
+        self.bereiche["Passivradar"].setVisible(aktiv)
+        self.regler["tx_peak_db"].setVisible(not aktiv)
+        self.radar_form.labelForField(self.regler["tx_peak_db"]).setVisible(not aktiv)
         self.controls["amplitude_model"].setItemText(1, "Radar: relative σ/(Rt²Rr²)-Leistung" if aktiv else "Radar: relative σ/R⁴-Leistung")
         if not aktiv:
             return
@@ -319,12 +380,12 @@ class Eingabefelder(QTabWidget):
         self.radar_form.labelForField(self.regler["repetition_s"]).setText("Doppler-Rasterzeit / µs")
         self.controls["repetition_s"].setToolTip("Bestimmt mit der Binanzahl die Integration T=M·Tr und den gewählten Doppler-Suchbereich ±1/(2Tr). Keine Puls-PRF des Fremdsenders; die CAF nutzt das ganze kontinuierliche Signal.")
         self.controls["bandwidth_hz"].setToolTip("Bandbreite des synthetischen Fremdsenders. Nominale Umwegauflösung c/B, kein Faktor 1/2. Der Empfänger bestimmt die reale Senderbandbreite nicht selbst.")
-        self.controls["sample_rate_hz"].setToolTip("Abtastrate beider Basisbandkanäle. Umweg-Raster c/fs. Der Referenzkanal ist in dieser BETA ideal und rauschfrei.")
+        self.controls["sample_rate_hz"].setToolTip("Abtastrate beider Basisbandkanäle. Umweg-Raster c/fs. Der Referenzkanal ist in diesem Modell ideal und rauschfrei.")
         self.controls["chirps"].setToolTip("Zahl der ausgewerteten Dopplerbins. Integration T=M·Tr; Wegänderungsraster λ/T. Die CAF wertet jeden Doppler über alle Samples aus.")
         for key in ("sample_rate_hz", "bandwidth_hz", "repetition_s", "chirps"):
             self.regler[key].setToolTip(self.controls[key].toolTip())
             self.radar_form.labelForField(self.regler[key]).setToolTip(self.controls[key].toolTip())
-        self.modus_hinweis.setText("Passiv BETA: Referenz + Überwachung → Kreuzambiguität. ΔL=Rt+Rr−Basislinie, dΔL/dt=λf. Separater Fremdsender; keine monostatische Entfernungs- oder Geschwindigkeitsumrechnung.")
+        self.modus_hinweis.setText("Passivradar: Referenz + Surveillance → CAF (Cross-Ambiguity Function). ΔL=Rt+Rr−Basislinie, dΔL/dt=λf. Separater Fremdsender; keine monostatische Entfernungs- oder Geschwindigkeitsumrechnung.")
 
     def zeige_antennenfelder(self) -> None:
         typ = self.ant_controls["typ"].currentData()

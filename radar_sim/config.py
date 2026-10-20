@@ -7,6 +7,7 @@ from .flugbahn import Flugszene, Flugbahn, relative_bahngrenzen, pruefe_flugszen
 from .route import GezeichneteRoute
 from .antenne import Antenne, pruefe_antenne
 from .passiv_config import PassivSettings
+from .effekt_config import Stoereffekte
 
 C = 299_792_458.0
 MAX_CELLS = 1_048_576  # begrenzt Arbeitsarrays; keine Garantie für gesamten Qt-Prozessspeicher
@@ -18,7 +19,7 @@ class Target:
 
     range_m: direkte Entfernung [m], velocity_mps: radiale Geschwindigkeit [m/s].
     Positiv bedeutet Entfernung von der Station, negativ Annäherung.
-    Passiv-BETA-Ergebnis: range_m ist der bistatische Umweg, velocity_mps
+    Passivradar-Ergebnis: range_m ist der bistatische Umweg, velocity_mps
     dessen Änderungsrate. Diese Werte sind keine monostatische Rx-Entfernung.
     strength: relative Echoleistung oder Radarquerschnitt [m²], je nach Modell.
     phase_rad: zusätzliche Startphase des Mischsignals [rad].
@@ -29,6 +30,7 @@ class Target:
     strength: float = 1.0
     phase_rad: float = 0.0
     antenna_gain: float = 1.0  # normierter EINWEG-Leistungsgewinn; Echoamplitude mal G
+    path_gain: float = 1.0     # zusätzlicher Amplitudenfaktor: Sicht und Atmosphäre
 
 
 @dataclass(frozen=True)
@@ -65,6 +67,13 @@ class RadarConfig:
     antenne: Antenne = field(default_factory=Antenne)
     radar_mode: str = "fmcw"  # pulse_doppler: chirp_s ist die LFM-Pulsdauer.
     passiv: PassivSettings = field(default_factory=PassivSettings)
+    effekte: Stoereffekte = field(default_factory=Stoereffekte)
+    tx_peak_db: float = 0.0  # relative Sende-Spitzenleistung: 10 log10(Ppeak/P0)
+
+    @property
+    def tx_power(self) -> float:
+        """Ppeak/P0. P0 ist eine feste relative Referenz, keine Leistung in Watt."""
+        return 10**(self.tx_peak_db/10)
 
     @property
     def samples(self) -> int:
@@ -80,7 +89,7 @@ class RadarConfig:
     def range_bins(self) -> int:
         if self.radar_mode == "passive":
             return math.floor(self.passiv.maximaler_umweg_m*self.sample_rate_hz/C)+1
-        return self.samples - 2*self.pulse_samples + 1 if self.radar_mode == "pulse_doppler" else self.samples
+        return self.samples - (1 if self.effekte.teilpulse else 2)*self.pulse_samples + 1 if self.radar_mode == "pulse_doppler" else self.samples
 
     @property
     def range_bin_m(self) -> float:
@@ -150,19 +159,21 @@ class RadarConfig:
                 - (2 * self.guard_range + 1) * (2 * self.guard_doppler + 1))
 
     def to_dict(self) -> dict[str, Any]:
-        return {"schema_version": 6, **asdict(self)}
+        return {"schema_version": 8, **asdict(self)}
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "RadarConfig":
         """Striktes Schema: unbekannte Felder und Versionen sind Fehler."""
         values = dict(data)
-        if values.pop("schema_version", 1) not in (1, 2, 3, 4, 5, 6):
+        if values.pop("schema_version", 1) not in (1, 2, 3, 4, 5, 6, 7, 8):
             raise ValueError("Unbekannte JSON-Schemaversion.")
         try:
             if "antenne" in values:
                 values["antenne"] = Antenne(**values["antenne"])
             if "passiv" in values:
                 values["passiv"] = PassivSettings(**values["passiv"])
+            if "effekte" in values:
+                values["effekte"] = Stoereffekte(**values["effekte"])
             values["targets"] = tuple(Target(**t) for t in values.get("targets", []))
             if values.get("flugszene") is not None:
                 szene = dict(values["flugszene"])
@@ -185,7 +196,7 @@ class RadarConfig:
             raise ValueError(f"Ungültiges Konfigurationsschema: {exc}") from exc
 
 
-def validate_config(config: RadarConfig) -> list[str]:
+def validate_config(config: RadarConfig, *, _geometrie: bool = True) -> list[str]:
     """Prüft VOR Array-Allokation; Fehler verhindern Aliasing und ungültige Näherungen.
 
     Rückgabe: verständliche Warnungen. Modellgrenzen: B/fc <= 0.1,
@@ -194,10 +205,13 @@ def validate_config(config: RadarConfig) -> list[str]:
     Das sind konservative didaktische Grenzen, keine universellen Naturkonstanten.
     """
     c = config
+    if not isinstance(c.effekte, Stoereffekte):
+        raise ValueError("Ungültige Störeffekt-Einstellungen.")
+    from .effektpruefung import pruefe_effekte
     if c.radar_mode not in ("fmcw", "pulse_doppler", "passive"):
         raise ValueError("Unbekanntes Radarverfahren.")
     numeric = ("carrier_hz", "bandwidth_hz", "chirp_s", "repetition_s", "sample_rate_hz",
-               "snr_db", "reference_range_m", "reference_rcs_m2", "pfa")
+               "snr_db", "reference_range_m", "reference_rcs_m2", "pfa", "tx_peak_db")
     for name in numeric:
         value = getattr(c, name)
         if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value):
@@ -207,6 +221,10 @@ def validate_config(config: RadarConfig) -> list[str]:
             raise ValueError(f"{name}: ganze Zahl erforderlich.")
     if type(c.noise_enabled) is not bool or type(c.remove_static) is not bool:
         raise ValueError("Rausch- und Clutterschalter müssen boolesch sein.")
+    if not -60 <= c.tx_peak_db <= 60:
+        raise ValueError("TX Peak muss zwischen −60 und +60 dB relativ zu P0 liegen.")
+    if c.radar_mode == "passive" and c.tx_peak_db != 0:
+        raise ValueError("Passivradar besitzt keinen eigenen Sender. TX Peak auf 0 dB setzen.")
     if min(c.carrier_hz, c.bandwidth_hz, c.chirp_s, c.sample_rate_hz,
            c.reference_range_m, c.reference_rcs_m2) <= 0:
         raise ValueError("Frequenzen, Dauer und Amplitudenreferenzen müssen positiv sein.")
@@ -242,9 +260,10 @@ def validate_config(config: RadarConfig) -> list[str]:
         raise ValueError("Die nominelle CFAR-Pfa muss zwischen 10⁻⁸ und 0,1 liegen.")
     if len(c.targets) > 32:
         raise ValueError("Höchstens 32 punktförmige Ziele pro Szene erlaubt.")
+    effekt_hinweise = pruefe_effekte(c, _geometrie)
     if c.radar_mode == "passive":
         from .passivradar import validate_passive
-        return validate_passive(c)
+        return validate_passive(c)+effekt_hinweise
     if c.flugszene is not None:
         if not isinstance(c.flugszene, Flugszene):
             raise ValueError("Die Flugbeschreibung muss eine Flugszene sein.")
@@ -254,26 +273,30 @@ def validate_config(config: RadarConfig) -> list[str]:
         if c.flugszene.zeitschritt_s < c.chirps * c.repetition_s:
             raise ValueError("Der Flug-Zeitschritt muss mindestens der Dauer eines Radar-Messpakets entsprechen.")
         pruefe_fluggrenzen(c)
-    warnings: list[str] = []
+    warnings: list[str] = effekt_hinweise
+    from .empfaenger import phasen_bandreserve
+    phase_reserve = phasen_bandreserve(c)
     for index, t in enumerate(c.targets, 1):
         if any(isinstance(x, bool) or not isinstance(x, (int, float)) or not math.isfinite(x)
-               for x in (t.range_m, t.velocity_mps, t.strength, t.phase_rad, t.antenna_gain)):
+               for x in (t.range_m, t.velocity_mps, t.strength, t.phase_rad, t.antenna_gain, t.path_gain)):
             raise ValueError(f"Ziel {index}: nur endliche Zahlen erlaubt.")
         if not 0 < t.range_m or not 0 < t.strength <= 1e6:
             raise ValueError(f"Ziel {index}: Entfernung > 0 und Stärke in (0, 10⁶] erforderlich.")
         if not 0 <= t.antenna_gain <= 1:
             raise ValueError("Der relative Einweg-Antennengewinn muss zwischen 0 und 1 liegen.")
+        if not 0 <= t.path_gain <= 1:
+            raise ValueError("Der Ausbreitungs-Amplitudenfaktor muss zwischen 0 und 1 liegen.")
         tau = 2 * t.range_m / C
         fd = 2 * t.velocity_mps / c.wavelength
         if abs(t.velocity_mps) >= c.max_velocity:
             raise ValueError(f"Ziel {index}: Doppler-Aliasing; |v| muss < {c.max_velocity:.3f} m/s sein.")
         if c.radar_mode == "pulse_doppler":
-            if t.range_m < c.minimum_range_m:
+            if t.range_m < c.minimum_range_m and not c.effekte.teilpulse:
                 raise ValueError(f"Ziel {index}: Sende-Blindbereich; R muss ≥ c·Tp/2 = {c.minimum_range_m:.2f} m sein.")
-            if c.bandwidth_hz/2 + abs(fd) >= c.sample_rate_hz/2:
-                raise ValueError(f"Ziel {index}: Pulsbandbreite plus Doppler überschreitet ADC-Nyquist.")
-        elif abs(c.slope * tau + fd) >= c.sample_rate_hz / 2:
-            raise ValueError(f"Ziel {index}: Beat-Frequenz außerhalb ±fs/2 (Range-Doppler-Kopplung berücksichtigt).")
+            if c.bandwidth_hz/2 + abs(fd) + phase_reserve >= c.sample_rate_hz/2:
+                raise ValueError(f"Ziel {index}: Pulsbandbreite plus Doppler/Phasenreserve überschreitet ADC-Nyquist.")
+        elif abs(c.slope * tau + fd) + phase_reserve >= c.sample_rate_hz / 2:
+            raise ValueError(f"Ziel {index}: Beat-Frequenz plus optionale Phasenreserve außerhalb ±fs/2 (Range-Doppler-Kopplung berücksichtigt).")
         if t.range_m > c.timing_range_limit * (1+1e-12):
             if c.radar_mode == "pulse_doppler":
                 raise ValueError(f"Ziel {index}: Echo endet nach dem nächsten Puls; R muss ≤ c·(Tr−Tp)/2 sein. Keine Mehr-PRF-Entfaltung implementiert.")
@@ -294,7 +317,7 @@ def validate_config(config: RadarConfig) -> list[str]:
     if c.radar_mode == "pulse_doppler":
         warnings.append("Puls-Doppler: LFM-Pulskompression, Empfang während Senden gesperrt. Entfernungszellen nach Filterung korreliert; CFAR-Pfa auch bei Rechteck nur nominell. Auflösung ≠ ADC-Binabstand.")
     if c.flugszene is not None and c.flugszene.radar_bahn is not None:
-        warnings.append("Bewegtes monostatisches Radar: R und v sind relativ zur Plattform. Antennenausrichtung bleibt im Weltkoordinatensystem fest; kein Lage-/Cluttermodell.")
+        warnings.append("Bewegtes monostatisches Radar: R und v sind relativ zur Plattform. Antennenwinkel bleiben auf lokale Kartenachsen bezogen; kein Lageausgleich.")
     if not c.noise_enabled:
         warnings.append("Ohne AWGN hat die CFAR-Pfa keine statistische Aussage; Fenster-Nebenkeulen bleiben im Spektrum vorhanden.")
     warnings.append("CFAR-Ränder werden nicht ausgewertet; Ziele dort können undetektiert bleiben.")
@@ -320,10 +343,10 @@ def pruefe_fluggrenzen(config: RadarConfig) -> None:
         # eine sichere obere Grenze, auch wenn x und Höhe ihr Maximum zu anderen Zeiten haben.
         pruefziel = Target(entfernung_grenze, tempo_grenze, bahn.staerke)
         if config.radar_mode == "pulse_doppler":
-            if kleinster_abstand(bahn, szene) < config.minimum_range_m:
+            if kleinster_abstand(bahn, szene) < config.minimum_range_m and not config.effekte.teilpulse:
                 raise ValueError("Die relative Flugbahn erreicht den Puls-Sendeblindbereich.")
         try:
-            validate_config(replace(config, flugszene=None, targets=(pruefziel,)))
+            validate_config(replace(config, flugszene=None, targets=(pruefziel,)), _geometrie=False)
         except ValueError as exc:
             raise ValueError(f"Flugobjekt {nummer}, sichere Grenze der gesamten Bahn: {exc}") from exc
         # d(v_radial)/dt = (|v|² + Ort·Beschleunigung − v_radial²)/R.

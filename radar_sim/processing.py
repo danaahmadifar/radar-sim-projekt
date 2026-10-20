@@ -12,7 +12,7 @@ class Spectrum:
     """FFT-Ergebnisse: power=Leistung, beat_hz=Mischfrequenzen,
     doppler_hz=Dopplerfrequenzen, apparent_range_m=Scheinentfernung,
     velocity_mps=radiale Geschwindigkeit. Frequenz- und Ortsachsen sind 1D-Vektoren.
-    Passiv BETA: apparent_range_m ist ΔL, velocity_mps ist dΔL/dt;
+    Passivradar: apparent_range_m ist ΔL, velocity_mps ist dΔL/dt;
     beat_hz ist wie beim Pulsradar None. Die CAF hat keine Beat-Frequenzachse.
     """
     power: NDArray[np.float64]  # [Doppler-Bin, Range-Bin], |FFT|², Aref²=1
@@ -21,6 +21,8 @@ class Spectrum:
     doppler_hz: NDArray[np.float64]
     apparent_range_m: NDArray[np.float64]
     velocity_mps: NDArray[np.float64]
+    # Erste Pulsantwort aus demselben Filterlauf: [Range-Bin], keine weitere FFT in der GUI.
+    compressed_first: NDArray[np.complex128] | None = None
 
 
 def window_values(size: int, kind: str) -> NDArray[np.float64]:

@@ -21,6 +21,7 @@ from .routen_validierung import pruefe_route_und_regler, schreibe_routenbericht
 from .antennen_validierung import pruefe_patterns, schreibe_antennenbericht, export_antennenplots
 from .puls_validierung import pruefe_pulsradar, schreibe_pulsbericht, export_pulsplots
 from .fern_passiv_validierung import pruefe_fern_und_passiv, schreibe_fern_passivbericht, export_fern_passivplots
+from .effekt_validierung import pruefe_stoermodelle, schreibe_effektbericht, export_effektplots
 
 
 def noise_experiment(window: str, trials: int = 96) -> dict:
@@ -94,6 +95,7 @@ def run_validation(directory: str | Path = "reports") -> dict:
     antennenbericht = pruefe_patterns()
     pulsbericht = pruefe_pulsradar()
     fern_passiv = pruefe_fern_und_passiv()
+    stoerbericht = pruefe_stoermodelle()
     bericht = {"python": sys.version.split()[0], "numpy": np.__version__, "platform": platform.platform(),
               "seed": 42, "scenarios": ergebnisse, "snr_sweep": snr_reihe, "noise_experiments": rauschversuche,
               "flight_validation_passed": flugbericht["bestanden"],
@@ -103,9 +105,10 @@ def run_validation(directory: str | Path = "reports") -> dict:
               "antenna_validation_passed": antennenbericht["bestanden"],
               "pulse_platform_validation_passed": pulsbericht["bestanden"],
               "long_range_passive_validation_passed": fern_passiv["bestanden"],
+              "impairment_validation_passed": stoerbericht["bestanden"],
               "passed": all(r["pass"] is not False for r in ergebnisse) and bool(rauschversuche[0]["check"])
                         and flugbericht["bestanden"] and detektionsbericht["bestanden"] and routenbericht["bestanden"]
-                        and airportbericht["bestanden"] and antennenbericht["bestanden"] and pulsbericht["bestanden"] and fern_passiv["bestanden"]}
+                        and airportbericht["bestanden"] and antennenbericht["bestanden"] and pulsbericht["bestanden"] and fern_passiv["bestanden"] and stoerbericht["bestanden"]}
     # Qt erst zum Export laden: Der Rechenkern selbst benötigt keine GUI.
     from .report_plots import export_report_plots, export_flug_plots, export_detektions_plot, export_routen_plot
     export_report_plots(ordner, frames["05_dashboard"], snr_reihe, rauschversuche)
@@ -123,6 +126,8 @@ def run_validation(directory: str | Path = "reports") -> dict:
     export_pulsplots(ordner, pulsbericht)
     schreibe_fern_passivbericht(ordner, fern_passiv)
     export_fern_passivplots(ordner)
+    schreibe_effektbericht(ordner, stoerbericht)
+    export_effektplots(ordner)
     bericht["elapsed_s"] = time.perf_counter() - startzeit
     schreibe_json(ordner / "validation.json", bericht)
     textzeilen = ["# Gemessener Validierungsbericht", "", f"Python {bericht['python']}, NumPy {bericht['numpy']}; {bericht['platform']}.",
@@ -156,7 +161,8 @@ def run_validation(directory: str | Path = "reports") -> dict:
               "Flughafenszenen mit 3D-Bewegung und aktiver Richtwirkung: [Airport und 3D](AIRPORT_3D.md).", "",
               "Antennendiagramme gegen Element-Summen und analytische Halbwerte: [Antennen](ANTENNEN.md).", "",
               "LFM-Puls-Doppler, Relativbewegung beider Flugzeuge und gemessene CFAR-Raten: [Puls und Plattform](PULS_UND_PLATTFORM.md).", "",
-              "300-km-Profile, Trennungsdemo und passive bistatische CAF: [Fernbereich und Passiv BETA](FERN_UND_PASSIV.md).", "",
+              "300-km-Profile, Trennungsdemo und passive bistatische CAF: [Fernbereich und Passivradar](FERN_UND_PASSIV.md).", "",
+              "Leakage, Sättigung, Phasenrauschen, Horizont, Atmosphäre und Bodenclutter: [Störmodelle](STOEREFFEKTE.md).", "",
               "Gesamtergebnis der harten Prüfungen: **" + ("BESTANDEN" if bericht["passed"] else "FEHLER") + "**.",
               "Rohwerte und Einzelabweichungen: [validation.json](validation.json)."]
     schreibe_markdown(ordner / "VALIDATION.md", textzeilen)

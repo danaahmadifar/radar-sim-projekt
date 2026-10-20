@@ -1,4 +1,4 @@
-# Fernbereich, Radarvergleich und Passivradar BETA
+# Fernbereich, Radarvergleich und Passivradar
 
 ## Bedienung
 
@@ -6,11 +6,11 @@
 
 Für große Abstände unter **Flug** das Beispiel **Fernbereich · Flugzeug bei 300 km** wählen. Die Startkoordinaten können über Tabelle oder Zell-Slider bis zu ±10.000 km eingestellt werden; feste Target-Entfernungen ebenfalls bis 10.000 km. Das sind Eingabebereiche, keine garantierten Radarreichweiten. Laufzeit, ADC, Doppler, Speicher und Bewegung müssen weiterhin zusammenpassen. Bei größeren Entfernungen deshalb unter anderem Wiederholintervall und ADC-Start anpassen. Zu große Geschwindigkeiten werden bei einem langen PRI begründet abgelehnt.
 
-**Radar → Radarverfahren** wählt FMCW, Puls-Doppler oder **Passivradar · BETA**. Der passive Modus lädt bewusst eine eigene Demo mit festem Fremdsender, festem Empfänger und einem räumlichen Target; beim direkten Zurückwechseln wird das vorherige aktive Szenario wieder verwendet. Unter **Passiv BETA** sind Senderposition, Umweg-Suchfenster, Direktwegstärke und Direktweg-Projektion einstellbar. Das Lesen einer Passiv-JSON startet unmittelbar mit deren Geometrie. Aktive Beispielauswahl lädt passende aktive Profile.
+**Radar → Radarverfahren** wählt FMCW, Puls-Doppler oder **Passivradar**. Der passive Modus lädt bewusst eine eigene Demo mit festem Fremdsender, festem Empfänger und einem räumlichen Target; beim direkten Zurückwechseln wird das vorherige aktive Szenario wieder verwendet. Im Bereich **Radar → Passivradar** sind Senderposition, Umweg-Suchfenster, Direktwegstärke und Direktweg-Projektion einstellbar. Das Lesen einer Passiv-JSON startet unmittelbar mit deren Geometrie. Aktive Beispielauswahl lädt passende aktive Profile.
 
-Der rechte Tab **Radarvergleich** stellt Messgrößen, Auflösungen, Nah-/Fernbereich und die wesentlichen Vor-/Nachteile nebeneinander. Er zeigt auch die aktuellen nominalen Werte. Radar-, Antennen- und Exportfunktionen verwenden weiter ausschließlich NumPy, PyQt6 und pyqtgraph.
+Die rechte Ansicht **Vergleich → Radarvergleich** stellt Messgrößen, Auflösungen, Nah-/Fernbereich und die wesentlichen Vor-/Nachteile nebeneinander. Er zeigt auch die aktuellen nominalen Werte. Radar-, Antennen- und Exportfunktionen verwenden weiter ausschließlich NumPy, PyQt6 und pyqtgraph.
 
-[Fernbereichsoberfläche](fern_puls_gui.png) · [Passiv-BETA mit Sender und Empfänger](passiv_beta_gui.png) · [Passive Einstellungen](passiv_parameter_gui.png)
+[Fernbereichsoberfläche](fern_puls_gui.png) · [Passivradar mit Sender und Empfänger](passiv_beta_gui.png) · [Passive Einstellungen](passiv_parameter_gui.png)
 
 ## Fairer Fernbereichsvergleich
 
@@ -34,9 +34,9 @@ Bei gleicher aktiver Echoamplitude enthalten die Verfahren hier unterschiedlich 
 
 Beide aktiven Modelle behalten die Range-Doppler-Kopplung, Fensterverbreiterung und die CFAR-Randbehandlung bei. Die relative Leistung fällt monostatisch mit `σ/R⁴`. Eine Änderung der normierten Entfernungsreferenz erhöht keine physikalisch belegte Sendeleistung. Absolute Reichweite lässt sich ohne Sendeleistung, Gewinne, Verluste und Rauschzahl nicht behaupten. Die weitere [Puls-/FMCW-Herleitung](PULS_DOPPLER.md) gilt unverändert.
 
-Die Szene verwendet eine **flache Welt mit freier Sicht**. Erdkrümmung, Gelände, Atmosphäre, Mehrwege und Funkhorizont sind nicht modelliert. Besonders bei Hunderten Kilometern darf die Darstellung deshalb nicht als Reichweitenvorhersage für eine reale Bodenstation gelesen werden.
+Die ursprünglichen Fernbeispiele verwenden standardmäßig eine **flache Welt mit freier Sicht**. Unter **Effekte** können jetzt effektive Erdkugel/Sichthorizont, homogene atmosphärische Dämpfung und diskrete Bodenstreuer zugeschaltet werden; [Modell und Grenzen](STOEREFFEKTE.md). Gelände und Mehrwege fehlen weiterhin. Besonders bei Hunderten Kilometern darf die Darstellung deshalb nicht als Reichweitenvorhersage für eine reale Bodenstation gelesen werden.
 
-## Passive BETA: richtige Messgrößen
+## Passivradar: richtige Messgrößen
 
 Das passive System besitzt keinen eigenen Radarsender. Ein separater bekannter Fremdsender beleuchtet das Target; ein fester Empfänger im Ursprung erhält einen Referenz- und einen Überwachungskanal. Für Targetposition p und festen Senderort t gilt:
 
@@ -48,15 +48,15 @@ b_dot = ((p−t)/Rt + p/Rr) · v           [m/s]
 fb = b_dot/λ                           [Hz]
 ```
 
-Die [bistatische Wegdefinition](https://www.mathworks.com/help/radar/ug/non-cooperative-bistatic-radar-IQ-Simulation-and-Processing.html) unterscheidet sich von der monostatischen Entfernung. Positive b_dot bedeutet wachsender Umweg. In der Karte stehen deshalb **Bistatischer Umweg ΔL** und **Wegänderungsrate dΔL/dt**. `cτ/2` und `λf/2` wären hier falsch. Ein Umweg bestimmt eine Ellipsoidfläche, keine eindeutige Target-XYZ-Position. Bei zusammenfallenden Tx/Rx ergibt der mathematische Grenzfall b=2R und b_dot=2v_radial; die BETA selbst fordert getrennte Orte.
+Die [bistatische Wegdefinition](https://www.mathworks.com/help/radar/ug/non-cooperative-bistatic-radar-IQ-Simulation-and-Processing.html) unterscheidet sich von der monostatischen Entfernung. Positive b_dot bedeutet wachsender Umweg. In der Karte stehen deshalb **Bistatischer Umweg ΔL** und **Wegänderungsrate dΔL/dt**. `cτ/2` und `λf/2` wären hier falsch. Ein Umweg bestimmt eine Ellipsoidfläche, keine eindeutige Target-XYZ-Position. Bei zusammenfallenden Tx/Rx ergibt der mathematische Grenzfall b=2R und b_dot=2v_radial; das Passivmodell selbst fordert getrennte Orte.
 
 Die Weltflugzustände behalten ihren Abstand und ihre radiale Geschwindigkeit zum Rx-Ursprung. Die bistatischen Sollwerte stehen separat in den Frame-Targets. CSV-Detektionen verwenden die bisherigen generischen Felder `range_m` und `velocity_mps`; bei `radar_mode="passive"` bedeuten sie b und b_dot. Die beigefügte Konfigurationsdatei hält Verfahren und Geometrie fest. Die bekannte Flugposition ist weiterhin keine geschätzte 3D-Ortung.
 
 ## Fremdsender und zwei Kanäle
 
-Die BETA erzeugt ein komplexes Zufallssignal mit flachem, begrenztem Spektralband als synthetische Fremdbeleuchtung. Der Seed ist reproduzierbar. Ein ausreichend langer Fourier-Signalabschnitt mit Vor-/Nachlauf erlaubt kontinuierliche Fractional Delays über `exp(−j2πfτb)`. Die ausgewerteten Abschnitte und Such-Lags überschreiten keine Periodengrenze. Es gibt kein ADC-Runden der Echoverzögerung und kein zyklisches Durchwickeln in der CAF.
+Das Passivmodell erzeugt ein komplexes Zufallssignal mit flachem, begrenztem Spektralband als synthetische Fremdbeleuchtung. Der Seed ist reproduzierbar. Ein ausreichend langer Fourier-Signalabschnitt mit Vor-/Nachlauf erlaubt kontinuierliche Fractional Delays über `exp(−j2πfτb)`. Die ausgewerteten Abschnitte und Such-Lags überschreiten keine Periodengrenze. Es gibt kein ADC-Runden der Echoverzögerung und kein zyklisches Durchwickeln in der CAF.
 
-Dies ist **kein demoduliertes FM-Radio, DVB-T, DAB oder realer OFDM-Sender**. Spektralform, Nutzdaten, Referenzrauschen, Oszillatorfehler und Synchronisationsprobleme solcher Systeme fehlen. Der Referenzkanal gilt ausdrücklich als ideal, rauschfrei und zeitlich synchron. Ein echter passiver Empfänger kann den Fremdsender nicht nach eigenem Wunsch auf eine andere Bandbreite umstellen; die Bandbreite im Simulator ist eine Szeneneingabe.
+Dies ist **kein demoduliertes FM-Radio, DVB-T, DAB oder realer OFDM-Sender**. Spektralform, Nutzdaten, Referenzrauschen, Oszillatorfehler und Synchronisationsprobleme solcher Systeme fehlen. Der Referenzkanal startet ideal, rauschfrei und zeitlich synchron. Optionale gemeinsame Empfangs-LO-Phase und Hüllkurvenbegrenzung betreffen anschließend auch diesen Kanal; die Störmodelle sind separat beschrieben. Ein echter passiver Empfänger kann den Fremdsender nicht nach eigenem Wunsch auf eine andere Bandbreite umstellen; die Bandbreite im Simulator ist eine Szeneneingabe.
 
 Das Überwachungssignal enthält alle Echos, einen einstellbaren Direktweg und AWGN. Für ein Echo gilt, bis auf eine konstante komplexe Phase:
 
@@ -101,11 +101,11 @@ Tr ist **keine Puls-PRF des Fremdsenders**. Der Dopplerbereich ist ein gewählte
 
 CA-CFAR arbeitet weiterhin mit linearen Leistungen und der tatsächlichen Trainingszellenzahl. Die Zellen sind nach CAF und Projektion korreliert, deshalb bleibt Pfa **nominell**. Direktweg, Signal-Ambiguität und Rauschen können zusätzliche Detektionen erzeugen. Der Messbericht zeigt tatsächliche Alarme und deren Stichprobenumfang statt eines kalibrierten Fehlalarmversprechens.
 
-## Rechenbudget und BETA-Grenzen
+## Rechenbudget und Modellgrenzen
 
-16–128 Dopplerbins, 1024–131072 Integrationssamples, 20–2048 Suchverzögerungen und eine zusätzliche FFT-Arbeitsgrenze begrenzen CPU und Speicher. Die Signalauswertung läuft im bestehenden Worker; die GUI bleibt bedienbar. Die BETA kann langsamer als FMCW sein. Es gelten zunächst feste Tx/Rx und analytische Targetbahnen, keine freien Splinerouten oder bewegte Empfänger. Die sicheren Bahnprüfungen verwenden unter anderem b≤2Rr und |b_dot|≤2|v|; sie können konservativer als die tatsächliche Geometrie sein.
+16–128 Dopplerbins, 1024–131072 Integrationssamples, 20–2048 Suchverzögerungen und eine zusätzliche FFT-Arbeitsgrenze begrenzen CPU und Speicher. Die Signalauswertung läuft im bestehenden Worker; die GUI bleibt bedienbar. Das Passivmodell kann langsamer als FMCW sein. Es gelten zunächst feste Tx/Rx und analytische Targetbahnen, keine freien Splinerouten oder bewegte Empfänger. Die sicheren Bahnprüfungen verwenden unter anderem b≤2Rr und |b_dot|≤2|v|; sie können konservativer als die tatsächliche Geometrie sein.
 
-Keine Mehrwege, Clutterlandschaft, reale Rundfunkwellenform, Referenzrauschzahl, Hardware-Synchronisation, Target-Winkelschätzung oder Mehrsensor-Lokalisierung. Die BETA zeigt die Signalverarbeitung und ihre Grenzen, kein fertiges passives Überwachungssystem.
+Optionale diskrete Bodenstreuer und vereinfachte Empfangsstörungen ersetzen keine vollständige Clutterlandschaft. Keine Mehrwege, reale Rundfunkwellenform, Referenzrauschzahl, Hardware-Synchronisation, Target-Winkelschätzung oder Mehrsensor-Lokalisierung. Das Passivmodell zeigt die Signalverarbeitung und ihre Grenzen, kein fertiges passives Überwachungssystem.
 
 ## Dateien und reproduzierbare Ergebnisse
 

@@ -253,6 +253,7 @@
   "antenna_validation_passed": true,
   "pulse_platform_validation_passed": true,
   "long_range_passive_validation_passed": true,
+  "impairment_validation_passed": true,
   "passed": true,
-  "elapsed_s": 30.897580399992876
+  "elapsed_s": 38.98332310002297
 }

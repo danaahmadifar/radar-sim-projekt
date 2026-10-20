@@ -1,0 +1,166 @@
+{
+  "erstellt_utc": "2026-10-20T05:30:22.615329+00:00",
+  "quelle": "QWidget.grab der unveränderten Anwendung; keine Desktop- oder Mikrofonaufnahme",
+  "bilder": [
+    {
+      "datei": "01_fmcw_gegenverkehr.png",
+      "modus": "fmcw",
+      "frame": 40,
+      "simulationszeit_s": 20.0,
+      "soll_targets": 2,
+      "cfar_peaks": 2,
+      "aufloesung": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "datei": "02_puls_doppler.png",
+      "modus": "pulse_doppler",
+      "frame": 16,
+      "simulationszeit_s": 8.0,
+      "soll_targets": 1,
+      "cfar_peaks": 1,
+      "aufloesung": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "datei": "03_route_3d.png",
+      "modus": "fmcw",
+      "frame": 0,
+      "simulationszeit_s": 0.0,
+      "soll_targets": 1,
+      "cfar_peaks": 1,
+      "aufloesung": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "datei": "04_antenna_pattern.png",
+      "modus": "fmcw",
+      "frame": 0,
+      "simulationszeit_s": 0.0,
+      "soll_targets": 1,
+      "cfar_peaks": 1,
+      "aufloesung": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "datei": "05_passivradar.png",
+      "modus": "passive",
+      "frame": 10,
+      "simulationszeit_s": 5.0,
+      "soll_targets": 1,
+      "cfar_peaks": 1,
+      "aufloesung": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "datei": "06_effektvergleich.png",
+      "modus": "fmcw",
+      "frame": 0,
+      "simulationszeit_s": 0.0,
+      "soll_targets": 1,
+      "cfar_peaks": 1,
+      "aufloesung": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "datei": "07_bodenclutter.png",
+      "modus": "fmcw",
+      "frame": 0,
+      "simulationszeit_s": 0.0,
+      "soll_targets": 1,
+      "cfar_peaks": 15,
+      "aufloesung": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "datei": "08_power_energy.png",
+      "modus": "pulse_doppler",
+      "frame": 16,
+      "simulationszeit_s": 8.0,
+      "soll_targets": 1,
+      "cfar_peaks": 1,
+      "aufloesung": [
+        1920,
+        1080
+      ]
+    }
+  ],
+  "videos": [
+    {
+      "datei": "01_gegenverkehr.mp4",
+      "frames": 242,
+      "fps": 12,
+      "dauer_s": 20.166666666666668,
+      "aufloesung": [
+        1920,
+        1080
+      ],
+      "bytes": 7456332,
+      "kapitel": [
+        {
+          "start_s": 0.0,
+          "titel": "FMCW: zwei entgegengesetzte Flugrichtungen"
+        }
+      ]
+    },
+    {
+      "datei": "02_verfahren_und_effekte.mp4",
+      "frames": 384,
+      "fps": 12,
+      "dauer_s": 32.0,
+      "aufloesung": [
+        1920,
+        1080
+      ],
+      "bytes": 4346230,
+      "kapitel": [
+        {
+          "start_s": 0.0,
+          "titel": "Puls-Doppler: bewegtes Radar"
+        },
+        {
+          "start_s": 5.5,
+          "titel": "Puls-Doppler · Empfang und Pulskompression"
+        },
+        {
+          "start_s": 8.5,
+          "titel": "Power / Energy · hohe Spitzen, gleiches Sendebudget"
+        },
+        {
+          "start_s": 12.5,
+          "titel": "Eigene Route · Überflug mit leichter Sinusbewegung"
+        },
+        {
+          "start_s": 15.5,
+          "titel": "Antenna Pattern · klassisches Polardiagramm"
+        },
+        {
+          "start_s": 18.5,
+          "titel": "Passivradar"
+        },
+        {
+          "start_s": 22.5,
+          "titel": "Leakage und Phasenrauschen · schwaches Target verdeckt"
+        },
+        {
+          "start_s": 27.5,
+          "titel": "Bewegtes Radar und Bodenclutter"
+        }
+      ]
+    }
+  ]
+}

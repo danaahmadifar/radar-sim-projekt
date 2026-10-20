@@ -12,7 +12,7 @@ from unittest.mock import patch
 import numpy as np
 from PyQt6.QtCore import QEvent, QObject, QPointF, Qt
 from PyQt6.QtTest import QTest
-from PyQt6.QtWidgets import QApplication, QDialog, QStyle, QStyleOptionSpinBox
+from PyQt6.QtWidgets import QApplication, QDialog, QStyle, QStyleOptionSpinBox, QLabel
 
 from radar_sim.gui import MainWindow
 from radar_sim.report_plots import export_plot
@@ -46,6 +46,49 @@ class GuiSmokeTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.app = QApplication.instance() or QApplication([])
+
+    def test_funktionsgruppen_alle_ansichten_und_eingaben_erreichbar(self) -> None:
+        window = MainWindow()
+        try:
+            window.resize(1920, 1080)
+            window.show()
+            self.warte_bis(lambda: window.result is not None and not window.busy)
+            self.assertEqual([window.tabs.tabText(i) for i in range(window.tabs.count())],
+                             ["Szene", "Radar", "Antenne", "Effekte"])
+            self.assertEqual([window.views.tabText(i) for i in range(window.views.count())],
+                             ["Simulation", "Signale", "Antenne", "Vergleich"])
+            config = window.get_config()
+            for ansicht in (window.views.overview, window.views.route_editor, window.views.signal_graphs,
+                            window.views.leistungsansicht, window.views.antennenansicht,
+                            window.views.effektansicht, window.views.vergleich, window.views.results_table):
+                window.views.zeige_ansicht(ansicht)
+                self.app.processEvents()
+                self.assertTrue(ansicht.isVisible())
+            window.views.results_toggle.setChecked(False)
+            self.assertFalse(window.views.results_table.isVisible())
+            for name in ("Flug", "Radar", "DSP / CFAR", "Antenne", "Effekte"):
+                window.tabs.zeige_bereich(name)
+                self.app.processEvents()
+                self.assertEqual(window.tabs.currentWidget().horizontalScrollBar().maximum(), 0)
+            self.assertEqual(window.get_config(), config)
+            labels = [label.text() for label in window.tabs.effektfelder.findChildren(QLabel)]
+            self.assertIn("Effekt-Demos", labels)
+            self.assertNotIn("Nachteile nachvollziehen", labels)
+            # Targets sind bei festen R/v-Werten editierbar; passive Felder bei Passivradar.
+            window.set_config(RadarConfig())
+            window.tabs.zeige_bereich("Targets")
+            self.app.processEvents()
+            self.assertTrue(window.tabs.targets_table.isVisible())
+            self.assertTrue(window.tabs.targets_table.isEnabled())
+            self.assertEqual(window.tabs.currentWidget().horizontalScrollBar().maximum(), 0)
+            window.tabs.controls["radar_mode"].setCurrentIndex(2)
+            window.tabs.zeige_bereich("Passivradar")
+            self.app.processEvents()
+            self.assertTrue(window.tabs.bereiche["Passivradar"].isVisible())
+            self.assertEqual(window.tabs.currentWidget().horizontalScrollBar().maximum(), 0)
+        finally:
+            window.close()
+            self.app.processEvents()
 
     def test_route_direkt_unter_beispielen_fernprofil_und_passivbeta(self) -> None:
         from radar_sim.fernradar import fern_config
@@ -130,7 +173,7 @@ class GuiSmokeTests(unittest.TestCase):
             window.show()
             self.warte_bis(lambda: window.result is not None and not window.busy)
             ansicht = window.views.antennenansicht
-            window.views.setCurrentWidget(ansicht)
+            window.views.zeige_ansicht(ansicht)
             self.app.processEvents()
             self.assertEqual(ansicht.ansichten.currentIndex(), 0)
             self.assertEqual(len(ansicht.polarplot.legend.items), 2)
@@ -223,7 +266,8 @@ class GuiSmokeTests(unittest.TestCase):
             kurve = window.views.flug_kurven[0]
             punkt = window.views.flug_punkte[0]
             xyz = plot.geometrie[kurve].copy()
-            self.assertGreater(np.ptp(xyz[:, 1]), 1000)  # Y ist wirklich enthalten.
+            # Die neue Überflugroute schwingt seitlich zwischen -100 und +100 m.
+            self.assertAlmostEqual(np.ptp(xyz[:, 1]), 200, delta=1)
             np.testing.assert_allclose(plot.geometrie[punkt][0], window.result.flugzustaende[0].position_m)
             texte = [t.toPlainText() for t in plot.achsen_texte]
             self.assertTrue(all(name in texte for name in ("X [m]", "Y [m]", "Z · Höhe [m]")))
@@ -369,7 +413,7 @@ class GuiSmokeTests(unittest.TestCase):
             self.app.processEvents()
             for plot in (window.views.chirp_plot, window.views.beat_plot, window.views.range_plot):
                 self.assertGreater(plot.vb.height(), 300)
-            window.views.setCurrentIndex(2)
+            window.views.zeige_ansicht(window.views.results_table)
             self.app.processEvents()
             self.assertTrue(window.views.results_table.isVisible())
             self.assertTrue(window.views.results_table.item(0, 0).text().startswith("Target"))
@@ -457,7 +501,7 @@ class GuiSmokeTests(unittest.TestCase):
                 self.assertTrue((pfad / "ziele.flug.csv").is_file())
                 with patch("radar_sim.gui.QFileDialog.getExistingDirectory", return_value=ordner):
                     window.save_png()
-                self.assertEqual(len(list(pfad.glob("*.png"))), 12)
+                self.assertEqual(len(list(pfad.glob("*.png"))), len(window.views.diagramme()))
             window.reset_seed()
             self.warte_bis(lambda: window.result.frame_index == 0 and not window.busy)
             np.testing.assert_array_equal(window.result.echo.beat, erstes_signal)
@@ -527,7 +571,7 @@ class GuiSmokeTests(unittest.TestCase):
             window.views.setCurrentIndex(1)
             window.tabs.zeichnen_button.click()
             QTest.qWait(50)
-            self.assertIs(window.views.currentWidget(), window.views.route_editor)
+            self.assertTrue(window.views.route_editor.isVisible())
             self.assertTrue(window.tabs.route_settings.isVisible())
             self.assertFalse(window.play_button.isEnabled())
             orte = [(-90., 30.), (-45., 50.), (0., 60.), (45., 50.), (90., 30.)]
@@ -656,7 +700,12 @@ class GuiSmokeTests(unittest.TestCase):
             self.app.processEvents()
 
     def test_rechtsklick_fuegt_einen_punkt_in_jeder_projektion_ein(self) -> None:
-        window = MainWindow(flughafen_config("13_flughafen_route3d"))
+        # Eigene Testgeometrie mit eindeutigem YZ-Verlauf. Beim ebenen
+        # Sinus-Überflug liegen in YZ mehrere Strecken übereinander.
+        route = GezeichneteRoute(((-4000., -500., 400.), (-3000., 0., 600.),
+                                 (-1800., 600., 500.), (-700., 900., 350.)), 70)
+        config = replace(flughafen_config(), flugszene=erstelle_routenszene(route, .5, 10))
+        window = MainWindow(config)
         try:
             window.resize(1920,1080)
             window.show()
@@ -714,7 +763,7 @@ class GuiSmokeTests(unittest.TestCase):
             window.tabs.zeichnen_button.click()
             editor = window.views.route_editor
             QTest.qWait(50)
-            self.assertIs(window.views.currentWidget(), editor)
+            self.assertTrue(editor.isVisible())
             for name, (a, b) in PROJEKTIONEN.items():
                 vorher = editor.punkte[1].copy()
                 anfang = QPointF(float(vorher[a]), float(vorher[b]))
@@ -743,7 +792,7 @@ class GuiSmokeTests(unittest.TestCase):
             window.tabs.ant_controls["typ"].setCurrentIndex(window.tabs.ant_controls["typ"].findData("parabol"))
             window._aktualisiere_grenzen()
             self.assertEqual(window.get_config().antenne.typ, "parabol")
-            self.assertTrue(window.tabs.ant_regler["durchmesser_m"].isVisibleTo(window.tabs.widget(4)))
+            self.assertTrue(window.tabs.ant_regler["durchmesser_m"].isVisibleTo(window.tabs.familien["Antenne"]))
             self.assertGreater(len(window.views.sichtkeule.getData()[0]), 90)
         finally:
             window.close()

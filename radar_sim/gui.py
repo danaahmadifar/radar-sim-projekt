@@ -60,7 +60,7 @@ class MainWindow(QMainWindow):
     def __init__(self, config: RadarConfig | None = None):
         super().__init__()
         ensure_font(QApplication.instance())
-        self.setWindowTitle("Radar Lab · FMCW, Puls-Doppler und Passiv BETA")
+        self.setWindowTitle("Radar Lab · FMCW, Puls-Doppler und Passivradar")
         self.resize(1600, 1000)
         self.setMinimumSize(1080, 640)
         self.setStyleSheet(STYLE)
@@ -259,7 +259,8 @@ class MainWindow(QMainWindow):
         self.tabs.flug_dauer.setEnabled(True)
         self.tabs.schritt_regler.setEnabled(True)
         self.tabs.flug_schritt.setEnabled(True)
-        self.views.setCurrentWidget(self.views.route_editor)
+        self.views.zeige_ansicht(self.views.route_editor)
+        self.tabs.bereiche["Targets"].hide()
         self.tabs.route_settings.show()
         self.tabs.routen_staerke_regler.show()
         self.tabs.staerke_label.show()
@@ -345,6 +346,7 @@ class MainWindow(QMainWindow):
         for widget in (self.tabs.flug_tabelle, self.tabs.flug_dauer, self.tabs.flug_schritt):
             widget.setEnabled(aktiv)
         self.tabs.targets_table.setEnabled(not aktiv)
+        self.tabs.bereiche["Targets"].setVisible(not aktiv)
         self.tabs.add_target_button.setEnabled(not aktiv)
         self.tabs.remove_target_button.setEnabled(not aktiv)
         self.tabs.flug_tabelle.setRowCount(0)
@@ -397,6 +399,15 @@ class MainWindow(QMainWindow):
         self.tabs.flug_dauer.valueChanged.connect(self._routendauer_geaendert)
         self.tabs.routen_tempo.valueChanged.connect(self._routentempo_geaendert)
         self.tabs.controls["radar_mode"].currentIndexChanged.connect(self._radarmodus_geaendert)
+        self.tabs.effektfelder.demo_laden.connect(self._effektdemo_laden)
+        for feld in self.tabs.effektfelder.controls.values():
+            wertsignal(feld).connect(self._eingaben_geaendert)
+
+    def _effektdemo_laden(self, name: str) -> None:
+        from .effektbeispiele import effektbeispiele
+        self.set_config(effektbeispiele()[name][1])
+        self.views.zeige_ansicht(self.views.effektansicht)
+        self.start_frame()
 
     def _eingaben_geaendert(self, *_args) -> None:
         if not self._lade_eingaben:
@@ -602,6 +613,8 @@ class MainWindow(QMainWindow):
             self._zeichnen_abbrechen()
         self._lade_eingaben = True
         self._radarmodus = config.radar_mode
+        self.tabs.effektfelder.setze(config.effekte)
+        self.tabs.effektfelder.controls["leakage"].setEnabled(config.radar_mode != "passive")
         for name, feld in self.tabs.passiv_controls.items():
             setze_feldwert(feld, getattr(config.passiv, name))
         self._tempo_anpassung_noetig = False
@@ -652,6 +665,7 @@ class MainWindow(QMainWindow):
         values["targets"] = tuple(targets)
         values["antenne"] = self.tabs.lese_antenne()
         values["passiv"] = self.tabs.lese_passiv()
+        values["effekte"] = self.tabs.effektfelder.lese()
         ausgewaehlte_szene = self.tabs.flug_auswahl.currentData()
         if ausgewaehlte_szene is not None or self.views.route_editor.aktiv:
             route = self._route_fuer_eingaben()

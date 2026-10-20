@@ -1,4 +1,4 @@
-"""Tatsächliche Ergebnisse: Fernbereich, Auflösungsdemo und passive BETA."""
+"""Tatsächliche Ergebnisse: Fernbereich, Auflösungsdemo und passives Radar."""
 
 from dataclasses import replace
 from pathlib import Path
@@ -48,7 +48,7 @@ def pruefe_fern_und_passiv() -> dict:
                      "extras":len(f.candidates)-len(paare),
                      "fehler_umweg_m":p.range_error_m if p else None,"fehler_rate_mps":p.velocity_error_mps if p else None,
                      "bestanden":p is not None and abs(p.range_error_m)<=rt*1.01 and abs(p.velocity_error_mps)<=vt*1.01})
-    # Kleine Stichprobe, keine behauptete CFAR-Kalibrierung der BETA.
+    # Kleine Stichprobe, keine behauptete CFAR-Kalibrierung des Passivmodells.
     rauschen=[]
     n=alarme=0
     for i in range(8):
@@ -67,7 +67,7 @@ def pruefe_fern_und_passiv() -> dict:
 
 def schreibe_fern_passivbericht(ordner: Path, daten: dict) -> None:
     schreibe_json(ordner/"fern_und_passiv.json",daten)
-    zeilen=["# Fernbereich und Passivradar BETA", "", "Reproduzieren: `python -m radar_sim --validate`.", "",
+    zeilen=["# Fernbereich und Passivradar", "", "Reproduzieren: `python -m radar_sim --validate`.", "",
             "Beide Fernprofile: fc=300 MHz, B=100 kHz, fs=500 kSamples/s, Tr=3 ms, M=64, Referenz 100 km / 10 m² und SNR=20 dB pro aktivem Sample. Keine gleiche mittlere Sendeleistung oder identische Hardware behauptet.", "",
             "| Verfahren | Beobachtete Bandbreite / Hz | Nominale ΔR / m | Raster / m | Eindeutiger Betrag v / m/s | Ergebnis |", "|---|---:|---:|---:|---:|---|"]
     for p in daten["fern"]:
@@ -78,7 +78,7 @@ def schreibe_fern_passivbericht(ordner: Path, daten: dict) -> None:
     for p in daten["trennung"]:
         zeilen.append(f"| {p['modus']} | 2 | {p['zugeordnet']} | {p['detektionen']} |")
     zeilen += ["", "Diese Hann-Auflösungsdemo wird gemessen, nicht als universelle harte Trennungsprüfung gewertet.", "",
-               "## Passive BETA", "", "Fester Sender bei (−20 km,0,0), fester Empfänger im Ursprung. 600 MHz Träger, 400 kHz synthetisches Breitband, fs=1 MHz, 64 ms Integration. Ideal synchroner, rauschfreier Referenzkanal. CFAR benutzt keine Sollwerte.", "",
+               "## Passivradar", "", "Fester Sender bei (−20 km,0,0), fester Empfänger im Ursprung. 600 MHz Träger, 400 kHz synthetisches Breitband, fs=1 MHz, 64 ms Integration. Ideal synchroner, rauschfreier Referenzkanal. CFAR benutzt keine Sollwerte.", "",
                "| Frame | Umweg / m | Wegänderungsrate / m/s | Zugeordnet | Extra | Fehler Umweg / m | Fehler Rate / m/s | Ergebnis |", "|---:|---:|---:|---:|---:|---:|---:|---|"]
     for b in daten["beta"]:
         zeilen.append(f"| {b['frame']} | {b['umweg_m']:.6g} | {b['rate_mps']:.6g} | {b['zugeordnet']} | {b['extras']} | {b['fehler_umweg_m']} | {b['fehler_rate_mps']} | {'OK' if b['bestanden'] else 'FEHLER'} |")
@@ -86,7 +86,7 @@ def schreibe_fern_passivbericht(ordner: Path, daten: dict) -> None:
     zeilen += ["", f"Direktweg + AWGN ohne Echos: {r['frames']} Frames, {r['cut']} gültige CUTs, {r['alarme']} Alarme. Pfa nominal {r['nominal']}, gemessen {r['gemessen']:.6g}. Kleine Stichprobe, keine kalibrierte Pfa-Garantie.",
                "Die Unit-Tests prüfen die CAF gegen direkte Summen, Dopplervorzeichen, Empfänger-Leistungsgewinn, geometrische Ableitungen, reproduzierbaren Seed und reine Direktweg-Unterdrückung ohne Rundungsgeister.", "",
                "![Fernbereichsspektren](fernvergleich.png)", "![Passive CAF](passiv_caf.png)", "",
-               "BETA-Grenzen: keine reale FM-/DVB-Wellenform, Referenzrauschen, Mehrwege, Clutter, bewegte Tx/Rx oder XYZ-Lokalisierung. Fernmodelle: flache Welt ohne Erdkrümmung/Atmosphäre und ohne absolute Sendeleistungsbilanz.", "",
+               "Modellgrenzen: keine reale FM-/DVB-Wellenform, Referenzrauschen, Mehrwege, Clutter, bewegte Tx/Rx oder XYZ-Lokalisierung. Fernmodelle: flache Welt ohne Erdkrümmung/Atmosphäre und ohne absolute Sendeleistungsbilanz.", "",
                "Gesamtergebnis der harten Prüfungen: **"+("BESTANDEN" if daten["bestanden"] else "FEHLER")+"**.",
                "Details: [Fernbereich und Passivradar](../docs/FERNBEREICH_UND_PASSIV.md)."]
     schreibe_markdown(ordner/"FERN_UND_PASSIV.md",zeilen)
@@ -118,7 +118,7 @@ def export_fern_passivplots(ordner: Path) -> None:
     image.setLevels((-80,5))
     image.setRect(QRectF(-c.range_bin_m/2,s.velocity_mps[0]-c.velocity_resolution/2,c.range_bin_m*c.range_bins,c.velocity_resolution*c.chirps))
     plot.addItem(image)
-    plot.setTitle("Passiv BETA · CAF-Leistung / Aref², Farbskala −80…+5 dB")
+    plot.setTitle("Passivradar · CAF-Leistung / Aref², Farbskala −80…+5 dB")
     plot.setLabel("bottom","Bistatischer Umweg ΔL",units="m")
     plot.setLabel("left","Wegänderungsrate dΔL/dt",units="m/s")
     plot.setXRange(0,c.timing_range_limit,padding=0)

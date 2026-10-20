@@ -26,8 +26,11 @@ def flughafenszenen() -> dict[str, Flugszene]:
             Flugbahn(-4200, 300, 70, 10, -1/3, 10, start_y_m=200),
         ), 60, .5),
         "13_flughafen_route3d": replace(erstelle_routenszene(GezeichneteRoute(
-            ((-4000., -500., 400.), (-3000., 0., 600.), (-1800., 600., 500.), (-700., 900., 350.)), 70), .5, 10),
-            name="Airport · räumliche Beispielroute"),
+            # Gerade Grundrichtung über das Radar; nur Y schwingt leicht.
+            # Neun editierbare Punkte, eine Sinusperiode und konstante Höhe.
+            tuple((x, 100*math.sin(2*math.pi*x/4800), 600.)
+                  for x in range(-2400, 2401, 600)), 70), .5, 10),
+            name="Airport · Überflug mit leichter Sinusroute"),
         "15_zwei_flugzeuge_radar": Flugszene("Air-to-Air · zwei Flugzeuge, Radar fliegt mit", (
             Flugbahn(-5000, 2100, 200, staerke=10, start_y_m=300),
         ), 40, .5, radar_bahn=Flugbahn(0, 1800, 160)),

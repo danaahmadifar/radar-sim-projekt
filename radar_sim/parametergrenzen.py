@@ -54,6 +54,7 @@ GRUND_BEREICHE = {
     "training_range": (1, 128), "training_doppler": (1, 128),
     "guard_range": (0, 128), "guard_doppler": (0, 128), "pfa": (1e-8, 0.1),
     "adc_skip_samples": (0, 32768),
+    "tx_peak_db": (-60, 60),
 }
 
 
@@ -65,8 +66,8 @@ def _strikt_ueber(wert: float) -> float:
     return wert + max(abs(wert) * 1e-9, 1e-15)
 
 
-def _pulsbereiche(config: RadarConfig) -> dict[str, ParameterBereich]:
-    """Gültiges Intervall um den aktuellen Puls- oder Passivwert.
+def _gepruefte_bereiche(config: RadarConfig) -> dict[str, ParameterBereich]:
+    """Gültiges Intervall bei Puls, Passiv oder zusätzlichen Störbedingungen.
 
     Die zentrale physikalische Prüfung entscheidet auch hier. Nur ein Feld
     ändern, an beiden Seiten halbieren, dann das Abtastraster berücksichtigen.
@@ -83,9 +84,17 @@ def _pulsbereiche(config: RadarConfig) -> dict[str, ParameterBereich]:
         gueltig = False
     ergebnis = {}
     ganze = {"chirps", "seed", "training_range", "training_doppler", "guard_range", "guard_doppler", "adc_skip_samples"}
+    r_max = max((z.range_m for z in c.targets), default=0.)
+    if c.flugszene is not None:
+        r_max = max((relative_bahngrenzen(b, c.flugszene).entfernung_max_m for b in c.flugszene.bahnen), default=0.)
     for name, (unten, oben) in GRUND_BEREICHE.items():
-        schritt = 1. if name in ganze else (1/c.sample_rate_hz if name == "repetition_s" else 1/c.repetition_s if name == "sample_rate_hz" else 0.)
-        if name == "adc_skip_samples":
+        schritt = 1. if name in ganze else 0.
+        dauer = c.chirp_s if c.radar_mode == "fmcw" else c.repetition_s
+        if name == "sample_rate_hz":
+            schritt = 1/dauer
+        if name == ("chirp_s" if c.radar_mode == "fmcw" else "repetition_s"):
+            schritt = 1/c.sample_rate_hz
+        if name == "adc_skip_samples" and c.radar_mode != "fmcw":
             hinweis = ("Passivempfang startet ohne ADC-Vorlauf." if c.radar_mode == "passive"
                        else "Pulsmodus erfasst ein ganzes PRI; Sendezeit wird gesperrt.")
             ergebnis[name] = ParameterBereich(0, 0, 1, hinweis)
@@ -116,8 +125,20 @@ def _pulsbereiche(config: RadarConfig) -> dict[str, ParameterBereich]:
                     unten = grenze
                 else:
                     oben = grenze
+        null_erlaubt = False
+        if name == "adc_skip_samples" and c.radar_mode == "fmcw" and gueltig:
+            # Das alte Nahmodell erlaubt 0 separat. Kleine POSITIVE Vorläufe
+            # sind trotzdem ungültig, solange nicht alle Echos angekommen sind.
+            tau = max(2*r_max/C, c.effekte.leakage_delay_s if c.effekte.leakage else 0.)
+            erster = max(1, math.ceil(tau*c.sample_rate_hz-1e-9))
+            null_erlaubt = passt(0)
+            if erster <= oben and passt(erster):
+                unten = max(unten, erster)
+            elif null_erlaubt:
+                unten = oben = 0.
         ergebnis[name] = ParameterBereich(unten, oben, schritt,
-            "Gültiges Intervall bei übrigen festen Werten; Signalmodell, Laufzeit, Doppler, Sampling und Speicher.").im_raster()
+            "Gültiges Intervall bei übrigen festen Werten; Signalmodell, Laufzeit, Doppler, Sampling und Speicher.",
+            null_erlaubt).im_raster()
     return ergebnis
 
 
@@ -129,8 +150,8 @@ def berechne_parameterbereiche(config: RadarConfig) -> dict[str, ParameterBereic
     Flugbahnen verwenden dieselben vorsichtigen Schranken wie die Kernprüfung.
     """
     c = config
-    if c.radar_mode != "fmcw":
-        return _pulsbereiche(c)
+    if c.radar_mode != "fmcw" or any((c.effekte.phasenrauschen, c.effekte.leakage, c.effekte.bodenclutter, c.effekte.erdkruemmung)):
+        return _gepruefte_bereiche(c)
     grenzen = {name: list(werte) for name, werte in GRUND_BEREICHE.items()}
     erklaerung = {
         "carrier_hz": "Schmalbandmodell, Doppler und Beat-Abtastung",

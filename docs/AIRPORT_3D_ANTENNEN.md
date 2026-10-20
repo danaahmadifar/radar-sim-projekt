@@ -75,7 +75,7 @@ Beide Vektoren haben Länge eins und stehen senkrecht aufeinander. Auch die beid
 
 ## In XY, XZ und YZ zeichnen und bearbeiten
 
-1. Unter **Flug** ein Flughafenbeispiel auswählen oder dessen JSON öffnen. Ein Flughafenbeispiel lädt das vollständige passende Profil. `13_flughafen_route3d.json` enthält eine räumliche Kurve mit 70 m/s.
+1. Unter **Flug** ein Flughafenbeispiel auswählen oder dessen JSON öffnen. Ein Flughafenbeispiel lädt das vollständige passende Profil. `13_flughafen_route3d.json` enthält einen Überflug mit 70 m/s in 600 m Höhe und einer leichten seitlichen Sinusbewegung (±100 m).
 2. **Route zeichnen** drücken. Die Ansicht **Route 3D** zeigt XY, XZ und YZ gleichzeitig. Eine vorhandene eigene Route lässt sich auch dort über **Route bearbeiten** öffnen.
 3. Bei einer neuen Route jeden Stützpunkt **einzeln mit links anklicken**. Es werden keine Zwischenpunkte verteilt. Für den ersten XY-Punkt legt **Start-Z** die Höhe fest; in XZ oder YZ wird die Höhe direkt gesetzt. Bei weiteren Klicks bleibt die unsichtbare Koordinate auf dem Wert des vorherigen Punkts. Man kann dabei zwischen den Projektionen wechseln.
 4. **Punkte fertig** drücken. Nun einen rosa Griff in der gewünschten Projektion ziehen; die unsichtbare dritte Koordinate bleibt dabei unverändert. Die anderen Ansichten und die XYZ-Tabelle folgen sofort. **Punkte setzen** hängt weitere Punkte per Klick an, **Neue Route** leert den Entwurf.

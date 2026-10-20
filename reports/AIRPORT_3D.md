@@ -7,7 +7,7 @@ Reproduzieren: `python -m radar_sim --validate`. Seed 42, AWGN eingeschaltet, re
 | 10_flughafen_anflug | 121 | 121 | 0 | 0 | 4 | 14.894295 | 0.928821 |
 | 11_flughafen_gegenverkehr | 121 | 242 | 0 | 0 | 3 | 14.945924 | 0.921076 |
 | 12_flughafen_bogen | 121 | 121 | 13 | 0 | 4 | 14.843142 | 0.923312 |
-| 13_flughafen_route3d | 105 | 105 | 0 | 0 | 4 | 15.031965 | 0.920413 |
+| 13_flughafen_route3d | 139 | 139 | 69 | 0 | 4 | 15.019844 | 0.924281 |
 | 15_zwei_flugzeuge_radar | 81 | 81 | 0 | 0 | 4 | 14.845141 | 0.681385 |
 
 3D-Referenz: R=||p|| und v_radial=p·v/||p||; zusätzlich Ableitung der Entfernung mit dt=0,1 ms geprüft.

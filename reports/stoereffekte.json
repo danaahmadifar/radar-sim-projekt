@@ -1,0 +1,358 @@
+{
+  "checks": [
+    {
+      "name": "Leakage-Leistung am binzentrierten Peak / Aref²",
+      "ist": 99.99999999999997,
+      "soll": 100.0,
+      "toleranz": 1e-09,
+      "bestanden": true
+    },
+    {
+      "name": "Leakage-Beat / Hz",
+      "ist": 400000.00000000006,
+      "soll": 400000.0,
+      "toleranz": 1e-07,
+      "bestanden": true
+    },
+    {
+      "name": "Restphasenvarianz bei τ=Tc / rad²",
+      "ist": 0.19446216153846346,
+      "soll": 0.1967346701436833,
+      "toleranz": 0.02,
+      "bestanden": true
+    },
+    {
+      "name": "Restphasenvarianz bei τ=8Tc / rad²",
+      "ist": 0.5015068426486613,
+      "soll": 0.5,
+      "toleranz": 0.05,
+      "bestanden": true
+    },
+    {
+      "name": "Amplitude-Limit / Aref",
+      "ist": 1.0,
+      "soll": 1.0,
+      "toleranz": 1e-14,
+      "bestanden": true
+    },
+    {
+      "name": "Begrenzter Anteil im Vier-Sample-Beispiel",
+      "ist": 0.5,
+      "soll": 0.5,
+      "toleranz": 1e-14,
+      "bestanden": true
+    },
+    {
+      "name": "Sichtbarkeit bei 0.999 × Horizont",
+      "ist": 1.0,
+      "soll": 1.0,
+      "toleranz": 0.0,
+      "bestanden": true
+    },
+    {
+      "name": "Sichtbarkeit bei 1.001 × Horizont",
+      "ist": 0.0,
+      "soll": 0.0,
+      "toleranz": 0.0,
+      "bestanden": true
+    },
+    {
+      "name": "Atmosphäre, Zweiweg-Leistungsverlust / dB",
+      "ist": -12.006664815842907,
+      "soll": -12.006664815842907,
+      "toleranz": 1e-09,
+      "bestanden": true
+    },
+    {
+      "name": "Teilpuls: Peakleistung bei halbem Empfang",
+      "ist": 0.2500000000000001,
+      "soll": 0.25,
+      "toleranz": 1e-10,
+      "bestanden": true
+    },
+    {
+      "name": "Kurzer Puls: vollständige Peakleistung",
+      "ist": 1.0,
+      "soll": 1.0,
+      "toleranz": 1e-10,
+      "bestanden": true
+    },
+    {
+      "name": "Mittlere Boden-RCS über 200 Seeds / m²",
+      "ist": 188.88704125620743,
+      "soll": 188.4955592153876,
+      "toleranz": 7.539822368615504,
+      "bestanden": true
+    }
+  ],
+  "demos": [
+    {
+      "name": "FMCW · Leakage und Phasenrauschen",
+      "beschreibung": "Starke TX→RX-Kopplung hebt mit laufzeitabhängigem Phasenrauschen den Untergrund an. Das schwache Target kann verdeckt werden.",
+      "frame": 0,
+      "soll": 1,
+      "zugeordnet": 0,
+      "extras": 1,
+      "begrenzt": 0.0,
+      "peak_power": 71982.69510892048,
+      "referenz_peak_power": 0.0008985454066652792,
+      "target_path_gains": [
+        1.0
+      ]
+    },
+    {
+      "name": "FMCW · Empfänger übersteuert",
+      "beschreibung": "Leakage und Target werden vor FFT und digitalem Abzug gemeinsam begrenzt. Ein späterer Filter kann die verlorene Amplitudeninformation nicht zurückholen.",
+      "frame": 0,
+      "soll": 1,
+      "zugeordnet": 1,
+      "extras": 1,
+      "begrenzt": 1.0,
+      "peak_power": 1.4375987864233846,
+      "referenz_peak_power": 0.0008985454066652792,
+      "target_path_gains": [
+        1.0
+      ]
+    },
+    {
+      "name": "Puls · unvollständiges Nah-Echo",
+      "beschreibung": "12-µs-Puls, Target bei 900 m: Nur rund die halbe Pulsdauer liegt nach der Sendephase. Der matched-filter Peak verliert rund 6 dB. Der Vergleich behält dieselbe Empfangssperre; für den kurzen Puls die nächste Demo laden.",
+      "frame": 0,
+      "soll": 1,
+      "zugeordnet": 1,
+      "extras": 9,
+      "begrenzt": 0.0,
+      "peak_power": 0.24998582578788456,
+      "referenz_peak_power": null,
+      "target_path_gains": [
+        1.0
+      ]
+    },
+    {
+      "name": "Puls · kurzer Puls zum Vergleich",
+      "beschreibung": "Dasselbe 900-m-Target mit 4 µs statt 12 µs: vollständiger Empfang. Gleiche Bandbreite, aber weniger Sendeenergie bei gleicher Spitzenamplitude.",
+      "frame": 0,
+      "soll": 1,
+      "zugeordnet": 1,
+      "extras": 4,
+      "begrenzt": 0.0,
+      "peak_power": 0.9023155979079391,
+      "referenz_peak_power": null,
+      "target_path_gains": [
+        1.0
+      ]
+    },
+    {
+      "name": "Fernbereich · hinter dem Erdhorizont",
+      "beschreibung": "20-m-Mast, Target in 1 km Höhe bei 300 km. Die direkte Verbindung schneidet die effektive Erdkugel. Hohe Sendeleistung oder Puls-Doppler beseitigen diese Sichtgrenze nicht.",
+      "frame": 0,
+      "soll": 1,
+      "zugeordnet": 0,
+      "extras": 0,
+      "begrenzt": 0.0,
+      "peak_power": 0.0,
+      "referenz_peak_power": 0.011576277344549073,
+      "target_path_gains": [
+        0.0
+      ]
+    },
+    {
+      "name": "Fernbereich · hinter dem Erdhorizont",
+      "beschreibung": "20-m-Mast, Target in 1 km Höhe bei 300 km. Die direkte Verbindung schneidet die effektive Erdkugel. Hohe Sendeleistung oder Puls-Doppler beseitigen diese Sichtgrenze nicht.",
+      "frame": 30,
+      "soll": 1,
+      "zugeordnet": 0,
+      "extras": 0,
+      "begrenzt": 0.0,
+      "peak_power": 0.0,
+      "referenz_peak_power": 0.011809352101862633,
+      "target_path_gains": [
+        0.0
+      ]
+    },
+    {
+      "name": "Fernbereich · hinter dem Erdhorizont",
+      "beschreibung": "20-m-Mast, Target in 1 km Höhe bei 300 km. Die direkte Verbindung schneidet die effektive Erdkugel. Hohe Sendeleistung oder Puls-Doppler beseitigen diese Sichtgrenze nicht.",
+      "frame": 60,
+      "soll": 1,
+      "zugeordnet": 0,
+      "extras": 0,
+      "begrenzt": 0.0,
+      "peak_power": 0.0,
+      "referenz_peak_power": 0.012048321960266452,
+      "target_path_gains": [
+        0.0
+      ]
+    },
+    {
+      "name": "Fernbereich · atmosphärische Dämpfung",
+      "beschreibung": "Vorgegebene homogene Dämpfung 0,02 dB/km: über rund 600 km Hin- und Rückweg ungefähr 12 dB Leistungsverlust. Kein aus Wetterdaten berechneter Koeffizient.",
+      "frame": 0,
+      "soll": 1,
+      "zugeordnet": 1,
+      "extras": 0,
+      "begrenzt": 0.0,
+      "peak_power": 0.0007340210232123128,
+      "referenz_peak_power": 0.011651315980763511,
+      "target_path_gains": [
+        0.2509959761944155
+      ]
+    },
+    {
+      "name": "Fernbereich · atmosphärische Dämpfung",
+      "beschreibung": "Vorgegebene homogene Dämpfung 0,02 dB/km: über rund 600 km Hin- und Rückweg ungefähr 12 dB Leistungsverlust. Kein aus Wetterdaten berechneter Koeffizient.",
+      "frame": 30,
+      "soll": 1,
+      "zugeordnet": 1,
+      "extras": 0,
+      "begrenzt": 0.0,
+      "peak_power": 0.0007593365426077683,
+      "referenz_peak_power": 0.011887872249901791,
+      "target_path_gains": [
+        0.25273482321867446
+      ]
+    },
+    {
+      "name": "Fernbereich · atmosphärische Dämpfung",
+      "beschreibung": "Vorgegebene homogene Dämpfung 0,02 dB/km: über rund 600 km Hin- und Rückweg ungefähr 12 dB Leistungsverlust. Kein aus Wetterdaten berechneter Koeffizient.",
+      "frame": 60,
+      "soll": 1,
+      "zugeordnet": 1,
+      "extras": 0,
+      "begrenzt": 0.0,
+      "peak_power": 0.0007856042906759114,
+      "referenz_peak_power": 0.0121304540388005,
+      "target_path_gains": [
+        0.2544857067094566
+      ]
+    },
+    {
+      "name": "Aktiv · stationärer Bodenclutter",
+      "beschreibung": "Feste Bodenflächen erzeugen kohärente Echos bei Null-Doppler. Sie können langsame Targets verdecken und CFAR-Schwellen erhöhen. Null-Doppler-Abzug entfernt auch langsame Nutzanteile.",
+      "frame": 0,
+      "soll": 1,
+      "zugeordnet": 1,
+      "extras": 4,
+      "begrenzt": 0.0,
+      "peak_power": 125881.6975261354,
+      "referenz_peak_power": 0.1007894890335508,
+      "target_path_gains": [
+        1.0
+      ]
+    },
+    {
+      "name": "Aktiv · stationärer Bodenclutter",
+      "beschreibung": "Feste Bodenflächen erzeugen kohärente Echos bei Null-Doppler. Sie können langsame Targets verdecken und CFAR-Schwellen erhöhen. Null-Doppler-Abzug entfernt auch langsame Nutzanteile.",
+      "frame": 60,
+      "soll": 1,
+      "zugeordnet": 1,
+      "extras": 4,
+      "begrenzt": 0.0,
+      "peak_power": 125881.69752614188,
+      "referenz_peak_power": 0.8429044973886208,
+      "target_path_gains": [
+        1.0
+      ]
+    },
+    {
+      "name": "Aktiv · stationärer Bodenclutter",
+      "beschreibung": "Feste Bodenflächen erzeugen kohärente Echos bei Null-Doppler. Sie können langsame Targets verdecken und CFAR-Schwellen erhöhen. Null-Doppler-Abzug entfernt auch langsame Nutzanteile.",
+      "frame": 120,
+      "soll": 1,
+      "zugeordnet": 1,
+      "extras": 4,
+      "begrenzt": 0.0,
+      "peak_power": 125881.69752629093,
+      "referenz_peak_power": 122.67720839649158,
+      "target_path_gains": [
+        1.0
+      ]
+    },
+    {
+      "name": "Air-to-Air · bewegter Bodenclutter",
+      "beschreibung": "Der Boden steht in Weltkoordinaten still. Durch die Eigenbewegung des Radars verteilt sich sein Clutter jedoch über Doppler; ein bloßer Null-Doppler-Abzug reicht nicht.",
+      "frame": 0,
+      "soll": 1,
+      "zugeordnet": 1,
+      "extras": 14,
+      "begrenzt": 0.0,
+      "peak_power": 2200.6237865856647,
+      "referenz_peak_power": 0.09360860126512974,
+      "target_path_gains": [
+        1.0
+      ]
+    },
+    {
+      "name": "Air-to-Air · bewegter Bodenclutter",
+      "beschreibung": "Der Boden steht in Weltkoordinaten still. Durch die Eigenbewegung des Radars verteilt sich sein Clutter jedoch über Doppler; ein bloßer Null-Doppler-Abzug reicht nicht.",
+      "frame": 8,
+      "soll": 1,
+      "zugeordnet": 1,
+      "extras": 18,
+      "begrenzt": 0.0,
+      "peak_power": 1567.3401187626869,
+      "referenz_peak_power": 0.12446843438833977,
+      "target_path_gains": [
+        1.0
+      ]
+    },
+    {
+      "name": "Air-to-Air · bewegter Bodenclutter",
+      "beschreibung": "Der Boden steht in Weltkoordinaten still. Durch die Eigenbewegung des Radars verteilt sich sein Clutter jedoch über Doppler; ein bloßer Null-Doppler-Abzug reicht nicht.",
+      "frame": 16,
+      "soll": 1,
+      "zugeordnet": 1,
+      "extras": 15,
+      "begrenzt": 0.0,
+      "peak_power": 2299.032556893532,
+      "referenz_peak_power": 0.12807010744616373,
+      "target_path_gains": [
+        1.0
+      ]
+    },
+    {
+      "name": "Passivradar · Direktweg und Übersteuerung",
+      "beschreibung": "Der starke Fremdsender-Direktweg übersteuert den Überwachungskanal. Eine digitale Referenzprojektion nach der Begrenzung kann die ursprünglichen Echos nicht rekonstruieren. Zusätzliche Bodenstreuer sind keine Flugtargets.",
+      "frame": 0,
+      "soll": 1,
+      "zugeordnet": 0,
+      "extras": 2,
+      "begrenzt": 0.999984399375975,
+      "peak_power": 0.24983522464788882,
+      "referenz_peak_power": 0.3185665009675064,
+      "target_path_gains": [
+        1.0
+      ]
+    },
+    {
+      "name": "Passivradar · Direktweg und Übersteuerung",
+      "beschreibung": "Der starke Fremdsender-Direktweg übersteuert den Überwachungskanal. Eine digitale Referenzprojektion nach der Begrenzung kann die ursprünglichen Echos nicht rekonstruieren. Zusätzliche Bodenstreuer sind keine Flugtargets.",
+      "frame": 20,
+      "soll": 1,
+      "zugeordnet": 0,
+      "extras": 2,
+      "begrenzt": 0.9999063962558502,
+      "peak_power": 0.24390398328852336,
+      "referenz_peak_power": 0.35504601760926,
+      "target_path_gains": [
+        1.0
+      ]
+    },
+    {
+      "name": "Passivradar · Direktweg und Übersteuerung",
+      "beschreibung": "Der starke Fremdsender-Direktweg übersteuert den Überwachungskanal. Eine digitale Referenzprojektion nach der Begrenzung kann die ursprünglichen Echos nicht rekonstruieren. Zusätzliche Bodenstreuer sind keine Flugtargets.",
+      "frame": 40,
+      "soll": 1,
+      "zugeordnet": 0,
+      "extras": 2,
+      "begrenzt": 0.9999531981279252,
+      "peak_power": 0.24326571508652944,
+      "referenz_peak_power": 0.37549963788134444,
+      "target_path_gains": [
+        1.0
+      ]
+    }
+  ],
+  "horizont_bogen_m": 148770.02910222745,
+  "bestanden": true
+}

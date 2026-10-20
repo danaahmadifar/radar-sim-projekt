@@ -1,6 +1,6 @@
 # Technische Dokumentation
 
-Fernbereichsprofile, der Vergleich der Verfahren und die zusätzliche passive BETA mit korrekter bistatischer Weg-/Dopplerdefinition stehen in [FERNBEREICH_UND_PASSIV.md](FERNBEREICH_UND_PASSIV.md). Die BETA nutzt eine CAF aus zwei Basisbandkanälen und hat keinen FMCW-Beat oder monostatischen Faktor 1/2. Die bekannten Weltpositionen bleiben Simulationseingaben.
+Fernbereichsprofile, der Vergleich der Verfahren und die zusätzliche passives Radar mit korrekter bistatischer Weg-/Dopplerdefinition stehen in [FERNBEREICH_UND_PASSIV.md](FERNBEREICH_UND_PASSIV.md). Das Passivmodell nutzt eine CAF aus zwei Basisbandkanälen und hat keinen FMCW-Beat oder monostatischen Faktor 1/2. Die bekannten Weltpositionen bleiben Simulationseingaben.
 
 Die folgenden Abschnitte beschreiben den FMCW-Pfad. Der zusätzliche kohärente LFM-Puls-Doppler-Pfad, die bewegte monostatische Radarplattform, Vergleich und Grenzen stehen in [PULS_DOPPLER.md](PULS_DOPPLER.md). Die gemessenen Ergebnisse stehen im [Puls-/Plattformbericht](../reports/PULS_UND_PLATTFORM.md). Bei bewegtem Radar sind R und v stets relativ zur Plattform, Weltposition und Höhe bleiben bekannte Eingaben.
 
@@ -231,3 +231,9 @@ Die Beispielroute (−80,35) → (0,55) → (80,35) m hat 165,848095609 m Länge
 - [Texas Instruments: Radar Hardware Accelerator User's Guide, SWRU526B, Abschnitt 2.3.2](https://www.ti.com/lit/ug/swru526b/swru526b.pdf): CFAR und zusätzliche Peak-Nachbarprüfung. TI beschreibt die 1D-Prüfung; der Simulator prüft ausdrücklich acht Nachbarn in 2D.
 
 Die zentrale Beat-Gleichung und CA-CFAR-Skalierung werden oben hergeleitet, damit Berechnungen ohne eine versteckende Radar-Bibliothek überprüfbar bleiben.
+
+## Zuschaltbare Störungen und Ausbreitung
+
+Die Erweiterung [Sendeleistung und Energie](SENDELEISTUNG.md) beschreibt den relativen TX-Peak-Faktor, die feste Rauschreferenz und den Vergleich von FMCW und Pulsen. Default 0 dB erhält die bisherigen Signalamplituden. Die Signalverarbeitung verwendet weiterhin die vollständigen komplexen Empfangssignale; die neue Leistungshüllkurve ersetzt keine Radarberechnung.
+
+Die oben hergeleitete ideale Verarbeitung bleibt der Ausgangspunkt. Die Erweiterung [Störeffekte](STOEREFFEKTE.md) beschreibt gemeinsame TX/RX-Phase, verzögerte Leakage, Hüllkurvenbegrenzung vor digitaler Unterdrückung, effektive Erdkugel mit Laufweg/Doppler und Horizont, homogene atmosphärische Dämpfung sowie kohärente Bodenflächen. Diese Effekte sind standardmäßig aus. Keine Wetter- oder Hardwarekalibrierung wird behauptet. [Tatsächlicher Nachweis](../reports/STOEREFFEKTE.md).

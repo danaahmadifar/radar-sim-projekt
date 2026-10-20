@@ -29,7 +29,7 @@ QComboBox::drop-down { width: 25px; border: none; }
 QComboBox::down-arrow { image: url("__ASSETS__/arrow-down.svg"); width: 12px; height: 8px; }
 QTabWidget::pane { border: 1px solid #2d415a; }
 QTabBar::tab { padding: 9px 12px; background: #19263a; }
-QTabBar#parameterTabs::tab { padding: 9px 6px; }
+QTabBar#parameterTabs::tab { padding: 9px 4px; font-size: 9pt; }
 QTabBar::tab:selected { background: #2a415c; color: #6ce1d3; }
 QTableWidget { background: #142033; alternate-background-color: #1b2b40; gridline-color: #2b3c53; }
 QHeaderView::section { background: #24364e; color: #dce8f5; padding: 7px; border: none; }

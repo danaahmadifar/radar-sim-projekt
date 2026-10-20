@@ -1,0 +1,32 @@
+{
+  "pngs_geprueft": 8,
+  "videos": [
+    {
+      "datei": "01_gegenverkehr.mp4",
+      "container_frames": 242,
+      "codec": "avc1",
+      "aufloesung": [
+        1920,
+        1080
+      ],
+      "wiedergabe_bis_ende": true,
+      "dauer_s": 20.166,
+      "dekodierte_frames": 242,
+      "letzter_frame_us": 20083333
+    },
+    {
+      "datei": "02_verfahren_und_effekte.mp4",
+      "container_frames": 384,
+      "codec": "avc1",
+      "aufloesung": [
+        1920,
+        1080
+      ],
+      "wiedergabe_bis_ende": true,
+      "dauer_s": 32.0,
+      "dekodierte_frames": 384,
+      "letzter_frame_us": 31916667
+    }
+  ],
+  "bestanden": true
+}

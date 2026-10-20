@@ -1,4 +1,4 @@
-# Fernbereich und Passivradar BETA
+# Fernbereich und Passivradar
 
 Reproduzieren: `python -m radar_sim --validate`.
 
@@ -21,7 +21,7 @@ FMCW ist ebenfalls fernbereichsfähig. Der Unterschied hier entsteht aus der ver
 
 Diese Hann-Auflösungsdemo wird gemessen, nicht als universelle harte Trennungsprüfung gewertet.
 
-## Passive BETA
+## Passivradar
 
 Fester Sender bei (−20 km,0,0), fester Empfänger im Ursprung. 600 MHz Träger, 400 kHz synthetisches Breitband, fs=1 MHz, 64 ms Integration. Ideal synchroner, rauschfreier Referenzkanal. CFAR benutzt keine Sollwerte.
 
@@ -39,7 +39,7 @@ Die Unit-Tests prüfen die CAF gegen direkte Summen, Dopplervorzeichen, Empfäng
 ![Fernbereichsspektren](fernvergleich.png)
 ![Passive CAF](passiv_caf.png)
 
-BETA-Grenzen: keine reale FM-/DVB-Wellenform, Referenzrauschen, Mehrwege, Clutter, bewegte Tx/Rx oder XYZ-Lokalisierung. Fernmodelle: flache Welt ohne Erdkrümmung/Atmosphäre und ohne absolute Sendeleistungsbilanz.
+Modellgrenzen: keine reale FM-/DVB-Wellenform, Referenzrauschen, Mehrwege, Clutter, bewegte Tx/Rx oder XYZ-Lokalisierung. Fernmodelle: flache Welt ohne Erdkrümmung/Atmosphäre und ohne absolute Sendeleistungsbilanz.
 
 Gesamtergebnis der harten Prüfungen: **BESTANDEN**.
 Details: [Fernbereich und Passivradar](../docs/FERNBEREICH_UND_PASSIV.md).

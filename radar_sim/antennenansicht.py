@@ -3,7 +3,8 @@
 import numpy as np
 import pyqtgraph as pg
 from PyQt6.QtCore import QRectF, Qt
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QCheckBox, QComboBox, QTabWidget
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QCheckBox, QComboBox
+from .ansichtsgruppe import AnsichtsGruppe
 from .antenne import Antenne, ANTENNENTYPEN
 from .antennendiagramm import berechne_diagramm, relative_db, polarschnitte
 from .polardiagramm import PolarDiagramm
@@ -17,13 +18,13 @@ class AntennenAnsicht(QWidget):
         self.info.setWordWrap(True)
         self.info.setToolTip("Vorschau der aktuellen Eingaben, unabhängig vom zuletzt berechneten Frame. Alle Winkel sind relativ zur Antennenachse. 0 dB bedeutet gleiche Leistung wie auf der Hauptachse, keine absolute Verstärkung in dBi. Die Keulenlänge beeinflusst dieses Diagramm nicht. Fernfeldmodell: keine Nahfeld-, Polarisations-, Kopplungs- oder Verlustberechnung.")
         layout.addWidget(self.info)
-        self.ansichten = QTabWidget()
+        self.ansichten = AnsichtsGruppe()
         layout.addWidget(self.ansichten, 1)
         self._baue_polaransicht()
         details = QWidget()
         detail_layout = QVBoxLayout(details)
         detail_layout.setContentsMargins(0, 0, 0, 0)
-        self.ansichten.addTab(details, "Details · Schnitte und Karte")
+        self.ansichten.add_ansicht(details, "Details · Schnitte und Karte")
         self.ganze_schnitte = QCheckBox("Gesamte Winkelschnitte zeigen (Azimut ±180°, Elevation ±90°)")
         self.ganze_schnitte.setToolTip("Sonst zoomt die Ansicht auf die Hauptkeule und die ersten Nebenkeulen. Die Winkelkarte zeigt immer diesen Ausschnitt; das Array besitzt weitere Nebenkeulen.")
         detail_layout.addWidget(self.ganze_schnitte)
@@ -79,7 +80,7 @@ class AntennenAnsicht(QWidget):
         self.polarplot = PolarDiagramm()
         self.polar_grafik.addItem(self.polarplot)
         layout.addWidget(self.polar_grafik, 1)
-        self.ansichten.addTab(seite, "Polar")
+        self.ansichten.add_ansicht(seite, "Polar")
         self.db_grenze.currentIndexChanged.connect(lambda: self.polarplot.setze_untergrenze(self.db_grenze.currentData()))
         self.zweiweg.toggled.connect(self.polarplot.zeige_zweiweg)
 

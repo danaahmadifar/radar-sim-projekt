@@ -3,9 +3,10 @@
 import numpy as np
 import pyqtgraph as pg
 from PyQt6.QtCore import QRectF, Qt
-from PyQt6.QtWidgets import QLabel, QTabWidget, QTableWidget, QTableWidgetItem, QHeaderView
+from PyQt6.QtWidgets import QLabel, QTabWidget, QTableWidget, QTableWidgetItem, QHeaderView, QWidget, QVBoxLayout, QCheckBox
+from .ansichtsgruppe import AnsichtsGruppe
 from .config import RadarConfig, Target
-from .flugbahn import flugbahn_punkte, relative_bahngrenzen, relativer_zustand
+from .flugbahn import flugbahn_punkte, relative_bahngrenzen, relativer_zustand, grenzen_der_flugbahn
 from .pipeline import FrameResult
 from .evaluation import match_targets
 from .model import target_amplitude
@@ -31,11 +32,51 @@ class Ergebnisansichten(QTabWidget):
         self._baue_signalplots()
         self._baue_ergebnistabelle()
         self.route_editor = RoutenEditor()
-        self.addTab(self.route_editor, "Route 3D")
         self.antennenansicht = AntennenAnsicht()
-        self.addTab(self.antennenansicht, "Antenna Pattern")
         self.vergleich = RadarVergleich()
-        self.addTab(self.vergleich, "Radarvergleich")
+        from .effektansicht import EffektAnsicht
+        self.effektansicht = EffektAnsicht()
+        from .leistungsansicht import LeistungsAnsicht
+        self.leistungsansicht = LeistungsAnsicht()
+        self._gruppiere_ansichten()
+
+    def _gruppiere_ansichten(self) -> None:
+        overview = QWidget()
+        layout = QVBoxLayout(overview)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.addWidget(self.graphs, 1)
+        self.results_toggle = QCheckBox("Results-Tabelle anzeigen")
+        self.results_toggle.setToolTip("Sollwerte, Schätzwerte und Fehler unter der Radarübersicht einblenden.")
+        layout.addWidget(self.results_toggle)
+        self.results_table.setMinimumHeight(150)
+        self.results_table.setMaximumHeight(220)
+        layout.addWidget(self.results_table)
+        self.results_table.hide()
+        self.results_toggle.toggled.connect(self.results_table.setVisible)
+        self.overview = overview
+        self.gruppen = (
+            AnsichtsGruppe((("Radar & Results", overview), ("Route 3D", self.route_editor))),
+            AnsichtsGruppe((("Empfang & FFT", self.signal_graphs), ("Power / Energy", self.leistungsansicht))),
+            AnsichtsGruppe((("Effektvergleich", self.effektansicht), ("Radarvergleich", self.vergleich))),
+        )
+        self.addTab(self.gruppen[0], "Simulation")
+        self.addTab(self.gruppen[1], "Signale")
+        self.addTab(self.antennenansicht, "Antenne")
+        self.addTab(self.gruppen[2], "Vergleich")
+
+    def zeige_ansicht(self, widget: QWidget) -> None:
+        """Eine konkrete Ansicht öffnen, unabhängig von ihrer Funktionsgruppe."""
+        if widget is self.results_table:
+            self.results_toggle.setChecked(True)
+            widget = self.overview
+        if self.indexOf(widget) >= 0:
+            self.setCurrentWidget(widget)
+            return
+        for gruppe in self.gruppen:
+            if gruppe.zeige(widget):
+                self.setCurrentWidget(gruppe)
+                return
+        raise ValueError("Unbekannte Ergebnisansicht.")
 
     def zeige_ergebnis(self, result: FrameResult, elapsed: float) -> None:
         # Qt zeichnet erst wieder, wenn alle Diagramme denselben Frame zeigen.
@@ -44,23 +85,25 @@ class Ergebnisansichten(QTabWidget):
             ansicht.setUpdatesEnabled(False)
         try:
             self._zeige_daten(result, elapsed)
+            self.effektansicht.zeige(result)
+            self.leistungsansicht.show_result(result)
         finally:
             for ansicht in ansichten:
                 ansicht.setUpdatesEnabled(True)
 
     def diagramme(self) -> list[tuple[str, pg.PlotItem]]:
         """Alle exportierbaren Diagramme mit festen, verständlichen Dateinamen."""
-        return [("range_doppler", self.rd_plot), ("chirp", self.chirp_plot),
+        return [("effekt_entfernung", self.effektansicht.range_plot), ("effekt_doppler", self.effektansicht.doppler_plot),
+                ("range_doppler", self.rd_plot), ("chirp", self.chirp_plot),
                 ("beat", self.beat_plot), ("range_spectrum", self.range_plot),
                 ("flugbahn", self.flug_plot),
                 *[(f"route_{name.lower()}", plot) for name, plot in self.route_editor.plots.items()],
-                *self.antennenansicht.diagramme()]
+                *self.antennenansicht.diagramme(), *self.leistungsansicht.diagramme()]
 
     def _baue_uebersicht(self) -> None:
         """Nur Flugfeld und Radarbild: Beide erhalten die volle verfügbare Höhe."""
         self.graphs = pg.GraphicsLayoutWidget()
         self.graphs.setBackground("#101a29")
-        self.addTab(self.graphs, "Overview")
         self.flug_plot = FlugAnsicht()
         self.graphs.addItem(self.flug_plot, row=0, col=0)
         self.sichtkeule = self.flug_plot.plot([], [], pen=pg.mkPen("#c49b48", width=1),
@@ -73,6 +116,9 @@ class Ergebnisansichten(QTabWidget):
         self.flug_kurven: list[pg.PlotDataItem] = []
         self.flug_punkte: list[pg.PlotDataItem] = []
         self.radar_kurve = self.flug_plot.plot([], [], pen=pg.mkPen("#ffbd59", width=2, style=Qt.PenStyle.DashLine))
+        self.boden_marker = self.flug_plot.plot([], [], pen=None, symbol="o", symbolSize=4,
+                                               symbolBrush="#8995a5", symbolPen=None)
+        self._boden_settings = None
         self._radarort = np.zeros(3)
         self.rd_plot = self.graphs.addPlot(row=0, col=1, title="Range-Doppler · × Soll · ○ Target")
         self.rd_plot.setLabel("bottom", "Scheinentfernung c fb/(2S)", units="m")
@@ -95,7 +141,6 @@ class Ergebnisansichten(QTabWidget):
         """Die drei Signalplots bekommen eine eigene Ansicht mit zwei großen Zeilen."""
         self.signal_graphs = pg.GraphicsLayoutWidget()
         self.signal_graphs.setBackground("#101a29")
-        self.addTab(self.signal_graphs, "Signals")
         self.chirp_plot = self.signal_graphs.addPlot(row=0, col=0, title="TX-Chirps · schematisch")
         self.chirp_plot.setLabel("bottom", "Zeit", units="s")
         self.chirp_plot.setLabel("left", "Frequenzoffset zu fc", units="Hz")
@@ -118,7 +163,6 @@ class Ergebnisansichten(QTabWidget):
     def _baue_ergebnistabelle(self) -> None:
         """Soll und Schätzung vergleichen, ohne den Diagrammen Platz wegzunehmen."""
         self.results_table = QTableWidget(0, 9)
-        self.addTab(self.results_table, "Results")
         self.results_table.setHorizontalHeaderLabels(["Zuordnung", "R Soll / m", "R Ist / m", "ΔR / m", "v Soll / m/s", "v Ist / m/s", "Δv / m/s", "P / Aref² [dB]", "Über Schwelle / dB"])
         self.results_table.horizontalHeaderItem(8).setToolTip("10 log10(P / CFAR-Schwelle). Auch ein knapp über der Schwelle liegender Rauschpeak kann ein Fehlalarm sein.")
         self.results_table.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
@@ -164,7 +208,7 @@ class Ergebnisansichten(QTabWidget):
         timing_range = c.timing_range_limit
         model_velocity = min(c.max_velocity, 0.25 * c.range_resolution / (c.chirps * c.repetition_s))
         self.metric_labels[1].setText(f"|v rel| < {c.max_velocity:.2f} m/s · Modell ≤ {model_velocity:.2f}\n" +
-            (f"{c.minimum_range_m:.1f} ≤ R ≤ {timing_range:.1f} m · PRF {1/c.repetition_s:g} Hz" if puls else f"R < {min(safe_range, timing_range):.1f} m (alle v, Timinglimit)"))
+            (f"{0 if c.effekte.teilpulse else c.minimum_range_m:.1f} ≤ R ≤ {timing_range:.1f} m · {'Teilpulse' if c.effekte.teilpulse else 'Vollpulse'}" if puls else f"R < {min(safe_range, timing_range):.1f} m (alle v, Timinglimit)"))
         self.metric_labels[1].setToolTip(f"|2SR/c + 2v/λ| < fs/2. ADC-Start {c.adc_start_s*1e6:g} µs, Messfenster {c.adc_duration_s*1e6:g} µs, {c.samples} Samples. Mit Vorlauf muss das Echo bis zum ADC-Start da sein, sonst gilt das alte 2,5-%-Nahmodell. Wanderung ≤ ¼ ΔR/Frame.")
         zeittext = f"Flugzeit {result.zeit_s:.1f} s" if result.flugzustaende else f"Messpaket {result.frame_index}"
         self.metric_labels[2].setText(f"{len(c.targets)} Soll · {len(result.candidates)} Targets\n{zeittext}")
@@ -179,7 +223,7 @@ class Ergebnisansichten(QTabWidget):
         self.image.setImage(power_db(s.power), autoLevels=False)
         dx = c.range_bin_m
         dy = c.velocity_resolution
-        einstellungen = (c.radar_mode, c.carrier_hz, c.bandwidth_hz, c.chirp_s, c.repetition_s, c.sample_rate_hz, c.chirps, c.adc_skip_samples)
+        einstellungen = (c.radar_mode, c.carrier_hz, c.bandwidth_hz, c.chirp_s, c.repetition_s, c.sample_rate_hz, c.chirps, c.adc_skip_samples, c.effekte.teilpulse)
         radar_geaendert = einstellungen != self._plot_settings
         if radar_geaendert:
             self.image.setRect(QRectF(s.apparent_range_m[0] - dx / 2, s.velocity_mps[0] - dy / 2,
@@ -213,6 +257,10 @@ class Ergebnisansichten(QTabWidget):
                 for bahn in szene.bahnen:
                     # Sichere Schranke: |v_radial| <= Flugtempo, auch zwischen Frames.
                     geschwindigkeiten.append(relative_bahngrenzen(bahn, szene).tempo_max_mps)
+                if c.effekte.bodenclutter and szene.radar_bahn is not None:
+                    geschwindigkeiten.append(grenzen_der_flugbahn(szene.radar_bahn, szene.dauer_s).tempo_max_mps)
+            if c.effekte.phasenrauschen or c.effekte.saettigung:
+                geschwindigkeiten.append(c.max_velocity)
             v_max = max(geschwindigkeiten, default=0.)
             grenze = min(c.max_velocity, max(4*dy, 1.15*v_max+2*dy))
             self.rd_plot.setYRange(-grenze, grenze, padding=0)
@@ -227,11 +275,17 @@ class Ergebnisansichten(QTabWidget):
                     zustaende = [relativer_zustand(bahn, szene.radar_bahn, float(t)) for t in np.linspace(0, szene.dauer_s, 201)]
                     kleinste_entfernung = min(z.entfernung_m for z in zustaende)
                     amplitude_grenze += target_amplitude(c, Target(kleinste_entfernung, strength=bahn.staerke))
+            amplitude_grenze += np.sqrt(result.echo.leakage_power)
+            amplitude_grenze += np.sqrt(result.echo.clutter_power*c.effekte.clutter_ringe*c.effekte.clutter_sektoren)
+            if c.effekte.saettigung:
+                amplitude_grenze = min(amplitude_grenze, 10**(c.effekte.saettigung_db/20))
             rauschanteil = 4 * np.sqrt(result.echo.noise_power / 2)
             signal_grenze = max(0.1, amplitude_grenze + rauschanteil)
             self.beat_plot.setYRange(-signal_grenze, signal_grenze, padding=0.05)
             spitze_db = 20 * np.log10(max(amplitude_grenze, np.sqrt(result.echo.noise_power), 0.01))
             self.range_plot.setYRange(min(-100, spitze_db - 100), max(10, spitze_db + 6), padding=0)
+            obergrenze = max(5, 10*np.ceil(spitze_db/10)) if c.effekte.leakage or c.effekte.bodenclutter or c.tx_peak_db else 5
+            self.colorbar.setLevels((-90, obergrenze))
             self._signal_config = result.input_config
         self.truth_item.setData([t.range_m + c.carrier_hz * t.velocity_mps / c.slope for t in c.targets],
                                 [t.velocity_mps for t in c.targets])
@@ -256,11 +310,13 @@ class Ergebnisansichten(QTabWidget):
         self.metric_labels[0].setToolTip("Passiv: c/B und λ/T; keine monostatischen Faktoren 1/2. Umweg-Raster c/fs; keine XYZ-Lokalisierung.")
         self.metric_labels[1].setText(f"Umweg 0…{c.timing_range_limit/1000:.1f} km\nDoppler-Suche |dΔL/dt| < {c.max_velocity:.1f} m/s")
         self.metric_labels[1].setToolTip("Empfänger sendet nicht. Fester Fremdsender und Rx im Ursprung. Der angezeigte Dopplerbereich ist ein begrenztes Suchraster, keine Puls-PRF und keine fundamentale passive Aliasinggrenze. Integration T=M·Tr.")
-        self.metric_labels[2].setText(f"Passiv BETA · {len(c.targets)} Soll · {len(result.candidates)} Targets\nFlugzeit {result.zeit_s:.1f} s")
+        self.metric_labels[2].setText(f"Passivradar · {len(c.targets)} Soll · {len(result.candidates)} Targets\nFlugzeit {result.zeit_s:.1f} s")
         self.metric_labels[2].setToolTip("\n".join(result.warnings))
         self.image.setImage(power_db(s.power), autoLevels=False)
         key = ("passive", result.input_config)
         if key != self._plot_settings:
+            obergrenze = max(5, 10*np.ceil(float(power_db(s.power).max())/10)) if c.effekte.bodenclutter else 5
+            self.colorbar.setLevels((-90, obergrenze))
             dx, dy = c.range_bin_m, c.velocity_resolution
             self.image.setRect(QRectF(-dx/2, s.velocity_mps[0]-dy/2, dx*c.range_bins, dy*c.chirps))
             self.rd_plot.setXRange(0, c.timing_range_limit, padding=0)
@@ -272,7 +328,7 @@ class Ergebnisansichten(QTabWidget):
             self.rd_plot.setToolTip("CAF aus Referenz- und Überwachungskanal. ΔL=Rt+Rr−Basislinie, Rate=λf. Die Karte ist keine monostatische Entfernung-/Radialgeschwindigkeitsmessung. CFAR-Pfa ist nominell.")
             self.range_plot.setTitle("Passiv · CAF-Maximum über den Doppler-Suchbereich")
             self.range_plot.setLabel("bottom", "Bistatischer Umweg", units="m")
-            self.chirp_plot.setTitle("Referenzkanal · Real blau, Imaginär orange · BETA ideal")
+            self.chirp_plot.setTitle("Referenzkanal · Real blau, Imaginär orange · optional LO-/Begrenzungseffekte")
             self.chirp_plot.setLabel("bottom", "Zeit im Referenzausschnitt", units="s")
             self.chirp_plot.setLabel("left", "Amplitude / Aref")
             self.beat_plot.setTitle("Überwachung* · Real und Imaginär, vor Direktweg-Projektion")
@@ -296,7 +352,7 @@ class Ergebnisansichten(QTabWidget):
         self._zeige_tabelle(result)
         self.zeige_antenne(c)
         self._zeige_flug(result)
-        self.flug_plot.setTitle("Passiv BETA · bekannte Tx-/Rx-/Target-Geometrie")
+        self.flug_plot.setTitle("Passivradar · bekannte Tx-/Rx-/Target-Geometrie")
         if not hasattr(self, "sender_marker"):
             self.sender_marker = self.flug_plot.plot([], [], pen=None, symbol="star", symbolBrush="#ff85b0", symbolSize=18, name="Fremdsender · Tx")
             self.bistatische_wege = self.flug_plot.plot([], [], pen=pg.mkPen("#887a95", width=1, style=Qt.PenStyle.DashLine))
@@ -310,15 +366,16 @@ class Ergebnisansichten(QTabWidget):
             self.flug_plot.legend.addItem(self.radar_marker, "Passiver Empfänger · Rx")
             self._rx_passiv = True
         self.flug_plot.setze_punkte(self.sender_marker, [c.passiv.senderort])
-        wege = [[0., 0., 0.], c.passiv.senderort]
+        rx = [0., 0., c.effekte.stationshoehe_m]
+        wege = [rx, c.passiv.senderort]
         for ziel in result.flugzustaende:
-            wege.extend([ziel.position_m, [0., 0., 0.], [np.nan]*3, c.passiv.senderort])
+            wege.extend([ziel.position_m, rx, [np.nan]*3, c.passiv.senderort])
         self.flug_plot.setze_punkte(self.bistatische_wege, wege, rahmen=False)
         if c.passiv.senderort != getattr(self, "_senderort", None):
             self.flug_plot.rahmen_aktualisieren()
             self._senderort = c.passiv.senderort
         self.route_editor.zeige_szene(result.input_config.flugszene, result.flugzustaende, c.antenne, c.carrier_hz)
-        self.run_status.setText(f"Passiv BETA · Frame {result.frame_index} · {elapsed*1000:.0f} ms")
+        self.run_status.setText(f"Passivradar · Frame {result.frame_index} · {elapsed*1000:.0f} ms")
 
     def _zeige_flug(self, result: FrameResult) -> None:
         """Die Bahn einmal zeichnen. Danach bewegen wir nur die Objektpunkte."""
@@ -367,9 +424,27 @@ class Ergebnisansichten(QTabWidget):
             for punkt, zustand in zip(self.flug_punkte, result.flugzustaende):
                 self.flug_plot.setze_punkte(punkt, [zustand.position_m], rahmen=False)
         self._radarort = np.array(result.radar_zustand.position_m if result.radar_zustand else (0., 0., 0.))
+        self._radarort[2] += result.input_config.effekte.stationshoehe_m
         self.flug_plot.setze_punkte(self.radar_marker, [self._radarort], rahmen=False)
         if hasattr(self, "_keulenpunkte"):
             self.flug_plot.setze_punkte(self.sichtkeule, self._keulenpunkte+self._radarort, rahmen=result.radar_zustand is None)
+        e = result.input_config.effekte
+        boden_settings = (e.bodenclutter, e.clutter_innen_m, e.clutter_aussen_m,
+                          e.clutter_ringe, e.clutter_sektoren, result.input_config.seed)
+        if boden_settings != self._boden_settings:
+            from .bodenclutter import bodenpunkte
+            if e.bodenclutter:
+                if not self._boden_settings or not self._boden_settings[0]:
+                    self.flug_plot.legend.addItem(self.boden_marker, "Bodenstreuer · Modell")
+                punkte = np.array([q[0] for q in bodenpunkte(result.input_config)])
+                if self.flug_plot.fokus_objekte and self.boden_marker not in self.flug_plot.fokus_objekte:
+                    self.flug_plot.fokus_objekte.append(self.boden_marker)
+            else:
+                punkte = np.empty((0, 3))
+                if self._boden_settings and self._boden_settings[0]:
+                    self.flug_plot.legend.removeItem(self.boden_marker)
+            self.flug_plot.setze_punkte(self.boden_marker, punkte)
+            self._boden_settings = boden_settings
 
     def _zeige_tabelle(self, result: FrameResult) -> None:
         matches = match_targets(result.config, result.candidates)

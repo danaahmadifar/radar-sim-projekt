@@ -58,7 +58,9 @@ Antennendiagramme gegen Element-Summen und analytische Halbwerte: [Antennen](ANT
 
 LFM-Puls-Doppler, Relativbewegung beider Flugzeuge und gemessene CFAR-Raten: [Puls und Plattform](PULS_UND_PLATTFORM.md).
 
-300-km-Profile, Trennungsdemo und passive bistatische CAF: [Fernbereich und Passiv BETA](FERN_UND_PASSIV.md).
+300-km-Profile, Trennungsdemo und passive bistatische CAF: [Fernbereich und Passivradar](FERN_UND_PASSIV.md).
+
+Leakage, Sättigung, Phasenrauschen, Horizont, Atmosphäre und Bodenclutter: [Störmodelle](STOEREFFEKTE.md).
 
 Gesamtergebnis der harten Prüfungen: **BESTANDEN**.
 Rohwerte und Einzelabweichungen: [validation.json](validation.json).

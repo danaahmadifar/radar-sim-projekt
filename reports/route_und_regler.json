@@ -7,7 +7,7 @@
   "fehlerhafte_frames": [],
   "max_tempoabweichung_mps": 8.881784197001252e-16,
   "max_fehler_radiale_ableitung_mps": 1.387170378563951e-10,
-  "bereichspruefungen": 3840,
+  "bereichspruefungen": 4080,
   "bereichsfehler": [],
   "messwerte": [
     {
@@ -33,9 +33,9 @@
       "x_m": -79.06366555139743,
       "hoehe_m": 35.35110938492132,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": -3.557436977527015,
-      "entfernungsfehler_m": 0.40572698217214054,
-      "geschwindigkeitsfehler_mps": 0.008757313701257097
+      "radialgeschwindigkeit_mps": -3.5574369775270154,
+      "entfernungsfehler_m": 0.40572698217215475,
+      "geschwindigkeitsfehler_mps": 0.00875731370125754
     },
     {
       "zeit_s": 0.30000000000000004,
@@ -51,9 +51,9 @@
       "x_m": -78.12729947901623,
       "hoehe_m": 35.7021344224336,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": -3.529055899740044,
-      "entfernungsfehler_m": 0.11507443874107537,
-      "geschwindigkeitsfehler_mps": -0.01962376408571398
+      "radialgeschwindigkeit_mps": -3.529055899740043,
+      "entfernungsfehler_m": 0.11507443874106116,
+      "geschwindigkeitsfehler_mps": -0.019623764085714868
     },
     {
       "zeit_s": 0.5,
@@ -96,9 +96,9 @@
       "x_m": -75.78603855532057,
       "hoehe_m": 36.578774032020604,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": -3.456402905121554,
-      "entfernungsfehler_m": -0.137074689371957,
-      "geschwindigkeitsfehler_mps": -0.09227675870420393
+      "radialgeschwindigkeit_mps": -3.4564029051215543,
+      "entfernungsfehler_m": -0.13707468937194278,
+      "geschwindigkeitsfehler_mps": -0.09227675870420349
     },
     {
       "zeit_s": 1.0,
@@ -186,9 +186,9 @@
       "x_m": -71.1003613429337,
       "hoehe_m": 38.323597247619304,
       "flugtempo_mps": 5.000000000000001,
-      "radialgeschwindigkeit_mps": -3.3034453578504905,
-      "entfernungsfehler_m": 0.240593902845049,
-      "geschwindigkeitsfehler_mps": 0.008242812869429628
+      "radialgeschwindigkeit_mps": -3.303445357850491,
+      "entfernungsfehler_m": 0.2405939028450632,
+      "geschwindigkeitsfehler_mps": 0.008242812869430072
     },
     {
       "zeit_s": 2.0,
@@ -231,9 +231,9 @@
       "x_m": -68.75496677187628,
       "hoehe_m": 39.18911513366645,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": -3.2229313500729786,
-      "entfernungsfehler_m": -0.12631269196060657,
-      "geschwindigkeitsfehler_mps": -0.07227119490808231
+      "radialgeschwindigkeit_mps": -3.222931350072979,
+      "entfernungsfehler_m": -0.12631269196059236,
+      "geschwindigkeitsfehler_mps": -0.07227119490808187
     },
     {
       "zeit_s": 2.5,
@@ -627,9 +627,9 @@
       "x_m": -47.96269061358674,
       "hoehe_m": 46.371749845724,
       "flugtempo_mps": 4.999999999999999,
-      "radialgeschwindigkeit_mps": -2.3849551990272544,
-      "entfernungsfehler_m": 0.2864834407682366,
-      "geschwindigkeitsfehler_mps": 0.10366112942498162
+      "radialgeschwindigkeit_mps": -2.384955199027254,
+      "entfernungsfehler_m": 0.2864834407682224,
+      "geschwindigkeitsfehler_mps": 0.10366112942498118
     },
     {
       "zeit_s": 6.9,
@@ -645,9 +645,9 @@
       "x_m": -47.00836083229662,
       "hoehe_m": 46.670503514436604,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": -2.341134135483715,
-      "entfernungsfehler_m": -0.24020770478603026,
-      "geschwindigkeitsfehler_mps": 0.05984006588144242
+      "radialgeschwindigkeit_mps": -2.3411341354837147,
+      "entfernungsfehler_m": -0.24020770478604447,
+      "geschwindigkeitsfehler_mps": 0.05984006588144197
     },
     {
       "zeit_s": 7.1000000000000005,
@@ -672,18 +672,18 @@
       "x_m": -45.57498448564282,
       "hoehe_m": 47.11257504302179,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": -2.2744975339355933,
-      "entfernungsfehler_m": 0.4521639792415897,
-      "geschwindigkeitsfehler_mps": -0.006796535666679482
+      "radialgeschwindigkeit_mps": -2.274497533935593,
+      "entfernungsfehler_m": 0.4521639792415755,
+      "geschwindigkeitsfehler_mps": -0.006796535666679926
     },
     {
       "zeit_s": 7.4,
       "x_m": -45.09668020077227,
       "hoehe_m": 47.25826287783707,
       "flugtempo_mps": 5.000000000000001,
-      "radialgeschwindigkeit_mps": -2.252047440548444,
-      "entfernungsfehler_m": -0.32081598332121075,
-      "geschwindigkeitsfehler_mps": -0.029246629053828688
+      "radialgeschwindigkeit_mps": -2.2520474405484436,
+      "entfernungsfehler_m": -0.32081598332122496,
+      "geschwindigkeitsfehler_mps": -0.029246629053829132
     },
     {
       "zeit_s": 7.5,
@@ -699,9 +699,9 @@
       "x_m": -44.13928840408595,
       "hoehe_m": 47.54705318990193,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": -2.2067963062924703,
-      "entfernungsfehler_m": 0.12507614303800096,
-      "geschwindigkeitsfehler_mps": -0.07449776330980251
+      "radialgeschwindigkeit_mps": -2.20679630629247,
+      "entfernungsfehler_m": 0.12507614303798675,
+      "geschwindigkeitsfehler_mps": -0.07449776330980296
     },
     {
       "zeit_s": 7.7,
@@ -744,9 +744,9 @@
       "x_m": -41.741130646607864,
       "hoehe_m": 48.253304935108034,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": -2.0916751876726454,
-      "entfernungsfehler_m": 0.19529779030328598,
-      "geschwindigkeitsfehler_mps": 0.06385823691506953
+      "radialgeschwindigkeit_mps": -2.091675187672645,
+      "entfernungsfehler_m": 0.19529779030327887,
+      "geschwindigkeitsfehler_mps": 0.06385823691506909
     },
     {
       "zeit_s": 8.200000000000001,
@@ -798,18 +798,18 @@
       "x_m": -38.854214066055405,
       "hoehe_m": 49.06914598013959,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": -1.949969089258816,
-      "entfernungsfehler_m": 0.40866963464879547,
-      "geschwindigkeitsfehler_mps": -0.07784786149875988
+      "radialgeschwindigkeit_mps": -1.9499690892588162,
+      "entfernungsfehler_m": 0.40866963464880257,
+      "geschwindigkeitsfehler_mps": -0.07784786149875966
     },
     {
       "zeit_s": 8.8,
       "x_m": -38.37206653168625,
       "hoehe_m": 49.20156069457572,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": -1.9259964364195943,
-      "entfernungsfehler_m": -0.39683947005806175,
-      "geschwindigkeitsfehler_mps": -0.10182051433798156
+      "radialgeschwindigkeit_mps": -1.9259964364195945,
+      "entfernungsfehler_m": -0.39683947005805464,
+      "geschwindigkeitsfehler_mps": -0.10182051433798134
     },
     {
       "zeit_s": 8.9,
@@ -843,9 +843,9 @@
       "x_m": -36.44057459841236,
       "hoehe_m": 49.72051344740804,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": -1.8291611470992488,
-      "entfernungsfehler_m": 0.349036602052486,
-      "geschwindigkeitsfehler_mps": 0.0548213151863699
+      "radialgeschwindigkeit_mps": -1.829161147099249,
+      "entfernungsfehler_m": 0.3490366020524931,
+      "geschwindigkeitsfehler_mps": 0.05482131518637012
     },
     {
       "zeit_s": 9.3,
@@ -924,9 +924,9 @@
       "x_m": -32.07740816033707,
       "hoehe_m": 50.82140519801281,
       "flugtempo_mps": 4.999999999999999,
-      "radialgeschwindigkeit_mps": -1.6063678859045485,
-      "entfernungsfehler_m": -0.10832774586425131,
-      "geschwindigkeitsfehler_mps": 0.08550517283636672
+      "radialgeschwindigkeit_mps": -1.6063678859045487,
+      "entfernungsfehler_m": -0.10832774586424421,
+      "geschwindigkeitsfehler_mps": 0.08550517283636694
     },
     {
       "zeit_s": 10.200000000000001,
@@ -942,9 +942,9 @@
       "x_m": -31.104513135580802,
       "hoehe_m": 51.05264748776746,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": -1.5560727717021239,
-      "entfernungsfehler_m": 0.20792046888441007,
-      "geschwindigkeitsfehler_mps": 0.03521005863394211
+      "radialgeschwindigkeit_mps": -1.5560727717021237,
+      "entfernungsfehler_m": 0.20792046888440296,
+      "geschwindigkeitsfehler_mps": 0.03521005863394189
     },
     {
       "zeit_s": 10.4,
@@ -996,9 +996,9 @@
       "x_m": -28.17857517669526,
       "hoehe_m": 51.71498026243714,
       "flugtempo_mps": 5.000000000000001,
-      "radialgeschwindigkeit_mps": -1.403862942839191,
-      "entfernungsfehler_m": 0.09668306781042446,
-      "geschwindigkeitsfehler_mps": -0.11699977022899066
+      "radialgeschwindigkeit_mps": -1.4038629428391913,
+      "entfernungsfehler_m": 0.09668306781043157,
+      "geschwindigkeitsfehler_mps": -0.11699977022899044
     },
     {
       "zeit_s": 11.0,
@@ -1059,9 +1059,9 @@
       "x_m": -24.751303487316356,
       "hoehe_m": 52.424469366531426,
       "flugtempo_mps": 5.000000000000001,
-      "radialgeschwindigkeit_mps": -1.224506401823171,
-      "entfernungsfehler_m": 0.012180571481643199,
-      "geschwindigkeitsfehler_mps": -0.042879192400314015
+      "radialgeschwindigkeit_mps": -1.2245064018231708,
+      "entfernungsfehler_m": 0.012180571481636093,
+      "geschwindigkeitsfehler_mps": -0.04287919240031424
     },
     {
       "zeit_s": 11.700000000000001,
@@ -1069,7 +1069,7 @@
       "hoehe_m": 52.519955887007704,
       "flugtempo_mps": 5.0,
       "radialgeschwindigkeit_mps": -1.1987916655600566,
-      "entfernungsfehler_m": 0.13334559269652857,
+      "entfernungsfehler_m": 0.13334559269652146,
       "geschwindigkeitsfehler_mps": -0.0685939286634285
     },
     {
@@ -1078,7 +1078,7 @@
       "hoehe_m": 52.61392453943475,
       "flugtempo_mps": 5.000000000000001,
       "radialgeschwindigkeit_mps": -1.1730646215992244,
-      "entfernungsfehler_m": 0.25193849429869175,
+      "entfernungsfehler_m": 0.25193849429869886,
       "geschwindigkeitsfehler_mps": -0.09432097262426065
     },
     {
@@ -1096,7 +1096,7 @@
       "hoehe_m": 52.79724010442684,
       "flugtempo_mps": 5.0,
       "radialgeschwindigkeit_mps": -1.121588398299508,
-      "entfernungsfehler_m": 0.47619939260970057,
+      "entfernungsfehler_m": 0.4761993926097077,
       "geschwindigkeitsfehler_mps": 0.10767992292072015
     },
     {
@@ -1131,9 +1131,9 @@
       "x_m": -20.81682705903671,
       "hoehe_m": 53.14490430735121,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": -1.0186525532283408,
-      "entfernungsfehler_m": -0.0950640421431217,
-      "geschwindigkeitsfehler_mps": 0.004744077849552886
+      "radialgeschwindigkeit_mps": -1.0186525532283406,
+      "entfernungsfehler_m": -0.0950640421431288,
+      "geschwindigkeitsfehler_mps": 0.004744077849552664
     },
     {
       "zeit_s": 12.5,
@@ -1176,9 +1176,9 @@
       "x_m": -18.348675941208803,
       "hoehe_m": 53.54249574881698,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": -0.8903290014996845,
-      "entfernungsfehler_m": 0.38215661901924136,
-      "geschwindigkeitsfehler_mps": -0.1235794738791034
+      "radialgeschwindigkeit_mps": -0.8903290014996846,
+      "entfernungsfehler_m": 0.38215661901924847,
+      "geschwindigkeitsfehler_mps": -0.12357947387910329
     },
     {
       "zeit_s": 13.0,
@@ -1267,7 +1267,7 @@
       "hoehe_m": 54.206090541019734,
       "flugtempo_mps": 5.000000000000001,
       "radialgeschwindigkeit_mps": -0.6366694957099523,
-      "entfernungsfehler_m": 0.14070412813493505,
+      "entfernungsfehler_m": 0.14070412813492794,
       "geschwindigkeitsfehler_mps": -0.12376186082413854
     },
     {
@@ -1284,9 +1284,9 @@
       "x_m": -12.399311994784654,
       "hoehe_m": 54.31656253023437,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": -0.5866752880557969,
-      "entfernungsfehler_m": 0.25782886587123244,
-      "geschwindigkeitsfehler_mps": 0.07972105036640298
+      "radialgeschwindigkeit_mps": -0.586675288055797,
+      "entfernungsfehler_m": 0.25782886587123954,
+      "geschwindigkeitsfehler_mps": 0.07972105036640309
     },
     {
       "zeit_s": 14.200000000000001,
@@ -1311,9 +1311,9 @@
       "x_m": -10.906955316221044,
       "hoehe_m": 54.46770913751555,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": -0.5122836306407371,
-      "entfernungsfehler_m": 0.4226537776723589,
-      "geschwindigkeitsfehler_mps": 0.005329392951343159
+      "radialgeschwindigkeit_mps": -0.5122836306407372,
+      "entfernungsfehler_m": 0.422653777672366,
+      "geschwindigkeitsfehler_mps": 0.00532939295134327
     },
     {
       "zeit_s": 14.5,
@@ -1374,9 +1374,9 @@
       "x_m": -7.418479245230387,
       "hoehe_m": 54.75000287349158,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": -0.34198535980191014,
-      "entfernungsfehler_m": -0.2831536759839537,
-      "geschwindigkeitsfehler_mps": 0.08850824095721316
+      "radialgeschwindigkeit_mps": -0.3419853598019102,
+      "entfernungsfehler_m": -0.2831536759839466,
+      "geschwindigkeitsfehler_mps": 0.08850824095721321
     },
     {
       "zeit_s": 15.200000000000001,
@@ -1419,9 +1419,9 @@
       "x_m": -4.922380842420566,
       "hoehe_m": 54.888752119310006,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": -0.22363615035444626,
-      "entfernungsfehler_m": -0.14187241210243684,
-      "geschwindigkeitsfehler_mps": -0.029840968490250724
+      "radialgeschwindigkeit_mps": -0.22363615035444623,
+      "entfernungsfehler_m": -0.14187241210244395,
+      "geschwindigkeitsfehler_mps": -0.029840968490250752
     },
     {
       "zeit_s": 15.700000000000001,
@@ -1455,9 +1455,9 @@
       "x_m": -2.9236917160372116,
       "hoehe_m": 54.960419493329674,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": -0.13120473476879552,
-      "entfernungsfehler_m": -0.07097400271693743,
-      "geschwindigkeitsfehler_mps": -0.12227238407590146
+      "radialgeschwindigkeit_mps": -0.1312047347687955,
+      "entfernungsfehler_m": -0.07097400271694454,
+      "geschwindigkeitsfehler_mps": -0.12227238407590149
     },
     {
       "zeit_s": 16.1,
@@ -1491,9 +1491,9 @@
       "x_m": -0.9240363473639661,
       "hoehe_m": 54.9960130199419,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": -0.040938043126825974,
-      "entfernungsfehler_m": -0.04182461219746614,
-      "geschwindigkeitsfehler_mps": 0.040938043126825974
+      "radialgeschwindigkeit_mps": -0.04093804312682598,
+      "entfernungsfehler_m": -0.04182461219745903,
+      "geschwindigkeitsfehler_mps": 0.04093804312682598
     },
     {
       "zeit_s": 16.5,
@@ -1501,7 +1501,7 @@
       "hoehe_m": 54.99915860365021,
       "flugtempo_mps": 5.0,
       "radialgeschwindigkeit_mps": -0.01872507695651288,
-      "entfernungsfehler_m": -0.03884265827865363,
+      "entfernungsfehler_m": -0.038842658278660736,
       "geschwindigkeitsfehler_mps": 0.01872507695651288
     },
     {
@@ -1518,9 +1518,9 @@
       "x_m": 0.5759494117756172,
       "hoehe_m": 54.99844880466107,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": 0.02545830406604191,
-      "entfernungsfehler_m": -0.039513789387697784,
-      "geschwindigkeitsfehler_mps": -0.02545830406604191
+      "radialgeschwindigkeit_mps": 0.025458304066041906,
+      "entfernungsfehler_m": -0.03951378938770489,
+      "geschwindigkeitsfehler_mps": -0.025458304066041906
     },
     {
       "zeit_s": 16.8,
@@ -1644,9 +1644,9 @@
       "x_m": 7.570044145763655,
       "hoehe_m": 54.7398529155046,
       "flugtempo_mps": 4.999999999999999,
-      "radialgeschwindigkeit_mps": 0.34927032688498105,
-      "entfernungsfehler_m": -0.304063587652891,
-      "geschwindigkeitsfehler_mps": -0.09579320804028407
+      "radialgeschwindigkeit_mps": 0.349270326884981,
+      "entfernungsfehler_m": -0.3040635876528981,
+      "geschwindigkeitsfehler_mps": -0.09579320804028402
     },
     {
       "zeit_s": 18.2,
@@ -1662,18 +1662,18 @@
       "x_m": 8.567471759284578,
       "hoehe_m": 54.66821266670096,
       "flugtempo_mps": 5.000000000000001,
-      "radialgeschwindigkeit_mps": 0.3974798197045717,
-      "entfernungsfehler_m": -0.38393613152243233,
-      "geschwindigkeitsfehler_mps": 0.10947441798482227
+      "radialgeschwindigkeit_mps": 0.39747981970457164,
+      "entfernungsfehler_m": -0.38393613152243944,
+      "geschwindigkeitsfehler_mps": 0.10947441798482233
     },
     {
       "zeit_s": 18.400000000000002,
       "x_m": 9.065953414999964,
       "hoehe_m": 54.62928089248544,
       "flugtempo_mps": 5.000000000000001,
-      "radialgeschwindigkeit_mps": 0.42174346886676595,
-      "entfernungsfehler_m": -0.42489643501664887,
-      "geschwindigkeitsfehler_mps": 0.08521076882262801
+      "radialgeschwindigkeit_mps": 0.4217434688667659,
+      "entfernungsfehler_m": -0.42489643501665597,
+      "geschwindigkeitsfehler_mps": 0.08521076882262807
     },
     {
       "zeit_s": 18.5,
@@ -1708,7 +1708,7 @@
       "hoehe_m": 54.45320893363623,
       "flugtempo_mps": 5.0,
       "radialgeschwindigkeit_mps": 0.5197822185548657,
-      "entfernungsfehler_m": 0.3861573443496411,
+      "entfernungsfehler_m": 0.3861573443496482,
       "geschwindigkeitsfehler_mps": -0.012827980865471766
     },
     {
@@ -1726,7 +1726,7 @@
       "hoehe_m": 54.353207747043115,
       "flugtempo_mps": 5.0,
       "radialgeschwindigkeit_mps": 0.569344984300012,
-      "entfernungsfehler_m": 0.27725027825629667,
+      "entfernungsfehler_m": 0.2772502782563038,
       "geschwindigkeitsfehler_mps": -0.06239074661061805
     },
     {
@@ -1753,7 +1753,7 @@
       "hoehe_m": 54.188640722802205,
       "flugtempo_mps": 5.0,
       "radialgeschwindigkeit_mps": 0.6442895817151311,
-      "entfernungsfehler_m": 0.09001743286753339,
+      "entfernungsfehler_m": 0.09001743286752628,
       "geschwindigkeitsfehler_mps": 0.11614177481895982
     },
     {
@@ -1788,9 +1788,9 @@
       "x_m": 15.52889732589631,
       "hoehe_m": 53.942764552419405,
       "flugtempo_mps": 5.000000000000001,
-      "radialgeschwindigkeit_mps": 0.7451832831282411,
-      "entfernungsfehler_m": -0.18784358359678066,
-      "geschwindigkeitsfehler_mps": 0.015248073405849771
+      "radialgeschwindigkeit_mps": 0.745183283128241,
+      "entfernungsfehler_m": -0.18784358359678777,
+      "geschwindigkeitsfehler_mps": 0.015248073405849882
     },
     {
       "zeit_s": 19.8,
@@ -1906,7 +1906,7 @@
       "hoehe_m": 52.94779596642127,
       "flugtempo_mps": 5.0,
       "radialgeschwindigkeit_mps": 1.0779268633859405,
-      "entfernungsfehler_m": -0.378206801969597,
+      "entfernungsfehler_m": -0.3782068019695899,
       "geschwindigkeitsfehler_mps": -0.06401838800715254
     },
     {
@@ -1941,9 +1941,9 @@
       "x_m": 23.918644162249024,
       "hoehe_m": 52.58553757560604,
       "flugtempo_mps": 4.999999999999999,
-      "radialgeschwindigkeit_mps": 1.1808818051329932,
-      "entfernungsfehler_m": 0.1641337106723526,
-      "geschwindigkeitsfehler_mps": 0.08650378909049183
+      "radialgeschwindigkeit_mps": 1.180881805132993,
+      "entfernungsfehler_m": 0.1641337106723455,
+      "geschwindigkeitsfehler_mps": 0.08650378909049206
     },
     {
       "zeit_s": 21.5,
@@ -1959,9 +1959,9 @@
       "x_m": 24.900353821026314,
       "hoehe_m": 52.395161684143034,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": 1.2323157701389127,
-      "entfernungsfehler_m": -0.07718694159693484,
-      "geschwindigkeitsfehler_mps": 0.035069824084572376
+      "radialgeschwindigkeit_mps": 1.232315770138913,
+      "entfernungsfehler_m": -0.07718694159692774,
+      "geschwindigkeitsfehler_mps": 0.035069824084572154
     },
     {
       "zeit_s": 21.700000000000003,
@@ -2022,9 +2022,9 @@
       "x_m": 28.3269907140533,
       "hoehe_m": 51.682610975561666,
       "flugtempo_mps": 5.000000000000001,
-      "radialgeschwindigkeit_mps": 1.4116108824140707,
-      "entfernungsfehler_m": -0.008541987391531336,
-      "geschwindigkeitsfehler_mps": 0.10925183065411104
+      "radialgeschwindigkeit_mps": 1.4116108824140705,
+      "entfernungsfehler_m": -0.008541987391538441,
+      "geschwindigkeitsfehler_mps": 0.10925183065411126
     },
     {
       "zeit_s": 22.400000000000002,
@@ -2076,63 +2076,63 @@
       "x_m": 31.252377990269366,
       "hoehe_m": 51.01784910570938,
       "flugtempo_mps": 4.999999999999999,
-      "radialgeschwindigkeit_mps": 1.5637286811070181,
-      "entfernungsfehler_m": 0.09807253899340651,
-      "geschwindigkeitsfehler_mps": -0.042865968038836355
+      "radialgeschwindigkeit_mps": 1.563728681107018,
+      "entfernungsfehler_m": 0.0980725389933994,
+      "geschwindigkeitsfehler_mps": -0.04286596803883613
     },
     {
       "zeit_s": 23.0,
       "x_m": 31.73888472393765,
       "hoehe_m": 50.90247555894766,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": 1.588888756944772,
-      "entfernungsfehler_m": -0.059558846797607146,
-      "geschwindigkeitsfehler_mps": -0.06802604387659028
+      "radialgeschwindigkeit_mps": 1.5888887569447718,
+      "entfernungsfehler_m": -0.05955884679761425,
+      "geschwindigkeitsfehler_mps": -0.06802604387659006
     },
     {
       "zeit_s": 23.1,
       "x_m": 32.225089545808686,
       "hoehe_m": 50.78583623557832,
       "flugtempo_mps": 4.999999999999999,
-      "radialgeschwindigkeit_mps": 1.6139857145215568,
-      "entfernungsfehler_m": -0.21970310838328544,
-      "geschwindigkeitsfehler_mps": -0.09312300145337504
+      "radialgeschwindigkeit_mps": 1.613985714521557,
+      "entfernungsfehler_m": -0.21970310838327833,
+      "geschwindigkeitsfehler_mps": -0.09312300145337526
     },
     {
       "zeit_s": 23.200000000000003,
       "x_m": 32.710992818750434,
       "hoehe_m": 50.667946994223,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": 1.63901669076766,
-      "entfernungsfehler_m": -0.3823537902528287,
-      "geschwindigkeitsfehler_mps": -0.11815397769947822
+      "radialgeschwindigkeit_mps": 1.6390166907676602,
+      "entfernungsfehler_m": -0.38235379025282157,
+      "geschwindigkeitsfehler_mps": -0.11815397769947844
     },
     {
       "zeit_s": 23.3,
       "x_m": 33.19659500888639,
       "hoehe_m": 50.548823612467565,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": 1.6639788868706795,
-      "entfernungsfehler_m": 0.44659930936682457,
-      "geschwindigkeitsfehler_mps": 0.1103609450421994
+      "radialgeschwindigkeit_mps": 1.6639788868706797,
+      "entfernungsfehler_m": 0.4465993093668317,
+      "geschwindigkeitsfehler_mps": 0.11036094504219918
     },
     {
       "zeit_s": 23.400000000000002,
       "x_m": 33.68189668332914,
       "hoehe_m": 50.42848178624409,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": 1.6888695692394247,
-      "entfernungsfehler_m": 0.2789562793973488,
-      "geschwindigkeitsfehler_mps": 0.08547026267345426
+      "radialgeschwindigkeit_mps": 1.6888695692394249,
+      "entfernungsfehler_m": 0.2789562793973559,
+      "geschwindigkeitsfehler_mps": 0.08547026267345403
     },
     {
       "zeit_s": 23.5,
       "x_m": 34.16689850794246,
       "hoehe_m": 50.30693712928615,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": 1.7136860703708543,
-      "entfernungsfehler_m": 0.1088278683011481,
-      "geschwindigkeitsfehler_mps": 0.06065376154202462
+      "radialgeschwindigkeit_mps": 1.7136860703708545,
+      "entfernungsfehler_m": 0.1088278683011552,
+      "geschwindigkeitsfehler_mps": 0.0606537615420244
     },
     {
       "zeit_s": 23.6,
@@ -2175,9 +2175,9 @@
       "x_m": 36.587439825688605,
       "hoehe_m": 49.68171205622911,
       "flugtempo_mps": 4.999999999999999,
-      "radialgeschwindigkeit_mps": 1.8365672103701107,
-      "entfernungsfehler_m": 0.2204863357358633,
-      "geschwindigkeitsfehler_mps": -0.06222737845723181
+      "radialgeschwindigkeit_mps": 1.836567210370111,
+      "entfernungsfehler_m": 0.2204863357358704,
+      "geschwindigkeitsfehler_mps": -0.06222737845723203
     },
     {
       "zeit_s": 24.1,
@@ -2193,9 +2193,9 @@
       "x_m": 37.553591149138946,
       "hoehe_m": 49.42373937399232,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": 1.8851146253117685,
-      "entfernungsfehler_m": -0.1516879110980085,
-      "geschwindigkeitsfehler_mps": -0.11077479339888963
+      "radialgeschwindigkeit_mps": 1.8851146253117683,
+      "entfernungsfehler_m": -0.1516879110980156,
+      "geschwindigkeitsfehler_mps": -0.1107747933988894
     },
     {
       "zeit_s": 24.3,
@@ -2238,9 +2238,9 @@
       "x_m": 39.96389988588763,
       "hoehe_m": 48.76015010175748,
       "flugtempo_mps": 5.000000000000001,
-      "radialgeschwindigkeit_mps": 2.004819821987616,
-      "entfernungsfehler_m": -0.1301701666828592,
-      "geschwindigkeitsfehler_mps": 0.02299712876995974
+      "radialgeschwindigkeit_mps": 2.0048198219876165,
+      "entfernungsfehler_m": -0.13017016668285208,
+      "geschwindigkeitsfehler_mps": 0.022997128769959296
     },
     {
       "zeit_s": 24.8,
@@ -2382,9 +2382,9 @@
       "x_m": 47.630604739878144,
       "hoehe_m": 46.47610267335584,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": 2.3697565532267917,
-      "entfernungsfehler_m": 0.35830806970660944,
-      "geschwindigkeitsfehler_mps": -0.08846248362451892
+      "radialgeschwindigkeit_mps": 2.369756553226792,
+      "entfernungsfehler_m": 0.35830806970662366,
+      "geschwindigkeitsfehler_mps": -0.08846248362451936
     },
     {
       "zeit_s": 26.400000000000002,
@@ -2418,9 +2418,9 @@
       "x_m": 49.53701971378137,
       "hoehe_m": 45.87148015459667,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": 2.456268624999651,
-      "entfernungsfehler_m": 0.38714077744982944,
-      "geschwindigkeitsfehler_mps": 0.07850256344731932
+      "radialgeschwindigkeit_mps": 2.4562686249996513,
+      "entfernungsfehler_m": 0.38714077744984365,
+      "geschwindigkeitsfehler_mps": 0.07850256344731887
     },
     {
       "zeit_s": 26.8,
@@ -2472,9 +2472,9 @@
       "x_m": 52.389644303668916,
       "hoehe_m": 44.94278474264113,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": 2.5823005935152725,
-      "entfernungsfehler_m": -0.12534773767394825,
-      "geschwindigkeitsfehler_mps": -0.04752940506830239
+      "radialgeschwindigkeit_mps": 2.582300593515272,
+      "entfernungsfehler_m": -0.12534773767396246,
+      "geschwindigkeitsfehler_mps": -0.047529405068301944
     },
     {
       "zeit_s": 27.400000000000002,
@@ -2508,9 +2508,9 @@
       "x_m": 54.28700977287794,
       "hoehe_m": 44.31033333208788,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": 2.66379952293179,
-      "entfernungsfehler_m": -0.1805318347146141,
-      "geschwindigkeitsfehler_mps": 0.12444878435987672
+      "radialgeschwindigkeit_mps": 2.6637995229317903,
+      "entfernungsfehler_m": -0.18053183471459988,
+      "geschwindigkeitsfehler_mps": 0.12444878435987627
     },
     {
       "zeit_s": 27.8,
@@ -2571,9 +2571,9 @@
       "x_m": 57.59965648416685,
       "hoehe_m": 43.180598718917054,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": 2.801546324262356,
-      "entfernungsfehler_m": -0.0951481596590611,
-      "geschwindigkeitsfehler_mps": -0.013298016970689552
+      "radialgeschwindigkeit_mps": 2.8015463242623557,
+      "entfernungsfehler_m": -0.0951481596590753,
+      "geschwindigkeitsfehler_mps": -0.013298016970689108
     },
     {
       "zeit_s": 28.5,
@@ -2760,9 +2760,9 @@
       "x_m": 67.48929595014374,
       "hoehe_m": 39.6532689635941,
       "flugtempo_mps": 4.999999999999999,
-      "radialgeschwindigkeit_mps": 3.1783496485621927,
-      "entfernungsfehler_m": -0.3979713776067513,
-      "geschwindigkeitsfehler_mps": 0.1168528964188682
+      "radialgeschwindigkeit_mps": 3.1783496485621923,
+      "entfernungsfehler_m": -0.3979713776067655,
+      "geschwindigkeitsfehler_mps": 0.11685289641886865
     },
     {
       "zeit_s": 30.6,
@@ -2787,9 +2787,9 @@
       "x_m": 68.8975392543949,
       "hoehe_m": 39.1366934677454,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": 3.2279031091375074,
-      "entfernungsfehler_m": -0.35962671057207274,
-      "geschwindigkeitsfehler_mps": 0.06729943584355347
+      "radialgeschwindigkeit_mps": 3.227903109137508,
+      "entfernungsfehler_m": -0.35962671057205853,
+      "geschwindigkeitsfehler_mps": 0.06729943584355302
     },
     {
       "zeit_s": 30.900000000000002,
@@ -2814,18 +2814,18 @@
       "x_m": 70.30494725748733,
       "hoehe_m": 38.61784639465825,
       "flugtempo_mps": 4.999999999999999,
-      "radialgeschwindigkeit_mps": 3.2764423260995845,
-      "entfernungsfehler_m": -0.3359954290496887,
-      "geschwindigkeitsfehler_mps": 0.018760218881476387
+      "radialgeschwindigkeit_mps": 3.2764423260995854,
+      "entfernungsfehler_m": -0.3359954290496745,
+      "geschwindigkeitsfehler_mps": 0.0187602188814755
     },
     {
       "zeit_s": 31.200000000000003,
       "x_m": 70.7739156105352,
       "hoehe_m": 38.44444316665803,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": 3.2924002957099643,
-      "entfernungsfehler_m": 0.3348697168513297,
-      "geschwindigkeitsfehler_mps": 0.002802249271096624
+      "radialgeschwindigkeit_mps": 3.2924002957099647,
+      "entfernungsfehler_m": 0.3348697168513439,
+      "geschwindigkeitsfehler_mps": 0.00280224927109618
     },
     {
       "zeit_s": 31.3,
@@ -2850,9 +2850,9 @@
       "x_m": 72.1803719544876,
       "hoehe_m": 37.923021776178146,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": 3.3396200865900623,
-      "entfernungsfehler_m": 0.33935047552205333,
-      "geschwindigkeitsfehler_mps": -0.044417541609001354
+      "radialgeschwindigkeit_mps": 3.3396200865900614,
+      "entfernungsfehler_m": 0.3393504755220391,
+      "geschwindigkeitsfehler_mps": -0.044417541609000466
     },
     {
       "zeit_s": 31.6,
@@ -2886,9 +2886,9 @@
       "x_m": 74.05474545386818,
       "hoehe_m": 37.225366133040225,
       "flugtempo_mps": 4.999999999999999,
-      "radialgeschwindigkeit_mps": 3.401084166324554,
-      "entfernungsfehler_m": -0.009538420201053555,
-      "geschwindigkeitsfehler_mps": -0.10588162134349322
+      "radialgeschwindigkeit_mps": 3.4010841663245546,
+      "entfernungsfehler_m": -0.009538420201039344,
+      "geschwindigkeitsfehler_mps": -0.10588162134349366
     },
     {
       "zeit_s": 32.0,
@@ -2958,9 +2958,9 @@
       "x_m": 77.80134133444693,
       "hoehe_m": 35.82428941099459,
       "flugtempo_mps": 5.0,
-      "radialgeschwindigkeit_mps": 3.5190865461744845,
-      "entfernungsfehler_m": 0.21468500949428915,
-      "geschwindigkeitsfehler_mps": 0.02959311765127337
+      "radialgeschwindigkeit_mps": 3.5190865461744854,
+      "entfernungsfehler_m": 0.21468500949430336,
+      "geschwindigkeitsfehler_mps": 0.029593117651272483
     },
     {
       "zeit_s": 32.800000000000004,
